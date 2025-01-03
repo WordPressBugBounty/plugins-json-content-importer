@@ -227,13 +227,13 @@ class JsonContentParser123 {
           }
         }
 
-        $debugStr = "<br><font color=red>".__('LEAVE function checkType', 'json-content-importer')." // ".__('depth').": ".@$depth." // ".__('result').": <i>".htmlentities($result)."</i><br>// ";
+        $debugStr = "<br><font color=red>".__('LEAVE function checkType', 'json-content-importer')." // ".__('depth', 'json-content-importer').": ".@$depth." // ".__('result', 'json-content-importer').": <i>".htmlentities($result)."</i><br>// ";
 		$noofItems = $noofItems ?? '';
 		if (!empty($noofItems)) {
-			$debugStr .= __('noofItems').": <i>".@$noofItems."</i><br>// ";
+			$debugStr .= __('noofItems', 'json-content-importer').": <i>".@$noofItems."</i><br>// ";
 		}
 		$returnHTMLinsideProcTmp= $returnHTMLinsideProc ?? '';
-		$debugStr .= __('returnHTMLinsideProc').": <i>".$returnHTMLinsideProcTmp."</i><br></font>";
+		$debugStr .= __('returnHTMLinsideProc', 'json-content-importer').": <i>".$returnHTMLinsideProcTmp."</i><br></font>";
 
         $this->debugEcho($debugStr);
 
@@ -583,8 +583,8 @@ class JsonContentParser123 {
       }
       if ($this->showDebugMessages) {
         if ($paramIn=="showdump") {
-          $this->errormsg .= "$txt<br><i>";
-          print_r($object);
+			$this->errormsg .= "$txt<br><i>";
+			# print_r($object);
           $this->errormsg .= "</i><br>";
         } else if ($paramIn=="") {
           $this->errormsg .= $txt;

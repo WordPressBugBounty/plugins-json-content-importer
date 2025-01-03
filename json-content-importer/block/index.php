@@ -394,6 +394,7 @@ function checkIntAttrib($value, $defaultvalue) {
 	 return $out;
  }
 
+
 function jsoncontentimporterGutenbergBlock() {
 	wp_register_script(
 		'jcifree-block-script', 
@@ -405,10 +406,8 @@ function jsoncontentimporterGutenbergBlock() {
 	if (is_admin()) {
 		wp_enqueue_script('jcifree-block-script');
 	}
-	$langpath = plugin_dir_path( __FILE__ ) . '../languages/' ;
+	$langpath = plugin_dir_path( __FILE__ ) . '../languages/';
 	wp_set_script_translations( 'jcifree-block-script', 'json-content-importer', $langpath );
-	load_plugin_textdomain('json-content-importer', false, $langpath);
-	
 
 	register_block_type( 'jci/jcifree-block-script', 
 		array(

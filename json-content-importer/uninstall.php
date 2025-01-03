@@ -50,23 +50,6 @@ function UNINSTALL_jci_plugin_cacher() {
 	return delete_plugin_cache_directory($cacheFolder);
 }
 
-/*
-function clearCacheFolder($cacheFolder) {
-		if (!preg_match("/jsoncontentimporter\/$/", $cacheFolder)) {
-			return FALSE;			
-		}
-		$cachefiles = glob($cacheFolder.'*'); 
-        foreach($cachefiles as $file){
-            if(is_file($file)) {
-                if (wp_delete_file($file)) {
-				}
-            }
-        }
-		rmdir($cacheFolder);
-		return TRUE;
-	}
-*/
-	
 function delete_plugin_cache_directory($dir) {
     $url = wp_nonce_url('index.php', 'my-nonce-del-jci');
     $credentials = request_filesystem_credentials($url);

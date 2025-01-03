@@ -1,16 +1,16 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: JSON Content Importer\n"
-"POT-Creation-Date: 2020-12-21 22:54+0100\n"
-"PO-Revision-Date: 2020-11-21 18:23+0500\n"
+"Project-Id-Version: Get Use APIs - JSON Content Importer\n"
+"POT-Creation-Date: 2024-12-15 21:57+0100\n"
+"PO-Revision-Date: 2024-12-06 22:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: json-content-importer.php\n"
@@ -19,633 +19,2228 @@ msgstr ""
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: block/index.php:29 block/index.php:44 class-fileload-cache.php:23
-#: class-fileload-cache.php:38
+#: block/index.php:16
+msgid "Initialize of WP_Filesystem failed (checkCacheFolder)"
+msgstr ""
+
+#: block/index.php:27 block/index.php:41 class-fileload-cache.php:39
+#: class-fileload-cache.php:54
 msgid "caching not working, plugin aborted"
 msgstr ""
 
-#: block/index.php:30 block/index.php:45 class-fileload-cache.php:24
-#: class-fileload-cache.php:39
+#: block/index.php:28 block/index.php:42 class-fileload-cache.php:40
+#: class-fileload-cache.php:55
 msgid "plugin / wordpress / webserver can't create"
 msgstr ""
 
-#: block/index.php:31 block/index.php:46 class-fileload-cache.php:25
-#: class-fileload-cache.php:40
+#: block/index.php:29 block/index.php:43 class-fileload-cache.php:41
+#: class-fileload-cache.php:56
 msgid ""
 "therefore: set directory-permissions to 0777 (or other depending on the way "
 "you create directories with your webserver)"
 msgstr ""
 
-#: block/index.php:54 class-fileload-cache.php:48
+#: block/index.php:52 class-fileload-cache.php:65
 msgid "please check cacheFolder"
 msgstr ""
 
-#: block/index.php:54 class-fileload-cache.php:48
+#: block/index.php:52 class-fileload-cache.php:65
 msgid "is not writable. Please change permissions."
 msgstr ""
 
-#: block/index.php:92
+#: block/index.php:102
 msgid "Empty template: Add some text!"
 msgstr ""
 
-#: block/index.php:93
+#: block/index.php:103
 msgid "For the example copypaste this to the right Template box"
 msgstr ""
 
-#: block/index.php:100
-msgid "Welcome!"
+#: block/index.php:112
+msgid "Warm welcome! Here you can get to know JCI by trying it out."
 msgstr ""
 
-#: block/index.php:100
-msgid "Click on this block"
-msgstr ""
-
-#: block/index.php:100
+#: block/index.php:113
 msgid ""
-"and you see on the right side  the Gutenberg-Block settings of the \"JSON "
-"Content Importer Gutenberg Block\". Yet there is an example to show how it "
-"works. The Example-URL is"
+"To the right of this text, you should see the block settings. If not, just "
+"click on this text here."
 msgstr ""
 
-#: block/index.php:101
+#: block/index.php:114
 msgid ""
-"Some settings show you how the JSON-parser and display works.\n"
-"\t\tThe example-template is (try to change it on the right)"
+"The block of the free JCI plugin includes this example: With it, you can "
+"familiarize yourself with the JCI plugin."
 msgstr ""
 
-#: block/index.php:102
+#: block/index.php:115
+msgid "On the right side, a sample URL is automatically inserted:"
+msgstr ""
+
+#: block/index.php:117
 msgid ""
-"The result of combining JSON and this template gives us the output. Use this "
-"example to experiment"
+"Similarly, a sample template that matches the JSON delivered by the sample "
+"URL is entered in the template box (edit it in the template box)"
 msgstr ""
 
-#: block/index.php:102
+#: block/index.php:118
 msgid ""
-"Type \"level1\" in the right basenode-field, please. This will change the "
-"output as now the JSON and the template fit together (without not...)"
+"By merging the JSON and this template, we obtain the output. Feel free to "
+"experiment with this example."
 msgstr ""
 
-#: block/index.php:103
+#: block/index.php:119
 msgid ""
-"You may also open the lower right \"<b>JCI Advanced</b>\"-section. Insert at "
-"\"One of these words must be displayed:\" the word \"bb\". And at \"JSON-"
-"depth of the above displayed Words:\" the number 3. Do you see the "
-"difference at once?"
+"By clicking on \"Create JCI-Template for JSON\", the template is "
+"automatically regenerated based on the JSON."
 msgstr ""
 
-#: block/index.php:139
-msgid "Plugin-Settings (see Plugin options)"
+#: block/index.php:120
+msgid "Here's a suggestion: Please insert \"level1\" into the basenode field."
 msgstr ""
 
-#: block/index.php:160
-msgid "oauth Bearer Accesskey"
+#: block/index.php:121
+msgid ""
+"You will notice a change in the output, as the JSON and the template will no "
+"longer align."
+msgstr ""
+
+#: block/index.php:122
+msgid ""
+"The \"basenode\" value indicates the point from which to begin utilizing the "
+"JSON."
+msgstr ""
+
+#: block/index.php:123
+msgid ""
+"Therefore, we need another template. By selecting \"Create JCI-Template for "
+"JSON\", such a template will be created and populated into the template box. "
+"Then, by hitting \"Try template\", the JSON (starting from the node) and the "
+"newly created template will be merged and displayed."
+msgstr ""
+
+#: block/index.php:124
+msgid "You may also open the lower right \"JCI Advanced\"-section."
+msgstr ""
+
+#: block/index.php:125
+msgid ""
+"Enter \"bb\" in the field labeled \"One of these words must be displayed:\" "
+"and input the number \"3\" into the field for \"JSON-depth of the above "
+"displayed Words:\". Can you immediately spot the difference?"
+msgstr ""
+
+#: block/index.php:142
+msgid "Debug Info:"
 msgstr ""
 
 #: block/index.php:162
-msgid "http-Header default Useragent"
+msgid "Plugin-Settings (see Plugin options)"
 msgstr ""
 
-#: block/index.php:184
-msgid "EMPTY api-answer: No JSON received - is the API down?"
+#: block/index.php:173
+msgid "active"
 msgstr ""
 
-#: block/index.php:184
-msgid "Check the API-URL in the Block-Settings, please."
+#: block/index.php:174
+msgid "Cachetime"
+msgstr ""
+
+#: block/index.php:175
+msgid "Cachefolder"
+msgstr ""
+
+#: block/index.php:177
+msgid "disabled"
+msgstr ""
+
+#: block/index.php:183
+msgid "oauth Bearer Accesskey"
 msgstr ""
 
 #: block/index.php:185
+msgid "http-Header default Useragent"
+msgstr ""
+
+#: block/index.php:211
+msgid "API-Server does not answer"
+msgstr ""
+
+#: block/index.php:214
+msgid "Please check the API URL in the block!"
+msgstr ""
+
+#: block/index.php:235
+msgid "API-Server does answer, but with an error-message"
+msgstr ""
+
+#: block/index.php:243
+msgid "Invalid API answer: Empty answer, no JSON received."
+msgstr ""
+
+#: block/index.php:244
+msgid "Check the API-URL in the Block-Settings, please."
+msgstr ""
+
+#: block/index.php:246
+msgid "Use"
+msgstr ""
+
+#: block/index.php:248
 msgid "as example. You might switch on the debugmode on the right side."
 msgstr ""
 
-#: block/index.php:207
+#: block/index.php:287
 msgid ""
-"If you use Wordpress without Gutenberg, you can use this Shortcode (copy "
-"with Strg+A, paste to TEXT-editor!)"
+"If you want to use the WP-Shortcode: CopyPaste this Shortcode in the "
+"Shortcode-Block or the Wordpress-TEXT-editor!"
 msgstr ""
 
-#: block/index.php:213 class-json-content-importer.php:168
+#: block/index.php:293
+msgid "API answer"
+msgstr ""
+
+#: block/index.php:293 class-json-content-importer.php:390
 msgid ""
 "Inspect JSON: Copypaste (click in box, Strg-A marks all, then insert into "
 "clipboard) the JSON from the following box to"
 msgstr ""
 
-#: block/index.php:237
+#: block/index.php:313
+msgid "template"
+msgstr ""
+
+#: block/index.php:336 class-json-parser.php:230
+msgid "result"
+msgstr ""
+
+#: block/index.php:341
 msgid "result of parsing is empty: no data to be displayed."
 msgstr ""
 
-#: block/index.php:237
+#: block/index.php:341
 msgid "Check JSON and template, please."
 msgstr ""
 
-#: block/index.php:241
-msgid "the real result"
+#: block/index.php:345
+msgid "The merged JSON and template"
 msgstr ""
 
-#: class-fileload-cache.php:151
+#: block/jcifree-block.js:21
+msgid ""
+"Sorry, this JSON can't be handled by the free JCI-Plugin. You might try the "
+"PRO-JCI."
+msgstr ""
+
+#: block/jcifree-block.js:26
+msgid ""
+"Template is inserted in the Block-Settings. Try it  by clicking \"Try "
+"Template\" there, please"
+msgstr ""
+
+#: block/jcifree-block.js:26
+msgid "Template"
+msgstr ""
+
+#: block/jcifree-block.js:26 getlib.php:1318
+msgid "URL"
+msgstr ""
+
+#: block/jcifree-block.js:26 getlib.php:712 getlib.php:716
+msgid "Basenode"
+msgstr ""
+
+#: block/jcifree-block.js:56
+msgid "JSON Content Importer FREE"
+msgstr ""
+
+#: block/jcifree-block.js:57
+msgid "Block with API-data"
+msgstr ""
+
+#: block/jcifree-block.js:136
+msgid "Try Template"
+msgstr ""
+
+#: block/jcifree-block.js:182
+msgid "Define API-URL and template to insert in block"
+msgstr ""
+
+#: block/jcifree-block.js:188
+msgid "API-URL:"
+msgstr ""
+
+#: block/jcifree-block.js:189
+msgid "if empty try: e1 for \"example 1\""
+msgstr ""
+
+#: block/jcifree-block.js:190
+msgid "if empty try: e1"
+msgstr ""
+
+#: block/jcifree-block.js:199
+msgid "Show API answer"
+msgstr ""
+
+#: block/jcifree-block.js:212
+msgid "Create JCI-Template for JSON"
+msgstr ""
+
+#: block/jcifree-block.js:233
+msgid "Debugmode on / off"
+msgstr ""
+
+#: block/jcifree-block.js:242
+msgid "Welcome on / off"
+msgstr ""
+
+#: block/jcifree-block.js:252
+msgid "Execute Shortcodes in Template"
+msgstr ""
+
+#: block/jcifree-block.js:261
+msgid "Basenode (JSON-node to start):"
+msgstr ""
+
+#: block/jcifree-block.js:262
+msgid "if empty and initial example URL: level1"
+msgstr ""
+
+#: block/jcifree-block.js:263
+msgid "if empty and above example URL: level1"
+msgstr ""
+
+#: block/jcifree-block.js:282
+msgid "Template to use for JSON:"
+msgstr ""
+
+#: block/jcifree-block.js:283
+msgid "if emtpy: Click \"Create JCI-Template for JSON\" on the left side"
+msgstr ""
+
+#: block/jcifree-block.js:284
+msgid "Use {subloop}, {subloop-array}, {field} etc. just like in the shortcode"
+msgstr ""
+
+#: block/jcifree-block.js:301
+msgid "Open JCI-Manual"
+msgstr ""
+
+#: block/jcifree-block.js:305
+msgid "JCI Advanced"
+msgstr ""
+
+#: block/jcifree-block.js:311
+msgid "Number of seconds waiting for the API:"
+msgstr ""
+
+#: block/jcifree-block.js:312
+msgid "default: 5 seconds"
+msgstr ""
+
+#: block/jcifree-block.js:322
+msgid "Number of json-top-level-items to display:"
+msgstr ""
+
+#: block/jcifree-block.js:323
+msgid "default: all"
+msgstr ""
+
+#: block/jcifree-block.js:332
+msgid "One of these words must be displayed:"
+msgstr ""
+
+#: block/jcifree-block.js:333 block/jcifree-block.js:343
+#: block/jcifree-block.js:353 block/jcifree-block.js:363
+msgid "default: empty"
+msgstr ""
+
+#: block/jcifree-block.js:342
+msgid "JSON-depth of the above displayed Words:"
+msgstr ""
+
+#: block/jcifree-block.js:352
+msgid "NONE of these words must be displayed:"
+msgstr ""
+
+#: block/jcifree-block.js:362
+msgid "JSON-depth of the above NOT displayed Words:"
+msgstr ""
+
+#: class-fileload-cache-v2.php:66 class-fileload-cache-v2.php:393
+#: class-fileload-cache-v2.php:535 class-fileload-cache.php:26
+msgid "Initialize of WP_Filesystem failed"
+msgstr ""
+
+#: class-fileload-cache.php:171 class-json-content-importer.php:65
 msgid "DEBUG"
 msgstr ""
 
-#: class-fileload-cache.php:173
+#: class-fileload-cache.php:193
 msgid "error: get of json-data failed - plugin aborted: check url of json-feed"
 msgstr ""
 
-#: class-fileload-cache.php:174
+#: class-fileload-cache.php:194
 msgid "no data received: check url of json-feed"
 msgstr ""
 
-#: class-fileload-cache.php:216 class-fileload-cache.php:217
-msgid "feed is not valid JSON - not cached"
-msgstr ""
-
-#: class-fileload-cache.php:227
+#: class-fileload-cache.php:263
 msgid "can't be stored - plugin aborted"
 msgstr ""
 
-#: class-fileload-cache.php:228
+#: class-fileload-cache.php:264
 msgid "JSON-data can't be stored to"
 msgstr ""
 
-#: class-fileload-cache.php:232
+#: class-fileload-cache.php:268
 msgid "saving JSON-data to cache successful"
 msgstr ""
 
-#: class-fileload-cache.php:236 class-fileload-cache.php:237
-msgid "is either empty or unwriteable - plugin aborted"
-msgstr ""
-
-#: class-fileload-cache.php:272
+#: class-fileload-cache.php:327
 msgid "Bearer"
 msgstr ""
 
-#: class-fileload-cache.php:281
+#: class-fileload-cache.php:332
 msgid "JCI WordPress-Plugin - free Version"
 msgstr ""
 
-#: class-fileload-cache.php:284
+#: class-fileload-cache.php:345
 msgid "arguments"
 msgstr ""
 
-#: class-fileload-cache.php:291
+#: class-fileload-cache.php:355
 msgid "Something went wrong fetching URL with JSON-data"
 msgstr ""
 
-#: class-fileload-cache.php:292
+#: class-fileload-cache.php:356
 msgid "error getting URL:"
 msgstr ""
 
-#: class-fileload-cache.php:297
+#: class-fileload-cache.php:361
 msgid "success getting URL"
 msgstr ""
 
-#: class-fileload-cache.php:306
+#: class-fileload-cache.php:401
 msgid "use fallback2cache"
 msgstr ""
 
-#: class-fileload-cache.php:323
+#: class-fileload-cache.php:419
 msgid "fallback2cache ok: cached JSON found"
 msgstr ""
 
-#: class-fileload-cache.php:326
+#: class-fileload-cache.php:424
 msgid "fallback2cache failed: no cached JSON found"
 msgstr ""
 
-#: class-json-content-importer.php:54
-msgid "DEBUG:"
+#: class-json-content-importer.php:119
+msgid "API-Access-Set"
 msgstr ""
 
-#: class-json-content-importer.php:133
+#: class-json-content-importer.php:121
+msgid "defined in Shortcode not found"
+msgstr ""
+
+#: class-json-content-importer.php:278
 msgid "Cache is active"
 msgstr ""
 
-#: class-json-content-importer.php:135
+#: class-json-content-importer.php:280
 msgid "Cache is NOT active"
 msgstr ""
 
-#: class-json-content-importer.php:149
+#: class-json-content-importer.php:299
 msgid ""
 "No URL defined: Check the shortcode - one typical error: is there a blank "
 "after url= ?"
 msgstr ""
 
-#: class-json-content-importer.php:163
+#: class-json-content-importer.php:385
 msgid ""
 "EMPTY api-answer: No JSON received - is the API down? Check the URL you use "
 "in the shortcode!"
 msgstr ""
 
-#: class-json-parser.php:77
+#: class-json-content-importer.php:390
+msgid "api-answer"
+msgstr ""
+
+#: class-json-content-importer.php:438
+msgid "result:"
+msgstr ""
+
+#: class-json-parser.php:78
 msgid "double-array at root? not implemented yet"
 msgstr ""
 
-#: class-json-parser.php:82
+#: class-json-parser.php:83
 msgid "neither object nor array? not implemented yet"
 msgstr ""
 
-#: class-json-parser.php:87
+#: class-json-parser.php:88
 msgid "basic entry with"
 msgstr ""
 
-#: class-json-parser.php:91
+#: class-json-parser.php:92
 msgid "We have a Problem with JSON here"
 msgstr ""
 
-#: class-json-parser.php:91
+#: class-json-parser.php:92
 msgid ""
 "Either we got no JSON from the API. Or the basenode-parameter is not ok."
 msgstr ""
 
-#: class-json-parser.php:91
+#: class-json-parser.php:92
 msgid "Switch on the Debugmode of the Plugin!"
 msgstr ""
 
-#: class-json-parser.php:115
+#: class-json-parser.php:118
 msgid "ENTER function checkType"
 msgstr ""
 
-#: class-json-parser.php:117
+#: class-json-parser.php:120
 msgid "start loop"
 msgstr ""
 
-#: class-json-parser.php:122
+#: class-json-parser.php:125
 msgid "object found"
 msgstr ""
 
-#: class-json-parser.php:124
+#: class-json-parser.php:127
 msgid "json in loop"
 msgstr ""
 
-#: class-json-parser.php:156
+#: class-json-parser.php:161
 msgid "no match"
 msgstr ""
 
-#: class-json-parser.php:161
+#: class-json-parser.php:166
 msgid "found"
 msgstr ""
 
-#: class-json-parser.php:165
+#: class-json-parser.php:170
 msgid "loop array one by one"
 msgstr ""
 
-#: class-json-parser.php:171
+#: class-json-parser.php:176
 msgid "no"
 msgstr ""
 
-#: class-json-parser.php:207
+#: class-json-parser.php:230
 msgid "LEAVE function checkType"
 msgstr ""
 
-#: class-json-parser.php:521
+#: class-json-parser.php:230
+msgid "depth"
+msgstr ""
+
+#: class-json-parser.php:233
+msgid "noofItems"
+msgstr ""
+
+#: class-json-parser.php:236
+msgid "returnHTMLinsideProc"
+msgstr ""
+
+#: class-json-parser.php:582
 msgid "Switch to gutenberg-Blocks!"
 msgstr ""
 
-#: class-json-parser.php:521
+#: class-json-parser.php:582
 msgid ""
 "There the JSON Content Importer Block gives an easier way to use the JSON-"
 "APIs."
 msgstr ""
 
-#: class-json-parser.php:521
+#: class-json-parser.php:582
 msgid "Or"
 msgstr ""
 
-#: class-json-parser.php:521
+#: class-json-parser.php:582
 msgid "Switch on the Debugmode"
 msgstr ""
 
-#: class-json-parser.php:521
+#: class-json-parser.php:582
 msgid "by adding \"debugmode=10\" in the Shortcode."
 msgstr ""
 
-#: class-json-parser.php:521
+#: class-json-parser.php:582
 msgid "If all is without success: Open ticket at"
 msgstr ""
 
-#: class-json-parser.php:521
+#: class-json-parser.php:582
 msgid "please"
 msgstr ""
 
-#: json-content-importer.php:17
+#: getlib.php:324
+msgid "Create a new API-Access-Set: You might use the Test-URL or another URL"
+msgstr ""
+
+#: getlib.php:328
+msgid "Change the API-Access-Set"
+msgstr ""
+
+#: getlib.php:408
+msgid "API-answer"
+msgstr ""
+
+#: getlib.php:431
+msgid "Valid JSON received?"
+msgstr ""
+
+#: getlib.php:435
+msgid "decoding ok, we got JSON-data!"
+msgstr ""
+
+#: getlib.php:439
+msgid "decoding failed, API-answer was packed into nojsonvalue-JSON"
+msgstr ""
+
+#: getlib.php:442
+msgid ""
+"decoding due to invalid JSON failed. Check structure and encoding of JSON-"
+"data"
+msgstr ""
+
+#: getlib.php:456
+msgid "Show API-Answer"
+msgstr ""
+
+#: getlib.php:460
+msgid "PHP function to get API data"
+msgstr ""
+
+#: getlib.php:529
+msgid "Name and store API-Access-Set"
+msgstr ""
+
+#: getlib.php:557
+msgid "Update this API-Access-Set "
+msgstr ""
+
+#: getlib.php:560
+msgid "Create new API-Access-Set"
+msgstr ""
+
+#: getlib.php:645
+msgid "Existing API-Load-Sets"
+msgstr ""
+
+#: getlib.php:647
+msgid "There is no stored API-Access-Set yet. Create one below!"
+msgstr ""
+
+#: getlib.php:650
+msgid ""
+"There are stored, but no active API-Access-Sets. Activate one or create one "
+"below!"
+msgstr ""
+
+#: getlib.php:655
+msgid "Activate a stored API-Access-Set"
+msgstr ""
+
+#: getlib.php:696
+msgid "Load API-Access-Set"
+msgstr ""
+
+#: getlib.php:703
+msgid "Manage stored API-Access-Sets"
+msgstr ""
+
+#: getlib.php:719
+msgid "No Basenode"
+msgstr ""
+
+#: getlib.php:737
+msgid "Generate Shortcode"
+msgstr ""
+
+#: getlib.php:820 getlib.php:833
+msgid "Show JSON"
+msgstr ""
+
+#: getlib.php:829
+msgid "Hide JSON"
+msgstr ""
+
+#: getlib.php:842
+msgid ""
+"You might copypaste the JSON to jsoneditoronline.org to analyze the JSON in "
+"detail"
+msgstr ""
+
+#: getlib.php:858
+msgid "Check All"
+msgstr ""
+
+#: getlib.php:861
+msgid "Uncheck All"
+msgstr ""
+
+#: getlib.php:944
+msgid "Insert API-URL"
+msgstr ""
+
+#: getlib.php:946
+msgid ""
+"If the API expects BasicAuth: Use syntax https://username:passwort@www... "
+"(urlencode Username or Passwort in case of special chars)"
+msgstr ""
+
+#: getlib.php:955
+msgid "Optional settings, if needed"
+msgstr ""
+
+#: getlib.php:961
+msgid "HTTP-Method"
+msgstr ""
+
+#: getlib.php:971
+msgid "Check the API which HTTP-method is expected"
+msgstr ""
+
+#: getlib.php:996
+msgid "Timeout (sec waiting for answer"
+msgstr ""
+
+#: getlib.php:1000
+msgid ""
+"Set the time in seconds by which the API response must be received. Some "
+"APIs are slow, so this setting allows you to accommodate such APIs."
+msgstr ""
+
+#: getlib.php:1011
+msgid "Check valid HTTPS-/TLS-certificate?"
+msgstr ""
+
+#: getlib.php:1014 getlib.php:1077
+msgid "YES"
+msgstr ""
+
+#: getlib.php:1017
+msgid ""
+"Sometimes the HTTPS TLS certificate of the API server is not compatible with "
+"YOUR WordPress server. In such cases, disable the certificate check."
+msgstr ""
+
+#: getlib.php:1023
+msgid "Format of Data"
+msgstr ""
+
+#: getlib.php:1025
+msgid "Placeholders"
+msgstr ""
+
+#: getlib.php:1027
+msgid "please use the following placeholders for special characters"
+msgstr ""
+
+#: getlib.php:1029
+msgid "Tabulator"
+msgstr ""
+
+#: getlib.php:1031
+msgid "Linefeed (\\n): #LF#"
+msgstr ""
+
+#: getlib.php:1033
+msgid "Car. Return (\\r): #CR#"
+msgstr ""
+
+#: getlib.php:1035
+msgid "Quot. Mark (\"): #QM#"
+msgstr ""
+
+#: getlib.php:1037
+msgid "Backspace (\\): #BS#"
+msgstr ""
+
+#: getlib.php:1046
+msgid ""
+"What data format will the API provide? JSON, XML, CSV or Text. If CSV/Text "
+"is provided, you must also specify where each data field begins and ends."
+msgstr ""
+
+#: getlib.php:1048
+msgid "CSV-Item-Delimiter (default: ,)"
+msgstr ""
+
+#: getlib.php:1050
+msgid ""
+"A CSV item delimiter is a character used to separate individual data items "
+"(fields) in a CSV (Comma-Separated Values) file. Common delimiters include "
+"commas, semicolons, or tabs, which allow each value in a row to be "
+"distinguished from others."
+msgstr ""
+
+#: getlib.php:1053
+msgid "CSV-Line-Delimiter (default: #LF#)"
+msgstr ""
+
+#: getlib.php:1055
+msgid ""
+"A CSV line delimiter is a character or sequence of characters used to "
+"indicate the end of a row in a CSV (Comma-Separated Values) file. It "
+"typically marks where one row of data ends and the next begins. Common line "
+"delimiters include newline characters like `\\n` (Unix) or `\\r\\n` "
+"(Windows)."
+msgstr ""
+
+#: getlib.php:1058
+msgid "CSV-Enclosure (default: #QM#)"
+msgstr ""
+
+#: getlib.php:1060
+msgid ""
+"A CSV enclosure is a character used to wrap data fields in a CSV file, "
+"especially when the data contains special characters like commas, line "
+"breaks, or quotes. Commonly, double quotes (`\" \"`) are used as enclosures, "
+"ensuring that the enclosed data is treated as a single field even if it "
+"contains delimiters. For example, `\"New York, USA\"` keeps \"New York, "
+"USA\" as one item rather than two."
+msgstr ""
+
+#: getlib.php:1062
+msgid "CSV-Escape (default: #BS#)"
+msgstr ""
+
+#: getlib.php:1064
+msgid ""
+"A CSV escape character is used to indicate that the following character "
+"should be interpreted literally rather than as a special character. This is "
+"especially useful within enclosed fields to prevent confusion with the "
+"enclosure or delimiter characters. For example, if double quotes (`\"`) are "
+"used as both the enclosure and escape character, a double quote inside a "
+"field would be represented as `\"\"`. So, `\"He said, \"\"Hello\"\"\"` would "
+"be interpreted as `He said, \"Hello\"`."
+msgstr ""
+
+#: getlib.php:1067
+msgid "Skip empty Lines?"
+msgstr ""
+
+#: getlib.php:1080
+msgid "NO"
+msgstr ""
+
+#: getlib.php:1082
+msgid "How should empty lines in the CSV/Text file be handled?"
+msgstr ""
+
+#: getlib.php:1144
+msgid "POST-Payload"
+msgstr ""
+
+#: getlib.php:1146
+msgid ""
+"A POST payload is the data included in the body of a POST request in HTTP "
+"communication. It can be in formats like JSON, XML, or form data, depending "
+"on the server's requirements. Check the API documentation to see what format "
+"the API expects."
+msgstr ""
+
+#: getlib.php:1151
+msgid "HTTP-Header"
+msgstr ""
+
+#: getlib.php:1153
+msgid ""
+"HTTP header fields are key-value pairs in an HTTP request or response that "
+"convey additional information about the request or response. They can "
+"include details like content type, authentication tokens, and client or "
+"server information, helping both the client and server understand how to "
+"handle the data exchange."
+msgstr ""
+
+#: getlib.php:1176
+msgid "Common HTTP header fields often expected by APIs"
+msgstr ""
+
+#: getlib.php:1178
+msgid ""
+"'Access' and 'User-Agent' are often expected by APIs. Modify according to "
+"the API documentation and check 'Use it' if these fields should be sent to "
+"the API"
+msgstr ""
+
+#: getlib.php:1185 getlib.php:1193 getlib.php:1223
+msgid "Use it"
+msgstr ""
+
+#: getlib.php:1198
+msgid ""
+"OAuth2 is an authentication protocol that allows applications to access "
+"resources on behalf of a user without needing their password. Instead, it "
+"uses tokens issued by an authorization server, enabling secure, controlled "
+"access to APIs and services."
+msgstr ""
+
+#: getlib.php:1200
+msgid ""
+"If the API expects OAuth2, the documentation should describe the "
+"requirements."
+msgstr ""
+
+#: getlib.php:1202
+msgid ""
+"Typically, \"Authorization\" is the key for the HTTP header used in OAuth2."
+msgstr ""
+
+#: getlib.php:1204
+msgid ""
+"The value usually is formatted as \"Bearer TOKEN\", where TOKEN represents "
+"the value obtained from a prior request to the API."
+msgstr ""
+
+#: getlib.php:1206
+msgid ""
+"Therefore in this case, it’s necessary first to determine how to retrieve "
+"the OAuth2 token from the API."
+msgstr ""
+
+#: getlib.php:1208
+msgid ""
+"This involves creating a separate API-access-set specifically to obtain this "
+"token, which can then be used in another API-access-set for the actual data "
+"retrieval."
+msgstr ""
+
+#: getlib.php:1211
+msgid "Key: "
+msgstr ""
+
+#: getlib.php:1217
+msgid "Value"
+msgstr ""
+
+#: getlib.php:1238
+msgid "Test Request"
+msgstr ""
+
+#: getlib.php:1266
+msgid "Stored API-Access-Sets"
+msgstr ""
+
+#: getlib.php:1272
+msgid "Add or modify a API-Access-Set"
+msgstr ""
+
+#: getlib.php:1298
+msgid "Name"
+msgstr ""
+
+#: getlib.php:1302
+msgid "Load"
+msgstr ""
+
+#: getlib.php:1307
+msgid "Status"
+msgstr ""
+
+#: getlib.php:1309
+msgid "Show on lists with API-Access-Sets"
+msgstr ""
+
+#: getlib.php:1313
+msgid "Date"
+msgstr ""
+
+#: getlib.php:1323
+msgid "Timeout"
+msgstr ""
+
+#: getlib.php:1328
+msgid "method"
+msgstr ""
+
+#: getlib.php:1333
+msgid "technique"
+msgstr ""
+
+#: getlib.php:1338
+msgid "Header"
+msgstr ""
+
+#: getlib.php:1343
+msgid "Delete"
+msgstr ""
+
+#: getlib.php:1377
+msgid "switch to YES"
+msgstr ""
+
+#: getlib.php:1384
+msgid "switch to NO"
+msgstr ""
+
+#: getlib.php:1422
+msgid "deleted"
+msgstr ""
+
+#: getlib.php:1426
+msgid "This API-Access-Set can't be deleted:"
+msgstr ""
+
+#: getlib.php:1428
+msgid "It is used at a API-Access-Set"
+msgstr ""
+
+#: getlib.php:1436
+msgid "Really deleting this API-Access-Set?"
+msgstr ""
+
+#: getlib.php:1438
+msgid "delete API-Access-Set permanently"
+msgstr ""
+
+#: getlib.php:1440
+msgid "delete this API-Access-Set"
+msgstr ""
+
+#: json-content-importer.php:21
 msgid "Hello, this is a plugin: You must not call me directly."
 msgstr ""
 
-#: json-content-importer.php:43
-msgid "Gutenberg not available"
-msgstr ""
-
-#: json-content-importer.php:52
+#: json-content-importer.php:249
 msgid "Gutenberg-Mode of Plugin switched off in Options"
 msgstr ""
 
-#: json-content-importer.php:59
+#: json-content-importer.php:251
 msgid "Gutenberg-Plugin-Mode"
 msgstr ""
 
-#: json-content-importer.php:69
+#: json-content-importer.php:253
 msgid "No Gutenberg: Classic Editor Plugin active"
 msgstr ""
 
-#: json-content-importer.php:72
-msgid "Gutenberg-WP5-Mode"
+#: json-content-importer.php:255
+msgid "JCI Block is available"
 msgstr ""
 
-#: json-content-importer.php:134
+#: json-content-importer.php:257
+msgid "Gutenberg not available"
+msgstr ""
+
+#: json-content-importer.php:262
 msgid "Upgrade to PRO-Version"
 msgstr ""
 
-#: json-content-importer.php:135
-msgid "Support the development"
-msgstr ""
-
-#: json-content-importer.php:135
-msgid "Donate"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
 #: options.php:6
 msgid "JSON Content Importer"
 msgstr ""
 
-#: options.php:29
-msgid "Settings"
+#: options.php:26
+msgid "Welcome to JCI"
 msgstr ""
 
-#: options.php:37
+#: options.php:27
+msgid "Check Installation"
+msgstr ""
+
+#: options.php:28 options.php:227
+msgid "Basic Settings"
+msgstr ""
+
+#: options.php:29
+msgid "Step 1: Get data"
+msgstr ""
+
+#: options.php:30 options.php:472
+msgid "Step 2: Use data"
+msgstr ""
+
+#: options.php:31
+msgid "Support"
+msgstr ""
+
+#: options.php:32 options.php:715
+msgid "JCI BugBounty Program"
+msgstr ""
+
+#: options.php:33
+msgid "GDPR, CRA, Licences"
+msgstr ""
+
+#: options.php:34
+msgid "JCI PRO"
+msgstr ""
+
+#: options.php:35 options.php:325
+msgid "Uninstall"
+msgstr ""
+
+#: options.php:110
+msgid "Saving failed: Nonce-Error"
+msgstr ""
+
+#: options.php:144 options.php:148
+msgid "Saving successful: Changed values saved"
+msgstr ""
+
+#: options.php:144 options.php:148
+msgid "Nothing changed, nothing saved"
+msgstr ""
+
+#: options.php:153
+msgid "Invalid call: Nothing changed"
+msgstr ""
+
+#: options.php:165
+msgid "JSON Content Importer: Check, Set, Start, Use, Get Support"
+msgstr ""
+
+#: options.php:208 options.php:477
+msgid "Example"
+msgstr ""
+
+#: options.php:210
+msgid "Example with this URL:"
+msgstr ""
+
+#: options.php:229 options.php:318 options.php:338
+msgid "Store and update the following Settings"
+msgstr ""
+
+#: options.php:232
+msgid "SSL verification?"
+msgstr ""
+
+#: options.php:233
+msgid ""
+"Sometimes, the API's HTTPS/SSL/TLS certificate may not be valid, resulting "
+"in an error instead of JSON. If this occurs, you can try deactivating the "
+"SSL verification here"
+msgstr ""
+
+#: options.php:240
+msgid "Switch OFF SSL verification (send sslverify=false)"
+msgstr ""
+
+#: options.php:241
+msgid "Switch ON SSL verification (send sslverify=true)"
+msgstr ""
+
+#: options.php:242
+msgid "don't send any additional Info about SSL verification (WP-Default)"
+msgstr ""
+
+#: options.php:246
+msgid ""
+"Cacher: Saving API JSON data locally saves time by avoiding HTTP requests."
+msgstr ""
+
+#: options.php:247
 msgid "Enable Cache"
 msgstr ""
 
-#: options.php:38
-msgid "reload json from web - if cachefile is older than"
+#: options.php:254
+msgid "Reload json from web - if cachefile is older than"
 msgstr ""
 
-#: options.php:40
+#: options.php:256
 msgid "Minutes"
 msgstr ""
 
-#: options.php:41
+#: options.php:257
 msgid "Days"
 msgstr ""
 
-#: options.php:42
+#: options.php:258
 msgid "Months"
 msgstr ""
 
-#: options.php:43
+#: options.php:259
 msgid "Years"
 msgstr ""
 
-#: options.php:49
-msgid "Handle unavailable  APIs"
+#: options.php:262
+msgid "Handle unavailable APIs"
 msgstr ""
 
-#: options.php:59
+#: options.php:272
 msgid ""
-"If the request to an API to get JSON fails, the plugin can try to use a "
-"maybe cached JSON (fill the cache at least once with a successful API-"
-"request)"
+"If the request to an API to retrieve JSON fails, the plugin can attempt to "
+"use a possibly cached JSON (ensure that the cache is populated at least once "
+"with a successful API request)"
 msgstr ""
 
-#: options.php:61
-msgid "do not try to use cached JSON"
+#: options.php:274
+msgid "Do not try to use cached JSON"
 msgstr ""
 
-#: options.php:63
+#: options.php:276
 msgid "If the API-http-answercode is not 200: try to use cached JSON"
 msgstr ""
 
-#: options.php:65
+#: options.php:278
 msgid "If the API sends invalid JSON: try to use cached JSON"
 msgstr ""
 
-#: options.php:67
+#: options.php:280
 msgid ""
-"Recommended (not switched on due to backwards-compatibility):<br>If the API-"
-"http-answercode is not 200 OR sends invalid JSON: try to use cached JSON"
+"Recommended (not switched on due to backwards-compatibility): Try to use "
+"cached JSON if the API-answercode is not 200 OR sends invalid JSON"
 msgstr ""
 
-#: options.php:72
-msgid ""
-"oAuth Bearer accesskey: passed in header as \"Authorization: Bearer accesskey"
-"\"<br>(add \"nobearer \" - mind the space! - if you want to pass "
-"\"Authorization:accesskey\")"
+#: options.php:284
+msgid "Gutenberg?"
 msgstr ""
 
-#: options.php:79
-msgid "Send default Useragent (some APIs need that)"
+#: options.php:285
+msgid "Easy JSON Content Importer - Gutenberg-Block"
 msgstr ""
 
-#: options.php:84
+#: options.php:286
 msgid "Switch off Gutenberg features (maybe a site builder needs that)"
 msgstr ""
 
-#: options.php:89
-msgid "Don't forget: Feel free to donate! Easy via PayPal!"
+#: options.php:290
+msgid "DEPRECATED - API-Request: If needed, send oAuth Bearer Authentication"
 msgstr ""
 
-#: options.php:90
-msgid "Plugin Website json-content-importer.com: Documentation and examples"
+#: options.php:291
+msgid ""
+"The API website might provide you with a static 'Bearer' token (= ACCESSKEY) "
+"that must be used when making API requests. There are multiple ways in which "
+"APIs handle this"
 msgstr ""
 
-#: options.php:92
-msgid "Available Syntax for Wordpress-Pages and -Blogentries"
+#: options.php:293 options.php:312
+msgid ""
+"Use \"Step 1: Get data\" to apply these settings. The following is only "
+"retained here to ensure backward compatibility."
 msgstr ""
 
-#: options.php:97
+#: options.php:296
+msgid "Send \"Bearer Authorization:ACCESSKEY\""
+msgstr ""
+
+#: options.php:297
+msgid ""
+"Insert 'Authorization: ACCESSKEY' in the following text field, and the "
+"'Bearer' part will be added automatically."
+msgstr ""
+
+#: options.php:298
+msgid "Send \"Authorization:ACCESSKEY\""
+msgstr ""
+
+#: options.php:299
+msgid ""
+"Insert 'nobearer Authorization: ACCESSKEY' in the following text field, and "
+"no 'Bearer' will be added."
+msgstr ""
+
+#: options.php:300
+msgid "Send Header \"HEADER_KEY:HEADER_VALUE\""
+msgstr ""
+
+#: options.php:301
+msgid ""
+"Insert 'header HEADER_KEY1:HEADER_VALUE1#HEADER_KEY2:HEADER_VALUE2' in the "
+"following text field, and no 'Bearer' will be added. E.g.: 'header User-"
+"Agent:JCIfree'"
+msgstr ""
+
+#: options.php:310
+msgid "DEPRECATED - Send Browser-Useragent (some APIs need that)"
+msgstr ""
+
+#: options.php:315
+msgid "Send Useragent 'JCI WordPress-Plugin - free Version'"
+msgstr ""
+
+#: options.php:327
+msgid ""
+"By default, not all data of this plugin is deleted. If the following "
+"checkbox is NOT activated (default settings), you can deactivate and delete "
+"the free JSON Content Importer Plugin without any risk."
+msgstr ""
+
+#: options.php:329
+msgid ""
+"After reinstalling the free JCI plugin, all data will still be retained. "
+"Only when the following checkbox is activated, templates, settings, etc., "
+"will also be deleted when the free JCI Plugin is deleted."
+msgstr ""
+
+#: options.php:333
+msgid "delete all, incl. templates and options"
+msgstr ""
+
+#: options.php:352
+msgid ""
+"The JCI plugin offers multiple ways to retrieve and process data from an API."
+msgstr ""
+
+#: options.php:355
+msgid ""
+"Another option is to use the JCI Gutenberg block. This also allows you to "
+"create an auto-generated template that can be used to extract and display "
+"the desired data."
+msgstr ""
+
+#: options.php:360
+msgid "API-Access-Set and Shortcode"
+msgstr ""
+
+#: options.php:362
+msgid "Create a API-Access-Set and store it:"
+msgstr ""
+
+#: options.php:363
+msgid ""
+"The method described above for querying data from the API is the most "
+"flexible and powerful approach to fetch data from the API, as it is designed "
+"to cover everything an API might require."
+msgstr ""
+
+#: options.php:364
+msgid ""
+"Once the data is successfully retrieved, you can use \"Step 2\" to generate "
+"a shortcode with a template"
+msgstr ""
+
+#: options.php:365
+msgid "Use the Shortcode: Copy it to the desired page"
+msgstr ""
+
+#: options.php:370
+msgid "API-Access-Set and PHP"
+msgstr ""
+
+#: options.php:371
+msgid ""
+"If you are familiar with PHP, you can use the PHP function provided by the "
+"plugin: jcifree_getjson($api_set, $cacheinsec=0, $debugmode=FALSE)"
+msgstr ""
+
+#: options.php:373
+msgid "Create a API-Access-Set, name and store it:"
+msgstr ""
+
+#: options.php:374
+msgid ""
+"The PHP function fetches the API data, which can then be processed directly "
+"in PHP."
+msgstr ""
+
+#: options.php:376
+msgid "Example:"
+msgstr ""
+
+#: options.php:383
+msgid "PHP-Code e.g. at functions.php:"
+msgstr ""
+
+#: options.php:405
+msgid "JCI Gutenberg block"
+msgstr ""
+
+#: options.php:407
+msgid "This JCI-Plugin adds a \"JSON Content Importer FREE\" Gutenberg Block."
+msgstr ""
+
+#: options.php:408
+msgid ""
+"It is highly recommended to try out the JCI block and familiarize yourself "
+"with its functionality using the provided example"
+msgstr ""
+
+#: options.php:409
+msgid ""
+"Version 1.4 introduces a JCI-Template generator, which provides a blueprint "
+"for displaying the JSON data."
+msgstr ""
+
+#: options.php:411
+msgid ""
+"Click on 'Create JCI-Template for JSON' in the JCI-Block. This will open a "
+"window with the generated template based on the complete JSON data. This "
+"template is inserted into the template box of the block. By clicking on 'Try "
+"Template', the template and the JSON are merged and displayed on the left "
+"side."
+msgstr ""
+
+#: options.php:413
+msgid "Then edit the template as you like."
+msgstr ""
+
+#: options.php:416
+msgid "Outdated, but still helpful:"
+msgstr ""
+
+#: options.php:417
+msgid ""
+"The video \"Easy JSON Content Importer\" shows you how to use the JCI Block "
+"Version 1.3.0"
+msgstr ""
+
+#: options.php:419
+msgid ""
+"In the block settings, you can input the API URL and create a JCI template - "
+"you'll immediately see the API response and the merged JSON & template: "
+"Switch on the debugmode in the Block for that."
+msgstr ""
+
+#: options.php:420
+msgid ""
+"The Debugmode of the JCI Block also gives a Shortcode you can copy paste."
+msgstr ""
+
+#: options.php:425
+msgid "Pure Shortcode-Way"
+msgstr ""
+
+#: options.php:427
+msgid "Local test API-URL"
+msgstr ""
+
+#: options.php:428 options.php:564
+msgid "Test Shortcode"
+msgstr ""
+
+#: options.php:437
+msgid "Use this Shortcode on a page, please. This should give you debug info"
+msgstr ""
+
+#: options.php:438
+msgid "and \"hello world\""
+msgstr ""
+
+#: options.php:439
+msgid "hello {hello}"
+msgstr ""
+
+#: options.php:440
+msgid ""
+"If this is the case, you know that the plugin is working and is able to get "
+"data from your Wordpress."
+msgstr ""
+
+#: options.php:442
+msgid ""
+"Now you can replace the local URL by the remote API-URL you want to use. "
+"Check the debug info on the JSON given by the URL: Is it the JSON you "
+"expected?"
+msgstr ""
+
+#: options.php:445
+msgid "YES, that looks like the JSON the API should give: Proceed to"
+msgstr ""
+
+#: options.php:445
+msgid "Step 2"
+msgstr ""
+
+#: options.php:446
+msgid ""
+"NO! The API does not give the expected JSON: See below \"API does not give "
+"the expected JSON?\""
+msgstr ""
+
+#: options.php:452
+msgid "API does not give the expected JSON?"
+msgstr ""
+
+#: options.php:453
+msgid ""
+"There can be several reasons why the API-URL does not give the epxected "
+"JSON. Maybe the URL is not ok or the API expects more than a simple URL: By "
+"the http-errorcode or JSON with an errormessage the API hopefully tells what "
+"went wrong (not all APIs do tht, unfortunately). \n"
+"\t\tE. g. Some APIs expect a API-KEY, some Authentication, some POST-"
+"requests etc.. Check your API manual for that.\tTypical situations are:"
+msgstr ""
+
+#: options.php:456
+msgid ""
+"The API-URL is not correct, Errormessages like 404 etc.: Check the API-"
+"manual, please."
+msgstr ""
+
+#: options.php:457
+msgid ""
+"Basic Authentication: https://USERNAME:PASSWORT@www... sends USERNAME and "
+"PASSWORT to the API doing the Authentication."
+msgstr ""
+
+#: options.php:458
+msgid ""
+"API-KEY: https://www...?apikey=WHATEVER sends the Parameter \"apikey\" with "
+"value \"WHATEVER\" (you might get when registering at the API-Website) to "
+"the API."
+msgstr ""
+
+#: options.php:459
+msgid ""
+"Browser-Useragent: Some APIs expect a Browser-Useragent-Info in the http-"
+"Header."
+msgstr ""
+
+#: options.php:460
+msgid ""
+"Send \"Bearer\" for authentication: Some APIs expect a so called \"Bearer\" "
+"in the http-Header. This is usually a Token you get at the API-Website."
+msgstr ""
+
+#: options.php:461
+msgid ""
+"No JSON but something else: The free JCI Plugin can handle JSON, XML, CSV, "
+"Text. Check the API-Manual on how to define the delivered data format (if "
+"possible)."
+msgstr ""
+
+#: options.php:462
+msgid ""
+"Some APIs use OAuth2, special ways to calc a Token etc.. The free JCI Plugin "
+"can handle this most probably by creating a 2nd API-Access-Set (see form "
+"above)."
+msgstr ""
+
+#: options.php:463
+msgid ""
+"more on how you can get access to the data see at doc.json-content-importer."
+"com"
+msgstr ""
+
+#: options.php:473
+msgid "Shortcode with API-Access-Set"
+msgstr ""
+
+#: options.php:474
+msgid ""
+"Generate a shortcode using an API Access Set (refer to Step 1) and a base "
+"node (the starting point in the JSON tree)."
+msgstr ""
+
+#: options.php:493
+msgid "No API Access Set defined: Create one in Step 1 please!"
+msgstr ""
+
+#: options.php:528
+msgid "Use data: Generate Shortcode"
+msgstr ""
+
+#: options.php:561
+msgid "Shortcode-Way: Simple Example"
+msgstr ""
+
+#: options.php:563
+msgid "API-URL"
+msgstr ""
+
+#: options.php:573
+msgid "Insert this Shortcode on a page: It displays debug info"
+msgstr ""
+
+#: options.php:574
+msgid "and JSON data starting with the node"
+msgstr ""
+
+#: options.php:577
+msgid "Videos showing examples"
+msgstr ""
+
+#: options.php:579
+msgid "Video How to: First Shortcode with JSON Content Importer"
+msgstr ""
+
+#: options.php:580
+msgid "Video How to: Wikipedia API, JSON Content Importer and WordPress"
+msgstr ""
+
+#: options.php:581
+msgid "see doc.json-content-importer.com for more syntax details"
+msgstr ""
+
+#: options.php:582
+msgid "see api.json-content-importer.com for examples"
+msgstr ""
+
+#: options.php:586
+msgid "JCI-Shortcode: Parameter and Template"
+msgstr ""
+
+#: options.php:587
+msgid ""
+"This is the basic setup of the JCI-Shortcode (remove the linefeeds when "
+"using it on a page, please)"
+msgstr ""
+
+#: options.php:591
+msgid "number: if 10 show backstage- and debug-info"
+msgstr ""
+
+#: options.php:592
 msgid "number: who many seconds for loading url till timeout?"
 msgstr ""
 
-#: options.php:98
+#: options.php:593
 msgid ""
 "number: how many items of level 1 should be displayed? display all: leave "
 "empty"
 msgstr ""
 
-#: options.php:99
+#: options.php:594
+msgid "JSON-node where the plugins starts using the JSON"
+msgstr ""
+
+#: options.php:595
 msgid ""
-"starting point of datasets, tha base-node in the JSON-Feed where the data is?"
+"default empty, if not empty keywords spearated by','. At least one of these "
+"keywords must be in the created text (here: text=code without html-tags)"
 msgstr ""
 
-#: options.php:100
-msgid "default empty, if not empty keywords spearated by "
-msgstr ""
-
-#: options.php:101
+#: options.php:596
 msgid ""
 "default: 1, number:where in the JSON-tree oneofthesewordsmustbein must be?"
 msgstr ""
 
-#: options.php:102
+#: options.php:597
 msgid ""
 "default empty, if not empty keywords spearated by ','. If one of these "
 "keywords is in the created text, this textblock is igonred (here: text=code "
 "without html-tags)"
 msgstr ""
 
-#: options.php:103
+#: options.php:598
 msgid ""
 "default: 1, number:where in the JSON-tree oneofthesewordsmustnotbein must be?"
 msgstr ""
 
-#: options.php:105
+#: options.php:600
 msgid "Any HTML-Code plus \"basenode\"-datafields wrapped in \"{}\""
 msgstr ""
 
-#: options.php:106
+#: options.php:602
 msgid ""
 "{subloop:\"basenode_subloop\":\"number of subloop-datasets to be displayed\"}"
 msgstr ""
 
-#: options.php:107
-msgid "Any HTML-Code plus \"basenode_subloop\"-datafields wrapped in \"{}\""
+#: options.php:603
+msgid "  Any HTML-Code plus \"basenode_subloop\"-datafields wrapped in \"{}\""
 msgstr ""
 
-#: options.php:108
+#: options.php:604
 msgid ""
-"{subloop-array:\"basenode_subloop_array\":\"number of subloop-array-datasets "
-"to be displayed\"}"
+"  {subloop-array:\"basenode_subloop_array\":\"number of subloop-array-"
+"datasets to be displayed\"}"
 msgstr ""
 
-#: options.php:109
+#: options.php:605
 msgid ""
-"Any HTML-Code plus \"basenode_subloop_array\"-datafields wrapped in \"{}\""
+"    Any HTML-Code plus \"basenode_subloop_array\"-datafields wrapped in "
+"\"{}\""
 msgstr ""
 
-#: options.php:116
-msgid "If the subloop is not an object but an array, use {subloop-array} e.g."
+#: options.php:606
+msgid "  {/subloop-array:\"basenode_subloop_array\"}"
 msgstr ""
 
-#: options.php:119
+#: options.php:607
+msgid "{/subloop:\"basenode_subloop\"}"
+msgstr ""
+
+#: options.php:615
+msgid "JSON: List of items"
+msgstr ""
+
+#: options.php:616
 msgid ""
-"shows the first, second and third entry of that array, modified by "
-"ifNotEmptyAddLeft and ifNotEmptyAddRight."
+"The example JSON has a list of items names \"listofitems\". To display that "
+"see this syntax"
 msgstr ""
 
-#: options.php:122
-msgid "There are some special add-ons for datafields"
-msgstr ""
-
-#: options.php:124
+#: options.php:625
 msgid ""
-"Default-display of a datafield is NOT HTML: \"&lt;\" etc. are converted to "
-"\"&amp,lt;\". Add \"html\" to display the HTML-Code as Code."
+"This syntax gives you the items two, three and four (the internal "
+"enumeration is starting from 0) added with some extra chars."
 msgstr ""
 
-#: options.php:125
+#: options.php:627
 msgid ""
-" Same as \"{street:html}\" plus Text-Linefeeds are converted to HTML-"
-"Linebreaks"
+"The free JCI Plugin does not have a loop-feature, you only can pick a "
+"defined item. The JCI PRO Plugin is doing this much easier by twig."
 msgstr ""
 
-#: options.php:126
+#: options.php:630
+msgid "Syntax for the datafields"
+msgstr ""
+
+#: options.php:632
+msgid ""
+"Default-display of a datafield is NOT HTML: \"<\" etc. are converted to "
+"\"&amp;lt;\". Add \"html\" to display the HTML-Code as Code."
+msgstr ""
+
+#: options.php:633
+msgid ""
+" Same as \"{street:html}\" plus Text-Linefeeds are converted to &lt;br&gt; "
+"HTML-Linebreaks"
+msgstr ""
+
+#: options.php:634
 msgid ""
 "If datafield \"street\" is not empty, add \",\" right of datafield-value. "
 "allowed chars are"
 msgstr ""
 
-#: options.php:127
+#: options.php:635
 msgid "you can combine \"html\" and \"ifNotEmptyAdd...\" like this"
 msgstr ""
 
-#: options.php:128
+#: options.php:636
 msgid "some as"
 msgstr ""
 
-#: options.php:129
+#: options.php:637
 msgid ""
 "If datafield \"street\" is not empty, add \",\" left of datafield-value. "
 "allowed chars are"
 msgstr ""
 
-#: options.php:130
+#: options.php:638
 msgid ""
 "Insert the php-urlencoded value of the datafield \"locationname\". Needed "
 "when building URLs. \"html\" does not work here."
 msgstr ""
 
-#: options.php:133
-msgid "How do I find the proper template for my JSON?"
+#: options.php:646
+msgid "Get Help - Get Support"
 msgstr ""
 
-#: options.php:134
-msgid "If you're lost: open ticket here"
+#: options.php:647
+msgid "Help Resources"
 msgstr ""
 
-#: options.php:136
-msgid "Some Examples to illustrate syntax"
+#: options.php:649
+msgid "Visit doc.json-content-importer.com for the JCI manual."
 msgstr ""
 
-#: options.php:137
-msgid "Example 1"
+#: options.php:650
+msgid "Visit api.json-content-importer.com for many live examples."
 msgstr ""
 
-#: options.php:144
-msgid "search duckduckgo"
+#: options.php:653
+msgid "Individual Support"
 msgstr ""
 
-#: options.php:145
-msgid "list of events at this location"
-msgstr ""
-
-#: options.php:152
-msgid "Example 2"
-msgstr ""
-
-#: options.php:164
+#: options.php:655
 msgid ""
-"Do you like that plugin? Is it helpful? I'm looking forward for a Donation - "
-"easy via PayPal!"
+"Visit doc.json-content-importer.com for information on obtaining help and "
+"support, either either through public channels at wordpress.org or via "
+"private means."
 msgstr ""
 
-#: options.php:206 options.php:220
-msgid "Learn more about JSON Content Importer PRO"
-msgstr ""
-
-#: options.php:207
-msgid "Upgrade to PRO Version!"
-msgstr ""
-
-#: options.php:208
-msgid "When the free version comes to it's limits: Check out the PRO-Version!"
-msgstr ""
-
-#: options.php:209
-msgid "PRO version only"
-msgstr ""
-
-#: options.php:211
-msgid "widget: display JSON-livedata in the sidebar"
-msgstr ""
-
-#: options.php:212
+#: options.php:656
 msgid ""
-"template-manager: no hassle with linebreaks, and: one-place to store, use on "
-"many pages"
+"Private support is sometimes preferable as posting API keys or tokens "
+"publicly is not a good idea."
 msgstr ""
 
-#: options.php:213
-msgid "debug-mode"
+#: options.php:665
+msgid "Welcome to the JSON Content Importer Plugin!"
 msgstr ""
 
-#: options.php:214
-msgid "format date and time"
+#: options.php:666
+msgid "Thank you!"
 msgstr ""
 
-#: options.php:215
+#: options.php:674
 msgid ""
-"application building: pass GET/POST-parameter from Wordpress to JSON-feed"
+"We're thrilled to have you using this Plugin. With the JSON Content Importer "
+"Plugin, you'll have the power to retrieve, transform, and publish data "
+"seamlessly within your WordPress environment."
 msgstr ""
 
-#: options.php:216
-msgid "shortcode inside template"
+#: options.php:675
+msgid ""
+"Whether you're looking to incorporate dynamic content, integrate APIs, or "
+"enhance your website's functionality, our plugin is here to make the process "
+"effortless and efficient. "
 msgstr ""
 
-#: options.php:217
-msgid "twig template-engine: add logic (if...) to your template"
+#: options.php:676
+msgid ""
+"With its user-friendly interface and powerful features, you'll be able to "
+"import and display data from JSON feeds with ease."
 msgstr ""
 
-#: options.php:218
-msgid "and much more..."
+#: options.php:677
+msgid ""
+"Along the way, we're happy to assist you. If you have any questions, "
+"encounter challenges, or need guidance, feel free to reach out."
+msgstr ""
+
+#: options.php:678
+msgid ""
+"We believe in the power of data and its ability to transform websites into "
+"dynamic, engaging platforms. With the JSON Content Importer Plugin, you're "
+"equipped with a versatile tool that opens up endless possibilities for data "
+"integration and content enhancement."
+msgstr ""
+
+#: options.php:679
+msgid ""
+"Once again, welcome to the JSON Content Importer Plugin! We can't wait to "
+"see how you leverage its potential and create extraordinary experiences on "
+"your WordPress site. Get started today and unlock the true power of data-"
+"driven content."
+msgstr ""
+
+#: options.php:681
+msgid "Start your JCI: Step by Step"
+msgstr ""
+
+#: options.php:685
+msgid "Check Installation: Is your WordPress ready for JCI? Most probably!"
+msgstr ""
+
+#: options.php:689
+msgid "Basic Settings: Check SSL, Cacher, Gutenberg and Authentication"
+msgstr ""
+
+#: options.php:693
+msgid "Step 1: Get data! Ask the API and check the answer"
+msgstr ""
+
+#: options.php:697
+msgid ""
+"Step 2: Use data! See how you can display the data with a Shortcode or a "
+"Gutenberg Block"
+msgstr ""
+
+#: options.php:701
+msgid ""
+"Need Support? Help needed? Using an API might be tricky, and we're here to "
+"help!"
+msgstr ""
+
+#: options.php:705
+msgid ""
+"Check the JCI PRO Plugin: Unlock the full power of JCI! Use the discount "
+"code!"
+msgstr ""
+
+#: options.php:716
+msgid ""
+"Participate in the bug bounty program and receive a reward for discovered "
+"vulnerabilities."
+msgstr ""
+
+#: options.php:718
+msgid ""
+"We offer several Wordpress Plugins and Websites. The security of data and "
+"processes is of the highest priority. However, despite our best efforts, "
+"these digital services may still contain vulnerabilities that are not yet "
+"known to us."
+msgstr ""
+
+#: options.php:722
+msgid ""
+"Therefore, we are very grateful for any indications of Vulnerabilities!"
+"Please note: Searching for vulnerabilities may possibly constitute a "
+"criminal offense. To avoid legal difficulties, we kindly ask you to adhere "
+"to the following rules.!"
+msgstr ""
+
+#: options.php:724
+msgid "How exactly does that work?"
+msgstr ""
+
+#: options.php:727
+msgid ""
+"On json-content-importer.com/bugbounty you will find all the information"
+msgstr ""
+
+#: options.php:736
+msgid "General Data Protection Regulation (GDPR)"
+msgstr ""
+
+#: options.php:737
+msgid "The General Data Protection Regulation"
+msgstr ""
+
+#: options.php:738
+msgid ""
+"(\"GDPR\") is a regulation in EU law on data protection and privacy for all "
+"individuals within the European Union (EU) and the European Economic Area "
+"(EEA)"
+msgstr ""
+
+#: options.php:739
+msgid "see more on that at Wikipedia"
+msgstr ""
+
+#: options.php:740
+msgid "In the context of this plugin, GDPR is relevant in the following way:"
+msgstr ""
+
+#: options.php:742
+msgid ""
+"If you use the plugin to retrieve data from APIs, transform it, and display "
+"it on a website, it is important to consider GDPR compliance. In this case, "
+"the plugin functions as a piece of software that interacts with the data. "
+msgstr ""
+
+#: options.php:744
+msgid "Therefore, you should include the plugin in your "
+msgstr ""
+
+#: options.php:746
+msgid "GDPR-\"Records of processing activities\""
+msgstr ""
+
+#: options.php:748
+msgid "if the data involved contains personal information."
+msgstr ""
+
+#: options.php:752
+msgid "Cyber Resilience Act (CRA)"
+msgstr ""
+
+#: options.php:753
+msgid "What is the CRA?"
+msgstr ""
+
+#: options.php:754
+msgid ""
+"The EU Cyber Resilience Act establishes cybersecurity requirements for "
+"digital products and services throughout their lifecycle to enhance "
+"resilience against cyber threats and ensure a secure digital single market."
+msgstr ""
+
+#: options.php:755
+msgid "more"
+msgstr ""
+
+#: options.php:755
+msgid "EU Cyber Resilience Act"
+msgstr ""
+
+#: options.php:757
+msgid "Software Bill of Material (SBOM)"
+msgstr ""
+
+#: options.php:759
+msgid "Component Name"
+msgstr ""
+
+#: options.php:760
+msgid "Version"
+msgstr ""
+
+#: options.php:761
+msgid "Licensee"
+msgstr ""
+
+#: options.php:762
+msgid "Suppliere"
+msgstr ""
+
+#: options.php:763
+msgid "Type"
+msgstr ""
+
+#: options.php:764
+msgid "Library"
+msgstr ""
+
+#: options.php:768
+msgid "jsTree: MIT Licence"
+msgstr ""
+
+#: options.php:792
+msgid "JCI PRO is much simpler and more powerful than JCI Free!"
+msgstr ""
+
+#: options.php:794
+msgid ""
+"Both the free and PRO JCI Plugins serve the same purpose: retrieving data, "
+"transforming it, and publishing the results."
+msgstr ""
+
+#: options.php:796
+msgid ""
+"However, while the free Plugin can only handle basic challenges, the PRO JCI "
+"Plugin offers nearly full control over WordPress, the database, and "
+"applications."
+msgstr ""
+
+#: options.php:798
+msgid ""
+"Get JSON: Unlike the limited methods of the free JCI, the JCI PRO can access "
+"almost any data: locally from files, remotely via any known authentication."
+msgstr ""
+
+#: options.php:799
+msgid ""
+"Use JSON: While the free JCI can handle JSON, the JCI PRO can work with any "
+"data source and is able to build applications."
+msgstr ""
+
+#: options.php:800
+msgid ""
+"To achieve this, the JCI PRO offers the twig parser and many extensions. "
+"Various WordPress and Database functions are available to give you full "
+"control."
+msgstr ""
+
+#: options.php:803
+msgid ""
+"Try it without risk: We offer a full refund if the PRO plugin cannot solve "
+"your challenge"
+msgstr ""
+
+#: options.php:813
+msgid ""
+"Click here to upgrade to the JCI PRO Plugin and unlock the full power of JCI!"
+msgstr ""
+
+#: options.php:816
+msgid "PRO-Plugin: All free features plus..."
+msgstr ""
+
+#: options.php:818
+msgid "Support and ongoing development"
+msgstr ""
+
+#: options.php:819
+msgid "handling of a wider range of JSON-feeds / APIs"
+msgstr ""
+
+#: options.php:820
+msgid ""
+"enhanced template engine: the plugin-own engine is better, the famous twig-"
+"engine is the PRO-alternative"
+msgstr ""
+
+#: options.php:821
+msgid "template-manager: store templates independent of pages"
+msgstr ""
+
+#: options.php:822
+msgid "display as widget at the sidebar or footer"
+msgstr ""
+
+#: options.php:823
+msgid "build applications: select JSON-feed on the fly"
+msgstr ""
+
+#: options.php:824
+msgid "create WordPress-Pages and CPT, fill CPF"
+msgstr ""
+
+#: options.php:825
+msgid "use Toolset and Elementor with JCI PRO"
+msgstr ""
+
+#: options.php:826
+msgid "third-party shortcodes work inside the jsoncontentimporter-shortcode"
+msgstr ""
+
+#: options.php:827
+msgid "and a lot more..."
+msgstr ""
+
+#: options.php:830
+msgid "Compare free and PRO JSON Content Importer Plugin"
+msgstr ""
+
+#: options.php:830
+msgid "Compare free and PRO JSON Content Importer"
+msgstr ""
+
+#: options.php:833
+msgid "Some JCI PRO highlights"
+msgstr ""
+
+#: options.php:835
+msgid ""
+"Twig template engine: Much simpler Syntax and logic (if statements, etc.) in "
+"your templates"
+msgstr ""
+
+#: options.php:837
+msgid "E. g. instead of "
+msgstr ""
+
+#: options.php:839
+msgid "use the twig Syntax"
+msgstr ""
+
+#: options.php:840
+msgid "Example with a real API"
+msgstr ""
+
+#: options.php:843
+msgid ""
+"Template-Manager: No more hassle with line breaks, and a single place to "
+"store templates for use on multiple pages."
+msgstr ""
+
+#: options.php:844
+msgid "Format date and time"
+msgstr ""
+
+#: options.php:845
+msgid ""
+"Application building: E. g. pass GET/POST-parameter from Wordpress to JSON-"
+"feed"
+msgstr ""
+
+#: options.php:846
+msgid "Openstreetmaps"
+msgstr ""
+
+#: options.php:847
+msgid "Search: Faceted / Multisite"
+msgstr ""
+
+#: options.php:849
+msgid "Shortcode inside template"
+msgstr ""
+
+#: options.php:850
+msgid "Create custom post types out of JSON"
+msgstr ""
+
+#: options.php:851
+msgid "And much more..."
+msgstr ""
+
+#: options.php:860
+msgid "Check on requirements"
+msgstr ""
+
+#: options.php:862
+msgid "PHP-Version"
+msgstr ""
+
+#: options.php:866
+msgid "Installed PHP version"
+msgstr ""
+
+#: options.php:867
+msgid "Minimal required PHP version"
+msgstr ""
+
+#: options.php:870
+msgid "NOT"
+msgstr ""
+
+#: options.php:874 options.php:885
+msgid "OK"
+msgstr ""
+
+#: options.php:880
+msgid "allow_url_fopen"
+msgstr ""
+
+#: options.php:881
+msgid ""
+"Is Worpdress allowed to do remote http-requests (some hoster switch that off "
+"for security reasons)"
+msgstr ""
+
+#: options.php:889
+msgid "PHP allow_url_fopen check"
+msgstr ""
+
+#: options.php:892
+msgid ""
+"NOT ok, allow_url_fopen NOT active: The security settings of your PHP / "
+"Webserver maybe prevent getting remote data via http-requests of URLs. You "
+"might get timeout-errors when using this plugin.</b>"
+msgstr ""
+
+#: options.php:894
+msgid "Ask your Serverhoster for setting \"allow_url_fopen\" TRUE"
+msgstr ""
+
+#: options.php:900
+msgid "JCI-Cacher: Present and writeable?"
+msgstr ""
+
+#: options.php:902
+msgid ""
+"Check JCI-cacher and cachefolder (directory where JSON-feeds are stored to "
+"reduce API-requests)"
+msgstr ""
+
+#: options.php:905
+msgid "Cache is active (see Tab 'Basic Settings')"
+msgstr ""
+
+#: options.php:907
+msgid "Cache is NOT active (see Tab 'Basic Settings')"
+msgstr ""
+
+#: options.php:928
+msgid "CacheFolder is present and writeable"
+msgstr ""
+
+#: options.php:934
+msgid "CacheFolder is present but NOT writeable"
+msgstr ""
+
+#: options.php:942
+msgid "CacheFolder is NOT present"
+msgstr ""
+
+#: options.php:946
+msgid ""
+"Don't panic: this is ok if JCI-cache was never active on this wordpress "
+"installation."
+msgstr ""
+
+#: options.php:948
+msgid ""
+"The directory is created the first time the cache is switched on and used!"
+msgstr ""
+
+#: options.php:962
+msgid "Deleting of cache failed because security check failed"
+msgstr ""
+
+#: options.php:984
+msgid "JCI-Cacher: What is stored in the JCI-Cache?"
+msgstr ""
+
+#: options.php:986
+msgid "Number of JSON-Cachefiles in"
+msgstr ""
+
+#: options.php:993
+msgid "Size of JCI Cache"
+msgstr ""
+
+#: options.php:997
+msgid "in"
+msgstr ""
+
+#: options.php:1001
+msgid "Files"
+msgstr ""
+
+#: options.php:1006
+msgid ""
+"Calc of Cachefolder-Size failed due to missing PHP-Class (PHP7 or higher "
+"required)"
+msgstr ""
+
+#: options.php:1013
+msgid "Click here to CLEAR JCI-CACHE"
+msgstr ""
+
+#: options.php:1075
+msgid "JSON-files from JCI-Cacher deleted"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Get Use APIs - JSON Content Importer"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

@@ -1,20 +1,20 @@
 === Get Use APIs - JSON Content Importer ===
 Contributors: berkux
-Tags: api, json, connect, endpoint, data
+Tags: api, json, xml, csv, data
 Requires at least: 5.3
 Requires PHP: 7.0
-Tested up to: 6.6
-Stable tag: 1.6.1
+Tested up to: 6.7
+Stable tag: 2.0.0 
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-WordPress meets APIs: Get API-data and show it with a Shortcode or a JCI Block. Generate a template with the JCI Block. New: ContactForm7 Integration
+WordPress meets APIs: Get API-data (JSON, XML, CSV, TXT) and show it with a Shortcode or a JCI Block. Generate a template with the JCI Block or use PHP. Also: ContactForm7 Integration
 
 == Description ==
 
 The simplest method to link WordPress with external APIs
 
-JCI simplifies the task of retrieving data from a third-party REST API. The returned data can be neatly arranged and showcased on your WordPress site via a shortcode or a JCI Block. Generate a template with the JCI Block.
+JCI simplifies the task of retrieving data from a third-party REST API. The returned JSON-, XML, CSV, TXT-data can be neatly arranged and showcased on your WordPress site via a shortcode, a JCI Block or PHP. The plugin can generate a template for the data display.
 
 20 seconds: Load API and display data
 
@@ -34,13 +34,15 @@ Check out the live demonstration to explore how we're interfacing with various A
 ### Main Plugin Features
 
 * Low code usage: Save time and avoid coding using an API
+* Insert an API-URL into Step 1: Data is loaded, and and displayed. Save it as API-Access-Set.
+* Use the API-Access-Set in Step 2 to create a Shortcode
+* Optional for maximum flexibility: Use the API-Access-Set n PHP code
 * Insert an API-URL into the JCI Block: Data is loaded, and a template can be generated to display the data.
 * Easy to start: Check Installation - Is your WordPress ready for JCI? Most probably!
 * Basic Settings: Check SSL, Cacher, Gutenberg and Authentication
 * ContactForm7 Integration: Populate CF7 forms with JSON data and forward CF7-submitted data to an API.
 * Use the JCI cacher to avoid many API requests
-* Step 1: Use the simple JCI Block interface to get data! Query the API and check the response.
-* Step 2: Utilize the simple template generator inside the JCI Block to use the data!
+* JCI-Block :  Use the simple JCI Block interface to get data! Query the API and check the response. Then utilize the simple template generator inside the JCI Block to use the data!
 * Contact Form 7 Integration: Fill form and submit to API
 
 ### Documentation
@@ -137,6 +139,12 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 9. JCI Block: Generate a template from JSON.
 	
 == Changelog ==
+= 2.0.0 =
+* NEW: Create an API-Access-Set - fill form with the API-URL. select data-tye (JSON, XML, CSV) etc. Test API response and you're ready to use the data
+* NEW: Use the API-Access-Set in Step 2: Generate a Shortcode for the data. The generatated Shortcode has all API-data, reduce it to your needs.
+* NEW: Use the API-Access-Set with the PHP function jcifree_getjson("NAME_OF_API_ACCESS_SET");
+* Plugin OK with WordPress 6.7.1
+* Plugin ok with "Plugin Check (PCP) 1.3.1"
 
 = 1.6.1 =
 * Plugin OK with WordPress 6.6 
@@ -208,6 +216,9 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 
 
 == Upgrade Notice ==
-= 1.6.1 =
-* Plugin OK with WordPress 6.6 
-* Bugfix: Relevant when using oneofthesewordsmustbein and similar
+= 2.0.0 =
+* NEW: Create an API-Access-Set - fill form with the API-URL. select data-tye (JSON, XML, CSV) etc. Test API response and you're ready to use the data
+* NEW: Use the API-Access-Set in Step 2: Generate a Shortcode for the data. The generatated Shortcode has all API-data, reduce it to your needs.
+* NEW: Use the API-Access-Set with the PHP function jcifree_getjson("NAME_OF_API_ACCESS_SET");
+* Plugin OK with WordPress 6.7.1
+* Plugin ok with "Plugin Check (PCP) 1.3.1"

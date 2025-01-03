@@ -1,11 +1,9 @@
 <?php
 add_action('admin_menu', 'jci_create_menu');
 
+
 function jci_create_menu() {
-	//create new top-level menu
-	#add_menu_page(__('JSON Content Importer', 'json-content-importer'), __('JSON Content Importer', 'json-content-importer'), 'administrator', __FILE__, 'jci_settings_page',plugins_url('/images/icon-16x16.png', __FILE__));
 	add_menu_page(__('JSON Content Importer', 'json-content-importer'), __('JSON Content Importer', 'json-content-importer'), 'administrator', 'unique_jci_menu_slug', 'jci_settings_page',plugins_url('/images/icon-16x16.png', __FILE__));
-	//call register settings function
 	add_action( 'admin_init', 'register_jcisettings' );
 }
 
@@ -23,32 +21,30 @@ function register_jcisettings() {
 }
 
 /* define tabs for plugin-admin-menu BEGIN*/
-function jci_admin_tabs( $current = 'welcome' ) {
+function jci_admin_tabs( $current = 'step1' ) {
     $tabs = array(
-          'welcome' => 'Welcome to JCI',
+          'welcome' => __('Welcome to JCI', 'json-content-importer'),
           'checkinstall' => __('Check Installation', 'json-content-importer'),
           'settings' => __('Basic Settings', 'json-content-importer'),
           'step1' => __('Step 1: Get data', 'json-content-importer'),
           'step2' => __('Step 2: Use data', 'json-content-importer'),
           'support' => __('Support', 'json-content-importer'),
           'bugbounty' => __('JCI BugBounty Program', 'json-content-importer'),
-          'gdpr' => __('GDPR', 'json-content-importer'),
+          'gdpr' => __('GDPR, CRA, Licences', 'json-content-importer'),
           'jcipro' => __('JCI PRO', 'json-content-importer'),
           'uninstall' => __('Uninstall', 'json-content-importer'),
           );
 
     echo '<h2 class="nav-tab-wrapper">';
-	echo "<style>";
-	echo ".nav-tab-active, .nav-tab-active:hover {background-color: #0071a1;color: #FFF;}";
-	echo ".nav-tab-active-pro, .nav-tab-active-pro:hover {background-color: #356306;color: #FFF;}";
-	echo "</style>";
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
 		if ('jcipro'==$tab) {
 			$class = ' nav-tab-active-pro';
 		}
-        echo "<a class='nav-tab".esc_attr($class)."' href='?page=unique_jci_menu_slug&tab=".esc_attr($tab)."'>".esc_html($name)."</a>";
-
+		$urlin = "?page=unique_jci_menu_slug&tab=".esc_attr($tab);
+		$secure_url = wp_nonce_url( $urlin, 'jci-set-nonce' );
+        #echo "<a class='nav-tab".esc_attr($class)."' href='?page=unique_jci_menu_slug&tab=".esc_attr($tab)."'>".esc_html($name)."</a>";
+        echo "<a class='nav-tab".esc_attr($class)."' href='".esc_url($secure_url)."'>".esc_html($name)."</a>";
     }
     echo '</h2>';
 }
@@ -68,13 +64,48 @@ function jci_save_check_value($key, $val, $changefound) {
 /* save settings END*/
 
 
+function jci_handle_postinput($fieldkey, $default="") {
+	$noncein = jci_handle_requestinput('_wpnonce');
+	$chknon = wp_verify_nonce($noncein, 'jci-set-nonce' );	
+	if (!$chknon) {
+		return "";
+	}				
+	return sanitize_text_field(wp_unslash(($_POST[$fieldkey] ?? $default)));
+}
+function jci_handle_getinput($fieldkey, $default="") {
+	$noncein = jci_handle_requestinput('_wpnonce');
+	$chknon = wp_verify_nonce($noncein, 'jci-set-nonce' );	
+	if (!$chknon) { # nonce failed
+		return "";
+	}	
+	return sanitize_text_field(wp_unslash(($_GET[$fieldkey] ?? $default)));
+}
+function jci_handle_requestinput($fieldkey, $default="") {
+	$chknon = FALSE;
+	if ( isset( $_REQUEST['_wpnonce'] ) ) {
+		$chknon = wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'])), 'jci-set-nonce' );	
+	}
+	if (!$chknon) {
+		return "";
+	}				
+	return sanitize_text_field(wp_unslash(($_REQUEST[$fieldkey] ?? $default)));
+}
+
+
+
+
+
 /* save settings BEGIN*/
 function jci_handle_input() {
 	# check if call is ok
-	$jci_settings_submit = ($_POST["jci-settings-submit"] ?? '');
-	$noncein = $_REQUEST['_wpnonce'] ?? '';
+	#$jci_settings_submit = ($_POST["jci-settings-submit"] ?? '');
+	$jci_settings_submit = jci_handle_postinput("jci-settings-submit");
+
+	#$noncein = $_REQUEST['_wpnonce'] ?? '';
+	$noncein = jci_handle_requestinput('_wpnonce');
+	
 	if ("savesettings"==$jci_settings_submit ) {   
-		$chknon = wp_verify_nonce($noncein, 'jci-set-page' );
+		$chknon = wp_verify_nonce($noncein, 'jci-set-nonce' );
 		if (!$chknon) {
 			return [__('Saving failed: Nonce-Error', 'json-content-importer'), "red"];  # invalid nonce, hence invalid call
 		}	
@@ -86,25 +117,35 @@ function jci_handle_input() {
 	}
 	if ("savesettings"==$jci_settings_submit) {   
 		global $pagenow;
-		$currenttab = htmlentities(($_GET['tab'] ?? 'welcome'));
-		$currentpage = htmlentities(($_GET['page'] ?? ''));
+		#$currenttab = htmlentities(($_GET['tab'] ?? 'welcome'));
+		#$currentpage = htmlentities(($_GET['page'] ?? ''));
+		$currenttab = jci_handle_getinput('tab');
+		#if (empty($currenttab)) {
+		#	$currenttab = 'welcome';
+		#}
+		$currentpage = jci_handle_getinput('page');
+		
+		#if (empty($currentpage)) {
+		#	$currentpage = 'unique_jci_menu_slug';
+		#}
+
 		if ( $pagenow == 'admin.php' && $currentpage == 'unique_jci_menu_slug' ){
 			$areThereChanges = FALSE;
 			switch ( $currenttab ){
 			case 'settings' :
-				$areThereChanges = jci_save_check_value("jci_sslverify_off", ($_POST["jci_sslverify_off"] ?? ''), $areThereChanges);
-				$areThereChanges = jci_save_check_value("jci_gutenberg_off", ($_POST["jci_gutenberg_off"] ?? ''), $areThereChanges);
-				$areThereChanges = jci_save_check_value("jci_cache_time", ($_POST["jci_cache_time"] ?? ''), $areThereChanges);
-				$areThereChanges = jci_save_check_value("jci_cache_time_format",($_POST["jci_cache_time_format"] ?? ''), $areThereChanges);
-				$areThereChanges = jci_save_check_value("jci_api_errorhandling",($_POST["jci_api_errorhandling"] ?? ''), $areThereChanges);
-				$areThereChanges = jci_save_check_value("jci_enable_cache", ($_POST["jci_enable_cache"] ?? ''), $areThereChanges);
-				$areThereChanges = jci_save_check_value("jci_oauth_bearer_access_key", ($_POST["jci_oauth_bearer_access_key"] ?? ''), $areThereChanges);
-				$areThereChanges = jci_save_check_value("jci_http_header_default_useragent", ($_POST["jci_http_header_default_useragent"] ?? ''), $areThereChanges);
-				if ($areThereChanges) {		return [__('Saving successful: Changed values saved', 'json-content-importer'), "#ccff33"];   } else {         return [esc_html_e('Nothing changed, nothing saved', 'json-content-importer'), "#ccff33"];   }
+				$areThereChanges = jci_save_check_value("jci_sslverify_off", jci_handle_postinput("jci_sslverify_off"), $areThereChanges);
+				$areThereChanges = jci_save_check_value("jci_gutenberg_off", jci_handle_postinput("jci_gutenberg_off"), $areThereChanges);
+				$areThereChanges = jci_save_check_value("jci_cache_time", jci_handle_postinput("jci_cache_time"), $areThereChanges);
+				$areThereChanges = jci_save_check_value("jci_cache_time_format",jci_handle_postinput("jci_cache_time_format"), $areThereChanges);
+				$areThereChanges = jci_save_check_value("jci_api_errorhandling",jci_handle_postinput("jci_api_errorhandling"), $areThereChanges);
+				$areThereChanges = jci_save_check_value("jci_enable_cache", jci_handle_postinput("jci_enable_cache"), $areThereChanges);
+				$areThereChanges = jci_save_check_value("jci_oauth_bearer_access_key", jci_handle_postinput("jci_oauth_bearer_access_key"), $areThereChanges);
+				$areThereChanges = jci_save_check_value("jci_http_header_default_useragent", jci_handle_postinput("jci_http_header_default_useragent"), $areThereChanges);
+				if ($areThereChanges) {		return [__('Saving successful: Changed values saved', 'json-content-importer'), "#ccff33"];   } else {         return [ __('Nothing changed, nothing saved', 'json-content-importer'), "#ccff33"];   }
 			break;
 			case 'uninstall' :
-				$areThereChanges = jci_save_check_value("jci_uninstall_deleteall", $_POST["jci_uninstall_deleteall"], $areThereChanges);
-				if ($areThereChanges) {		return [__('Saving successful: Changed values saved', 'json-content-importer'), "#ccff33"];   } else {         return [ esc_html_e('Nothing changed, nothing saved', 'json-content-importer'), "#ccff33"];   }
+				$areThereChanges = jci_save_check_value("jci_uninstall_deleteall", jci_handle_postinput("jci_uninstall_deleteall"), $areThereChanges);
+				if ($areThereChanges) {		return [__('Saving successful: Changed values saved', 'json-content-importer'), "#ccff33"];   } else {         return [ __('Nothing changed, nothing saved', 'json-content-importer'), "#ccff33"];   }
 			break;
 			}
 		}
@@ -115,26 +156,43 @@ function jci_handle_input() {
 
 
 function jci_settings_page() {
-  $errorLevelSaveOptionsArr = jci_handle_input(); # save new settings if needed
+	$errorLevelSaveOptionsArr = jci_handle_input(); # save new settings if needed
+	wp_enqueue_style('jci-style', plugin_dir_url(__FILE__) . 'css/jci.css', null, 1);
 ?>
 <div class="wrap">
-<style>	.precode{background-color: #EBECE4; } .jciul { list-style-type: square; margin-left: 20px;} #wpfooter { position: relative;} </style>
+
+
 <h2><?php esc_html_e('JSON Content Importer: Check, Set, Start, Use, Get Support', 'json-content-importer') ?></h2>
   <?php
   global $pagenow;
-  $currenttab = htmlentities(($_GET['tab'] ?? 'welcome'));
-  $currentpage = htmlentities(($_GET['page'] ?? ''));
+	$currenttab = jci_handle_getinput('tab');
+	if (empty($currenttab)) {
+		$currenttab = 'step1';
+	}
+	$currentpage = jci_handle_getinput('page');
+	if (empty($currentpage)) {
+		$currentpage = 'unique_jci_menu_slug';
+	}
+	
+	#$currenttab = htmlentities(($_GET['tab'] ?? 'welcome'));
+	#$currentpage = htmlentities(($_GET['page'] ?? ''));
+
   if ( $pagenow == 'admin.php' && $currentpage == 'unique_jci_menu_slug' ){
 	jci_admin_tabs($currenttab);
   } 
  ?>
  </div>
 
-	<form method="post" action="?page=unique_jci_menu_slug&tab=<?php echo esc_attr($currenttab); ?>">
-	<?php 
+	<?php
+		$urlin = "admin.php?page=unique_jci_menu_slug&tab=".esc_attr($currenttab);
+		$secure_url = wp_nonce_url( $urlin, 'jci-set-nonce' );
+
+
+		echo '<form method="post" action="'.esc_attr($secure_url).'">';
+
 		settings_fields( 'jci-options' ); 
 		do_settings_sections( 'jci-options' ); 
-		wp_nonce_field( "jci-set-page" );
+		wp_nonce_field( "jci-set-nonce" );
 	?>
 	<table class="widefat striped">
     <?php
@@ -229,8 +287,11 @@ function jci_settings_page() {
         </td></tr>
 		
 		<tr><td>
-			<h2><?php esc_html_e('API-Request: If needed, send oAuth Bearer Authentication', 'json-content-importer'); ?></h2>
+			<h2><?php esc_html_e('DEPRECATED - API-Request: If needed, send oAuth Bearer Authentication', 'json-content-importer'); ?></h2>
 			<?php esc_html_e("The API website might provide you with a static 'Bearer' token (= ACCESSKEY) that must be used when making API requests. There are multiple ways in which APIs handle this", 'json-content-importer') ?>:
+			<br><strong>
+			<?php esc_html_e("Use \"Step 1: Get data\" to apply these settings. The following is only retained here to ensure backward compatibility.", 'json-content-importer') ?>:
+			</strong>
 			<ul class=jciul>
 				<li><?php esc_html_e('Send "Bearer Authorization:ACCESSKEY"', 'json-content-importer') ?>:
 				<?php esc_html_e("Insert 'Authorization: ACCESSKEY' in the following text field, and the 'Bearer' part will be added automatically.", 'json-content-importer') ?></li>
@@ -246,7 +307,11 @@ function jci_settings_page() {
 			<input type="text" name="jci_oauth_bearer_access_key" value="<?php echo esc_html($jci_oauth_bearer_access_key); ?>" size="60"/>
         </td></tr>
 		<tr><td>
-			<h2><?php esc_html_e('Send Browser-Useragent (some APIs need that)', 'json-content-importer') ?>:</h2> <input type="checkbox" name="jci_http_header_default_useragent" value="1" <?php echo (get_option('jci_http_header_default_useragent') == 1)?"checked=checked":""; ?> />
+			<h2><?php esc_html_e('DEPRECATED - Send Browser-Useragent (some APIs need that)', 'json-content-importer') ?>:</h2>
+			<strong>
+			<?php esc_html_e("Use \"Step 1: Get data\" to apply these settings. The following is only retained here to ensure backward compatibility.", 'json-content-importer') ?>:
+			</strong><br>
+			<input type="checkbox" name="jci_http_header_default_useragent" value="1" <?php echo (get_option('jci_http_header_default_useragent') == 1)?"checked=checked":""; ?> />
 			<?php esc_html_e('Send Useragent \'JCI WordPress-Plugin - free Version\'', 'json-content-importer') ?>
 	   </td></tr>
 		<tr><td>
@@ -259,11 +324,9 @@ function jci_settings_page() {
 	<tr><td>
            <h1><?php esc_html_e('Uninstall', 'json-content-importer'); ?></h1>
            <?php 
-		   esc_html_e('By default, not all data of this plugin is deleted. If the following checkbox is NOT activated (default settings), 
-		   you can deactivate and delete the free JSON Content Importer Plugin without any risk.', 'json-content-importer');
+		   esc_html_e('By default, not all data of this plugin is deleted. If the following checkbox is NOT activated (default settings), you can deactivate and delete the free JSON Content Importer Plugin without any risk.', 'json-content-importer');
 		   echo "<br>";
-		   esc_html_e('After reinstalling the free JCI plugin, all data will still be retained. 
-		   Only when the following checkbox is activated, templates, settings, etc., will also be deleted when the free JCI Plugin is deleted.', 'json-content-importer') 
+		   esc_html_e('After reinstalling the free JCI plugin, all data will still be retained. Only when the following checkbox is activated, templates, settings, etc., will also be deleted when the free JCI Plugin is deleted.', 'json-content-importer') 
 		   ?>: 
            <br>
            <input type="checkbox" name="jci_uninstall_deleteall" value="1" <?php echo (get_option('jci_uninstall_deleteall') == 1)?"checked=checked":""; ?> /> <?php 
@@ -279,14 +342,79 @@ function jci_settings_page() {
         case 'step1' :
     ?>
 		<tr><td>
-		<h1><?php esc_html_e('Step 1: Retrieve the data from the API', 'json-content-importer'); ?></h1>
-		<h2><?php esc_html_e('Gutenberg-Block-Way', 'json-content-importer'); ?></h2>
+			<input type="hidden" name="jci-settings-submit" value="testrequest" />
+		<?php
+			require_once plugin_dir_path( __FILE__ ) . '/getlib.php';
+			$jci_free_request = new jci_free_request();
+			$jci_free_request->step1getjson();
+		?>
+		
+		<h1><?php esc_html_e('The JCI plugin offers multiple ways to retrieve and process data from an API.', 'json-content-importer'); ?></h1>
+		<ul class=jciul>
+
+		<li><?php esc_html_e('Another option is to use the JCI Gutenberg block. This also allows you to create an auto-generated template that can be used to extract and display the desired data.', 'json-content-importer'); ?></li>
+		</ul>
+       </td></tr>
+
+		<tr><td>
+		<h2><?php esc_html_e('API-Access-Set and Shortcode', 'json-content-importer'); ?></h2>
+		<ul class=jciul>
+			<li><?php esc_html_e('Create a API-Access-Set and store it:', 'json-content-importer'); ?><br>
+				<?php esc_html_e('The method described above for querying data from the API is the most flexible and powerful approach to fetch data from the API, as it is designed to cover everything an API might require.', 'json-content-importer'); ?>
+			<li><?php esc_html_e('Once the data is successfully retrieved, you can use "Step 2" to generate a shortcode with a template', 'json-content-importer'); ?></li>
+			<li><?php esc_html_e('Use the Shortcode: Copy it to the desired page', 'json-content-importer'); ?></li>
+			</ul>
+       </td></tr>
+	   
+		<tr><td>
+		<h2><?php esc_html_e('API-Access-Set and PHP', 'json-content-importer'); ?></h2>
+		<?php esc_html_e('If you are familiar with PHP, you can use the PHP function provided by the plugin: jcifree_getjson($api_set, $convert_xmlcsv_to_json=FALSE, $cacheinsec=0, $debugmode=FALSE)', 'json-content-importer'); ?>
+		<ul class=jciul>
+			<li><?php esc_html_e('Create a API-Access-Set, name and store it:', 'json-content-importer'); ?><br>
+				<?php esc_html_e('The PHP function fetches the API data, which can then be processed directly in PHP.', 'json-content-importer'); ?>
+				</li>
+			<li><?php esc_html_e('Example:', 'json-content-importer'); ?><br>
+			
+			<?php 
+				$example_url = plugins_url('', __FILE__)."/json/gutenbergblockexample1.json";
+				echo '<a href="'.esc_attr($example_url).'" target="_blank">';
+				echo 'Example URL: '.esc_html($example_url);
+				echo '</a><br>';
+				esc_html_e('PHP-Code e.g. at functions.php:', 'json-content-importer'); 
+				echo "<br>";
+				
+				?>
+<pre>
+function json_for_footer() {
+	$apianswer =  jcifree_getjson("NAME_OF_API_ACCESS_SET");
+	$apianswerArr = json_decode($apianswer, true);
+	if (!is_array($apianswerArr)) {		return "";	}
+	echo $apianswerArr["hello"];
+	echo date("d.m.Y, H:i:s", $apianswerArr["exampletimestamp"]);
+	echo $apianswerArr["level1"]["level2"][1]["key"];
+}
+add_action('wp_footer', 'json_for_footer');
+</pre>
+				
+				
+				</li>
+		</ul>
+       </td></tr>
+
+	   <tr><td>
+		<h2><?php esc_html_e('JCI Gutenberg block', 'json-content-importer'); ?></h2>
 		<ul class=jciul>
 			<li><?php esc_html_e('This JCI-Plugin adds a "JSON Content Importer FREE" Gutenberg Block.', 'json-content-importer'); ?></li>
 			<li><?php esc_html_e('It is highly recommended to try out the JCI block and familiarize yourself with its functionality using the provided example', 'json-content-importer'); ?></li>
-			<li><?php esc_html_e('Outdated, but still helpful:', 'json-content-importer'); ?> 
-				<a href="https://www.youtube.com/watch?v=t3m0PmNyOHI" target="_blank"><?php esc_html_e('The video "Easy JSON Content Importer" shows you how to use the JCI Block Version 1.3.0', 'json-content-importer'); ?> </a><br>
-				<?php esc_html_e('Version 1.4 introduces a JCI-Template generator, which provides a blueprint for displaying the JSON data.', 'json-content-importer'); ?>
+			<li><?php esc_html_e('Version 1.4 introduces a JCI-Template generator, which provides a blueprint for displaying the JSON data.', 'json-content-importer'); ?>
+				<br>
+			<?php esc_html_e("Click on 'Create JCI-Template for JSON' in the JCI-Block. This will open a window with the generated template based on the complete JSON data. This template is inserted into the template box of the block. By clicking on 'Try Template', the template and the JSON are merged and displayed on the left side.", 'json-content-importer'); ?>
+			<p>
+			<?php esc_html_e('Then edit the template as you like.', 'json-content-importer'); ?>
+			
+				<br>
+				<?php esc_html_e('Outdated, but still helpful:', 'json-content-importer'); ?> 
+				<a href="https://www.youtube.com/watch?v=t3m0PmNyOHI" target="_blank"><?php esc_html_e('The video "Easy JSON Content Importer" shows you how to use the JCI Block Version 1.3.0', 'json-content-importer'); ?> </a>
 				</li>
 			<li><?php esc_html_e('In the block settings, you can input the API URL and create a JCI template - you\'ll immediately see the API response and the merged JSON & template: Switch on the debugmode in the Block for that.', 'json-content-importer'); ?></li>
 			<li><?php esc_html_e('The Debugmode of the JCI Block also gives a Shortcode you can copy paste.', 'json-content-importer'); ?></li>
@@ -294,7 +422,7 @@ function jci_settings_page() {
        </td></tr>
 
 		<tr><td>
-		<h2><?php esc_html_e('Shortcode-Way', 'json-content-importer'); ?></h2>
+		<h2><?php esc_html_e('Pure Shortcode-Way', 'json-content-importer'); ?></h2>
 		<?php $exurl = plugin_dir_url(__FILE__)."json/gutenbergblockexample1.json"; ?>
 		<?php esc_html_e('Local test API-URL', 'json-content-importer') ?>: <a href="<?php echo esc_url($exurl); ?>" target="_blank"><?php echo esc_url($exurl); ?></a><br>
 		<?php esc_html_e('Test Shortcode', 'json-content-importer') ?>:<br>
@@ -311,30 +439,27 @@ function jci_settings_page() {
 		(<b class=precode><?php esc_html_e('hello {hello}', 'json-content-importer'); ?> </b>).
 		<?php esc_html_e('If this is the case, you know that the plugin is working and is able to get data from your Wordpress.', 'json-content-importer'); ?> 
 		<p>
-		<?php esc_html_e('Now you can replace the local URL by the remote API-URL you want to use. Check the debug info on the JSON given by the URL:
-		Is it the JSON you expected?', 'json-content-importer'); ?> 
+		<?php esc_html_e('Now you can replace the local URL by the remote API-URL you want to use. Check the debug info on the JSON given by the URL: Is it the JSON you expected?', 'json-content-importer'); ?> 
 		<br>
 		<ul class=jciul>
 		<li><?php esc_html_e('YES, that looks like the JSON the API should give: Proceed to', 'json-content-importer'); ?>  <a href="?page=unique_jci_menu_slug&tab=step2"><?php esc_html_e('Step 2', 'json-content-importer'); ?></a></li>
 		<li><?php esc_html_e('NO! The API does not give the expected JSON: See below "API does not give the expected JSON?"', 'json-content-importer'); ?> </li>
 		</ul>
         </td></tr>
+		
 		<tr><td>
 		
 		<h2><?php esc_html_e('API does not give the expected JSON?', 'json-content-importer'); ?></h2>
 		<?php esc_html_e('There can be several reasons why the API-URL does not give the epxected JSON. Maybe the URL is not ok or the API expects more than a simple URL: By the http-errorcode or JSON with an errormessage the API hopefully tells what went wrong (not all APIs do tht, unfortunately). 
-		E. g. Some APIs expect a API-KEY, some Authentication, some POST-requests etc.. Check your API manual for that.
-		Typical situations are:', 'json-content-importer'); ?>
+		E. g. Some APIs expect a API-KEY, some Authentication, some POST-requests etc.. Check your API manual for that.	Typical situations are:', 'json-content-importer'); ?>
 		<ul class=jciul>
 		<li><?php esc_html_e('The API-URL is not correct, Errormessages like 404 etc.: Check the API-manual, please.', 'json-content-importer'); ?></li>
 		<li><?php esc_html_e('Basic Authentication: https://USERNAME:PASSWORT@www... sends USERNAME and PASSWORT to the API doing the Authentication.', 'json-content-importer'); ?></li>
 		<li><?php esc_html_e('API-KEY: https://www...?apikey=WHATEVER sends the Parameter "apikey" with value "WHATEVER" (you might get when registering at the API-Website) to the API.', 'json-content-importer'); ?></li>
-		<li><?php esc_html_e('Browser-Useragent: Some APIs expect a Browser-Useragent-Info in the http-Header. Check the Box at "Basic Settings" for that.', 'json-content-importer'); ?></li>
-		<li><?php esc_html_e('Send "Bearer" for authentication: Some APIs expect a so called "Bearer" in the http-Header. This is usually a Token you get at the API-Website. 
-		If needed: Insert the Token at "Basic Settings".', 'json-content-importer'); ?></li>
-		<li><?php esc_html_e('No JSON but something else: The free JCI Plugin can handle JSON only. Check the API-Manual on how to alter the URL to get JSON (if possible). 
-		The JCI-PRO Plugin can handle any input.', 'json-content-importer'); ?></li>
-		<li><?php esc_html_e('Some APIs use oAuth2, special ways to calc a Token etc.. The free JCI Plugin can\'t handle this, the JCI-PRO Plugin can.', 'json-content-importer'); ?></li>
+		<li><?php esc_html_e('Browser-Useragent: Some APIs expect a Browser-Useragent-Info in the http-Header.', 'json-content-importer'); ?></li>
+		<li><?php esc_html_e('Send "Bearer" for authentication: Some APIs expect a so called "Bearer" in the http-Header. This is usually a Token you get at the API-Website.', 'json-content-importer'); ?></li>
+		<li><?php esc_html_e('No JSON but something else: The free JCI Plugin can handle JSON, XML, CSV, Text. Check the API-Manual on how to define the delivered data format (if possible).', 'json-content-importer'); ?></li>
+		<li><?php esc_html_e('Some APIs use OAuth2, special ways to calc a Token etc.. The free JCI Plugin can handle this most probably by creating a 2nd API-Access-Set (see form above).', 'json-content-importer'); ?></li>
 		<li><a href="https://doc.json-content-importer.com/json-content-importer/step-1-data-access/" target="_blank"><?php esc_html_e('more on how you can get access to the data see at doc.json-content-importer.com', 'json-content-importer'); ?></a></li>
 		</ul>
         </td></tr>
@@ -343,12 +468,140 @@ function jci_settings_page() {
         case 'step2' :
     ?>
 		<tr><td>
+
 		<h1><?php esc_html_e('Step 2: Use data', 'json-content-importer'); ?></h1>
-			<h2><?php esc_html_e('Gutenberg-Block-Way', 'json-content-importer'); ?></h2>
-			<?php esc_html_e('Click on "Create JCI-Template for JSON". This will open a window with the generated template based on the complete JSON data. 
-			This template is inserted into the template box of the block. By clicking on "Try Template", the template and the JSON are merged and displayed on the left side.', 'json-content-importer'); ?>
-			<p>
-			<?php esc_html_e('Then edit the template as you like.', 'json-content-importer'); ?>
+		<h2><?php esc_html_e('Shortcode with API-Access-Set', 'json-content-importer'); ?></h2>
+		<?php esc_html_e('Generate a shortcode using an API Access Set (refer to Step 1) and a base node (the starting point in the JSON tree).', 'json-content-importer'); ?>
+		
+		<br>
+		<?php esc_html_e('Example', 'json-content-importer'); ?>
+		<br>
+		<?php
+            $example = "[jsoncontentimporter ";
+            $example .= 'apiaccesset="...." basenode="..."]';
+            $example .= "...";
+            $example .= "[/jsoncontentimporter]\n";
+            $example = htmlentities($example);
+            echo "<pre class=precode>".esc_html($example)."</pre>";
+		?> 
+		
+		
+		<?PHP
+			$jci_free_api_access_items = json_decode(get_option('jci_free_api_access_items'), TRUE);
+			if (empty($jci_free_api_access_items)) {
+				echo "<font color=red>";
+				esc_html_e('No API Access Set defined: Create one in Step 1 please!', 'json-content-importer');
+				echo "</font><hr>";
+				
+			} else {
+				require_once plugin_dir_path( __FILE__ ) . '/getlib.php';
+				$jci_free_request = new jci_free_request();
+
+				$urlin = "admin.php?page=unique_jci_menu_slug&tab=step2";
+				$secure_url = wp_nonce_url( $urlin, 'jci-set-nonce' );
+			
+				$formdata["accset"] = jci_handle_postinput('accset'); # $_POST['accset'] ?? '';
+				$accset = $formdata["accset"];
+				#echo json_encode($_POST);
+		
+				echo "<table border=1>";
+				echo '<form method="post" action="'.esc_attr($secure_url).'">';
+				$t = $jci_free_api_access_items[$formdata["accset"]] ?? NULL;
+				$formdata = $jci_free_request->setDataFromAccSet($t, $formdata, TRUE);
+				
+				$basenodearr = Array();
+				$usebasenode = jci_handle_postinput("usebasenode"); # $_POST["usebasenode"] ?? '';
+				if ("yes"==$usebasenode) {
+					$basenode =  jci_handle_postinput("basenode", null); # isset( $_POST['basenode'] ) ? esc_attr( $_POST['basenode'] ) : null;
+					$selectedmethod = $t["set"]["selectedmethod"] ?? '';
+					$fileLoadWithCacheObj = $jci_free_request->doRequest($formdata, $selectedmethod);
+					
+					$receivedData = $fileLoadWithCacheObj->getHttpResponse();
+					
+				################
+				$feedData = $fileLoadWithCacheObj->getFeeddataWithoutpayloadinputstr();
+		
+				# did we get JSON?
+				$convertJsonNumbers2Strings = TRUE; # default!
+				$debugLevel = 10;
+				$debugModeIsOn = FALSE;
+
+				# BEGIN cache: The  retrieved JSON from the API-Access-Set is NOT cached
+				$cacheEnable = FALSE;#TRUE;
+				$cacheFile = "";
+				$cacheExpireTime = 0;
+		
+			
+				$jsonDecodeObj = new JSONdecodeFreeV2($feedData, TRUE, $debugLevel, $debugModeIsOn, $convertJsonNumbers2Strings, $cacheFile, $fileLoadWithCacheObj->getContentType(), 
+					$formdata["indataformat"], $formdata["csvdelimiter"], $formdata["csvline"],
+					$formdata["csvenclosure"], $formdata["csvskipempty"], $formdata["csvescape"]
+				);
+
+				$vals = $jsonDecodeObj->getJsondata();
+				$receivedData = wp_json_encode($vals);
+		
+				$resutitle = __("Valid JSON received?", 'json-content-importer')." ";
+				$resu = "";
+				$phpfunc = "";
+				if ($jsonDecodeObj->getIsAllOk()) {
+					if (is_null(($vals["nojsonvalue"] ?? NULL))) {
+						$resu .= __("decoding ok, we got JSON-data!", 'json-content-importer');
+						$phpfunc = 'jcifree_getjson("'.$formdata["nameofselectedjas"].'")';
+					} else {
+						$resu .= __("decoding failed, API-answer was packed into nojsonvalue-JSON", 'json-content-importer');
+					}
+				} else {
+					$resu .= __("decoding due to invalid JSON failed. Check structure and encoding of JSON-data", 'json-content-importer');
+				}
+
+				###########################					
+				$httpcode = $fileLoadWithCacheObj->getErrormsgHttpCode();
+					
+				require_once plugin_dir_path( __FILE__ ) . '/lib/JsonToTemplateConverter.php';
+				$jsonArr = json_decode($receivedData);
+				$j2t = new JsonToTemplateConverter($jsonArr, $basenode);
+				$res = $j2t->getTemplate();
+				$basenodearr= $j2t->getNodePaths($receivedData);		
+			}
+				$formdata = $jci_free_request->showExistingAPIAccesSets($jci_free_api_access_items, $formdata, __('Use data: Generate Shortcode', 'json-content-importer'), FALSE, TRUE, $basenodearr);
+				echo "</form>";
+		
+				if ("yes"==$usebasenode) {
+					echo "<tr><td>";
+						#var_Dump($formdata);
+						echo "<table>";
+						echo "<tr><td>";
+						if (!empty($resu)) {
+							echo "<strong>".esc_html($resutitle)."</strong> ";
+							echo esc_html($resu)."<br>";
+							echo "<strong>";
+							esc_html_e('PHP function', 'json-content-importer');
+							echo ":</strong> ";
+							echo esc_html($phpfunc)."<br>";
+						}
+						echo "<textarea cols=100 rows=40>";
+						$sc = '[jsoncontentimporter apiaccesset="'.esc_attr($formdata["nameofselectedjas"]).'" basenode="'.esc_attr($basenode).'"]';
+						$sc .= ($res);
+						$sc .= '[/jsoncontentimporter]';
+						echo esc_attr($sc);
+						echo '</textarea>';
+						$scexec = do_shortcode($sc);
+						echo "</td><td>";
+						echo "<h2>Result:</h2>";
+						$allowed_html = [
+							'br' => [],
+						];
+						echo wp_kses($scexec, $allowed_html);						
+						echo "</td></tr>";
+						echo "</table>";
+					echo "</td></tr>";
+				}
+			
+				echo "</table>";
+			}
+		
+		?>
+
        </td></tr>
 		<tr><td>
 		<h2><?php esc_html_e('Shortcode-Way: Simple Example', 'json-content-importer'); ?></h2>
@@ -460,36 +713,41 @@ function jci_settings_page() {
 
 
 		<?php	
-		$imgurl = plugin_dir_url(__FILE__)."images/banner-772x250.png"; 
-		echo '<img src="'.esc_attr($imgurl).'">';
+		#$imgurl = plugin_dir_url(__FILE__)."images/banner-772x250.png"; 
+		#echo '<img src="'.esc_attr($imgurl).'">';
 	
 		echo "<p>";
 		echo esc_html_e("We're thrilled to have you using this Plugin. With the JSON Content Importer Plugin, you'll have the power to retrieve, transform, and publish data seamlessly within your WordPress environment.", 'json-content-importer')."<p>";
 		echo "<p>".esc_html_e("Whether you're looking to incorporate dynamic content, integrate APIs, or enhance your website's functionality, our plugin is here to make the process effortless and efficient. ", 'json-content-importer')."</p>";
 		echo "<p>".esc_html_e("With its user-friendly interface and powerful features, you'll be able to import and display data from JSON feeds with ease.", 'json-content-importer')."</p>";
 		echo "<p>".esc_html_e("Along the way, we're happy to assist you. If you have any questions, encounter challenges, or need guidance, feel free to reach out.", 'json-content-importer')."</p>";
-		echo "<p>".esc_html_e("We believe in the power of data and its ability to transform websites into dynamic, engaging platforms. With the JSON Content Importer Plugin, you're equipped with a versatile tool that opens up endless possibilities for data integration and content enhancement.
-", 'json-content-importer')."</p>";
+		echo "<p>".esc_html_e("We believe in the power of data and its ability to transform websites into dynamic, engaging platforms. With the JSON Content Importer Plugin, you're equipped with a versatile tool that opens up endless possibilities for data integration and content enhancement.", 'json-content-importer')."</p>";
 		echo "<p>".esc_html_e("Once again, welcome to the JSON Content Importer Plugin! We can't wait to see how you leverage its potential and create extraordinary experiences on your WordPress site. Get started today and unlock the true power of data-driven content.", 'json-content-importer')."</p>";
 
 		echo "<h2>".esc_html_e('Start your JCI: Step by Step', 'json-content-importer')."</h2>";
 		echo "<ol>";
-		echo '<li><a href="?page=unique_jci_menu_slug&tab=checkinstall">';
+
+		echo '<li><a href="'.esc_attr(wp_nonce_url( "?page=unique_jci_menu_slug&tab=checkinstall", 'jci-set-nonce' )).'">';
 		esc_attr_e("Check Installation: Is your WordPress ready for JCI? Most probably!", 'json-content-importer');
 		echo '</a></li>';
-		echo '<li><a href="?page=unique_jci_menu_slug&tab=settings">';
+
+		echo '<li><a href="'.esc_attr(wp_nonce_url( "?page=unique_jci_menu_slug&tab=settings", 'jci-set-nonce' )).'">';
 		esc_html_e("Basic Settings: Check SSL, Cacher, Gutenberg and Authentication", 'json-content-importer');
 		echo '</a></li>';
-		echo '<li><a href="?page=unique_jci_menu_slug&tab=step1">';
+
+		echo '<li><a href="'.esc_attr(wp_nonce_url( "?page=unique_jci_menu_slug&tab=step1", 'jci-set-nonce' )).'">';
 		esc_html_e("Step 1: Get data! Ask the API and check the answer", 'json-content-importer');
 		echo '</a></li>';
-		echo '<li><a href="?page=unique_jci_menu_slug&tab=step2">';
+
+		echo '<li><a href="'.esc_attr(wp_nonce_url( "?page=unique_jci_menu_slug&tab=step2", 'jci-set-nonce' )).'">';
 		esc_html_e("Step 2: Use data! See how you can display the data with a Shortcode or a Gutenberg Block", 'json-content-importer');
 		echo '</a></li>';
-		echo '<li><a href="?page=unique_jci_menu_slug&tab=support">';
+		
+		echo '<li><a href="'.esc_attr(wp_nonce_url( "?page=unique_jci_menu_slug&tab=support", 'jci-set-nonce' )).'">';
 		esc_html_e("Need Support? Help needed? Using an API might be tricky, and we're here to help!", 'json-content-importer');
 		echo '</a></li>';
-		echo '<li><a href="?page=unique_jci_menu_slug&tab=jcipro">';
+
+		echo '<li><a href="'.esc_attr(wp_nonce_url( "?page=unique_jci_menu_slug&tab=jcipro", 'jci-set-nonce' )).'">';
 		esc_html_e("Check the JCI PRO Plugin: Unlock the full power of JCI! Use the discount code!", 'json-content-importer');
 		echo '</a></li>';
 		echo "</ol>";
@@ -536,40 +794,56 @@ function jci_settings_page() {
 					esc_html_e('if the data involved contains personal information.', 'json-content-importer'); 
 				?></li>
 			</ul>
+			</td></tr><tr><td>
+		<h1><?php esc_html_e('Cyber Resilience Act (CRA)', 'json-content-importer'); ?></h1>
+			<h2><?php esc_html_e('What is the CRA?', 'json-content-importer'); ?></h2>
+			<?php esc_html_e('The EU Cyber Resilience Act establishes cybersecurity requirements for digital products and services throughout their lifecycle to enhance resilience against cyber threats and ensure a secure digital single market.', 'json-content-importer'); ?>
+			<?php esc_html_e('more', 'json-content-importer'); ?>: <a href="https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act" target="_blank"><?php esc_html_e('EU Cyber Resilience Act', 'json-content-importer'); ?></a>
+
+			<h2><?php esc_html_e('Software Bill of Material (SBOM)', 'json-content-importer'); ?></h2>
+			<table border=1>
+				<tr bgcolor="#ddd"><td><strong><?php esc_html_e('Component Name', 'json-content-importer'); ?></strong></td>
+					<td><strong><?php esc_html_e('Version', 'json-content-importer'); ?></strong></td>
+					<td><strong><?php esc_html_e('Licensee', 'json-content-importer'); ?></strong></td>
+					<td><strong><?php esc_html_e('Suppliere', 'json-content-importer'); ?></strong></td>
+					<td><strong><?php esc_html_e('Type', 'json-content-importer'); ?></strong></td></tr>
+				<tr><td>jsTree</td><td>3.3.12</td><td>MIT</td><td><a href="https://www.jstree.com/" target="_blank">https://www.jstree.com/</a></td><td><?php esc_html_e('Library', 'json-content-importer'); ?></td></tr>
+			</table>
+			
+					</td></tr><tr><td>
+		<h1><?php esc_html_e('jsTree: MIT Licence', 'json-content-importer'); ?></h1>
+			Copyright (c) 2014 Ivan Bozhanov
+			<br>
+			Permission is hereby granted, free of charge, to any person
+				obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without
+				restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+				copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+			<p>
+			The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.>
+			<p>
+			THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+				OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+				HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+				FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		</td></tr>
 	<?php
 	break;
 	case 'jcipro' :
 	?>
-   <style>
-      .jcibutton {
-        background-color: #1c87c9;
-        color: white;
-        padding: 28px 28px;
-        display: inline-block;
-        font-size: 21px;
-      }
-      .jcibutton:hover {
-        background-color: white;
-        color: #1c87c9;
-      }
-    </style>
-
 	<tr>
 		<td>
 		
 		<div class="wrap about-wrap">
 			<h1><?PHP 
-			echo esc_html_e('JCI PRO is much simpler and more powerful than JCI Free!', 'json-content-importer');
-		?></h1
+			esc_html_e('JCI PRO is much simpler and more powerful than JCI Free!', 'json-content-importer');?></h1
 		<p class="about-text">
-		Both the free and PRO JCI Plugins serve the same purpose: retrieving data, transforming it, and publishing the results.
+		<?PHP esc_html_e('Both the free and PRO JCI Plugins serve the same purpose: retrieving data, transforming it, and publishing the results.', 'json-content-importer');?>
 		<br>
-		However, while the free Plugin can only handle basic challenges, the PRO JCI Plugin offers nearly full control over WordPress, the database, and applications.
+		<?PHP esc_html_e('However, while the free Plugin can only handle basic challenges, the PRO JCI Plugin offers nearly full control over WordPress, the database, and applications.', 'json-content-importer');?>
 			<ul>
-				<li>&bull; Get JSON: Unlike the limited methods of the free JCI, the JCI PRO can access almost any data: locally from files, remotely via any known authentication.</li>
-				<li>&bull; Use JSON: While the free JCI can handle JSON, the JCI PRO can work with any data source and is able to build applications.</li>
-				<li>&bull; To achieve this, the JCI PRO offers the twig parser and many extensions. Various WordPress and Database functions are available to give you full control.</li>
+				<li>&bull; <?PHP esc_html_e('Get JSON: Unlike the limited methods of the free JCI, the JCI PRO can access almost any data: locally from files, remotely via any known authentication.', 'json-content-importer');?></li>
+				<li>&bull; <?PHP esc_html_e('Use JSON: While the free JCI can handle JSON, the JCI PRO can work with any data source and is able to build applications.', 'json-content-importer');?></li>
+				<li>&bull; <?PHP esc_html_e('To achieve this, the JCI PRO offers the twig parser and many extensions. Various WordPress and Database functions are available to give you full control.', 'json-content-importer');?></li>
 				<?PHP 
 				echo '<li>&bull; ';
 				esc_html_e("Try it without risk: We offer a full refund if the PRO plugin cannot solve your challenge", 'json-content-importer');
@@ -579,25 +853,24 @@ function jci_settings_page() {
 		</p>
 		</div>
 			<?PHP
-			$imgurl = plugin_dir_url(__FILE__)."images/banner-772x250.jpg"; 
-			echo '<img src="'.esc_url($imgurl).'">';
+			#$imgurl = plugin_dir_url(__FILE__)."images/banner-772x250.jpg"; 
+			#echo '<img src="'.esc_url($imgurl).'">';
 			?>
-		<br><a href="https://json-content-importer.com/download/" class="jcibutton">Click here to upgrade to the JCI PRO Plugin and unlock the full power of JCI!</a>
+		<br><a href="https://json-content-importer.com/download/" class="jcibutton"><?PHP esc_html_e('Click here to upgrade to the JCI PRO Plugin and unlock the full power of JCI!', 'json-content-importer');?></a>
 
 		<h2><?PHP 
 			echo esc_html_e('PRO-Plugin: All free features plus...', 'json-content-importer'); ?></h2>
 		<ul>
-			<li>&bull; Support and ongoing development</li>
-			<li>&bull; handling of a wider range of JSON-feeds / APIs</li>
-			<li>&bull; enhanced template engine: the plugin-own engine is better, the famous twig-engine is the PRO-alternative</li>
-			<li>&bull; template-manager: store templates independent of pages</li>
-			<li>&bull; display as widget at the sidebar or footer</li>
-			<li>&bull; build applications: select JSON-feed on the fly</li>
-			<li>&bull; create WordPress-Pages and CPT, fill CPF</li>
-			<li>&bull; use Toolset and Elementor with JCI PRO</li>
-			<li>&bull; third-party shortcodes work inside the jsoncontentimporter-shortcode
-			<li>&bull; and a lot more...</li>
-	
+			<li>&bull; <?PHP esc_html_e('Support and ongoing development', 'json-content-importer');?></li>
+			<li>&bull; <?PHP esc_html_e('handling of a wider range of JSON-feeds / APIs', 'json-content-importer');?></li>
+			<li>&bull; <?PHP esc_html_e('enhanced template engine: the plugin-own engine is better, the famous twig-engine is the PRO-alternative', 'json-content-importer');?></li>
+			<li>&bull; <?PHP esc_html_e('template-manager: store templates independent of pages', 'json-content-importer');?></li>
+			<li>&bull; <?PHP esc_html_e('display as widget at the sidebar or footer', 'json-content-importer');?></li>
+			<li>&bull; <?PHP esc_html_e('build applications: select JSON-feed on the fly', 'json-content-importer');?></li>
+			<li>&bull; <?PHP esc_html_e('create WordPress-Pages and CPT, fill CPF', 'json-content-importer');?></li>
+			<li>&bull; <?PHP esc_html_e('use Toolset and Elementor with JCI PRO', 'json-content-importer');?></li>
+			<li>&bull; <?PHP esc_html_e('third-party shortcodes work inside the jsoncontentimporter-shortcode', 'json-content-importer');?>
+			<li>&bull; <?PHP esc_html_e('and a lot more...', 'json-content-importer');?></li>
 		</ul>
 
 		<strong><a href="https://json-content-importer.com/compare/?sc=wp" target="_blank" title="<?php esc_html_e('Compare free and PRO JSON Content Importer Plugin', 'json-content-importer') ?>"><?php esc_html_e('Compare free and PRO JSON Content Importer', 'json-content-importer') ?></a></strong>
@@ -675,7 +948,7 @@ function jci_settings_page() {
 			echo esc_html_e('Check JCI-cacher and cachefolder (directory where JSON-feeds are stored to reduce API-requests)', 'json-content-importer')."<br>";
 			$cacheEnabledOption = get_option('jci_enable_cache');
 			if ($cacheEnabledOption==1) {
-				echo esc_html_e("Cache is active (see Tab 'Basic Settings'", 'json-content-importer')."<br>";
+				echo esc_html_e("Cache is active (see Tab 'Basic Settings')", 'json-content-importer')."<br>";
 			} else {
 				echo esc_html_e("Cache is NOT active (see Tab 'Basic Settings')", 'json-content-importer')."<br>";
 			}
@@ -723,10 +996,14 @@ function jci_settings_page() {
 		
 			$delmsg = "";
 			$delmsgcolor = "#4CC417";
-			$clearcachein = htmlentities(($_GET['clearcache'] ?? ''));
-			$noncein = $_REQUEST['_wpnonce'] ?? '';
+			#$clearcachein = htmlentities(($_GET['clearcache'] ?? ''));
+			$clearcachein = jci_handle_getinput('clearcache');
+			
+			#$noncein = $_REQUEST['_wpnonce'] ?? '';
+			$noncein = jci_handle_requestinput('_wpnonce');
+			
 			if ($clearcachein=="y") {
-				$dcwpn = wp_verify_nonce($noncein, 'jci_clearcache' );
+				$dcwpn = wp_verify_nonce($noncein, 'jci-set-nonce' );
 				if (!$dcwpn) {
 					$delmsg = esc_html_e("Deleting of cache failed because security check failed", 'json-content-importer');
 					$delmsgcolor = "#f00";
@@ -777,8 +1054,7 @@ function jci_settings_page() {
 			}
 
 			$clearCacheUrl = "?page=unique_jci_menu_slug&tab=checkinstall&clearcache=y";
-			$wpn_cc_url = wp_nonce_url( $clearCacheUrl, 'jci_clearcache' );
-
+			$wpn_cc_url = wp_nonce_url( $clearCacheUrl, 'jci-set-nonce' );
 			echo '<a href="'.esc_url($wpn_cc_url).'">';
 			esc_html_e("Click here to CLEAR JCI-CACHE", 'json-content-importer');
 			echo "</a>";
@@ -791,6 +1067,11 @@ function jci_settings_page() {
 </div>
 
 <?php
+}
+
+
+function jcifree_calc_unique_id($idin, $prefix="") {
+	return $prefix.substr("jci".md5($idin), 0, 10);
 }
 
 function get_dir_size($directory) {

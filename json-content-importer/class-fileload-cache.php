@@ -342,7 +342,7 @@ class FileLoadWithCache {
 		#echo print_r($args, TRUE);
 
       $this->showdebugmessage("wp_safe_remote_get to ".$this->feedUrl);
-      $this->showdebugmessage(__('arguments', 'json-content-importer').": ".stripslashes(htmlentities(print_r($args, TRUE))));
+      $this->showdebugmessage(__('arguments', 'json-content-importer').": ".stripslashes(htmlentities(wp_json_encode($args, TRUE))));
 
       #$response = wp_remote_get($this->feedUrl, $args);
       $response = wp_safe_remote_get($this->feedUrl, $args);

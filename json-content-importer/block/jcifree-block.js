@@ -133,7 +133,7 @@
 			const [ data, setData ] = useState( null );
 			const [ isLoading, setLoading ] = useState( false );
 			const [renderTrigger, setRenderTrigger] = useState(0);
-			const [ buttonText, setButtonText ] = useState('Try Template');
+			const [ buttonText, setButtonText ] = useState(__('Try Template','json-content-importer' ));
 			
 			const handleClickTryTemplate = () => {
 				var templateNew = (props.attributes.template)

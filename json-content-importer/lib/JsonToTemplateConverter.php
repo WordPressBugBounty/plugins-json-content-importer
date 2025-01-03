@@ -94,6 +94,51 @@ class JsonToTemplateConverter
 		$jsonArr1 = json_decode($jsonStr);
 		return $jsonArr1;
 	}
+	
+	
+	###############
+	
+public function getNodePaths($json)
+    {
+        // JSON-Daten dekodieren, falls nötig
+        $data = is_string($json) ? json_decode($json, true) : $json;
+
+        // Sicherstellen, dass die Daten ein Array sind
+        if (!is_array($data)) {
+            throw new InvalidArgumentException('Input must be a valid JSON string or an array.');
+        }
+
+        // Rekursion starten
+        return $this->extractPaths($data);
+    }
+
+    /**
+     * Rekursive Funktion zum Sammeln der Pfade
+     * 
+     * @param array $data
+     * @param string $prefix
+     * @return array
+     */
+    private function extractPaths(array $data, string $prefix = ''): array
+    {
+        $result = [];
+
+        foreach ($data as $key => $value) {
+            $path = $prefix === '' ? $key : $prefix . '.' . $key;
+
+            if (is_array($value)) {
+                // Füge den Pfad für Arrays hinzu
+                $result[] = $path;
+
+                // Rekursiv die Unterpfade sammeln
+                $result = array_merge($result, $this->extractPaths($value, $path));
+            }
+        }
+
+        return $result;
+    }
+	
+	###################
 
 	private function getJSONvalue($key) {
 		$arrayIn = json_decode(wp_json_encode($this->jsonArr), TRUE);
@@ -160,7 +205,10 @@ class JsonToTemplateConverter
 	
     private function getLinesForObject(\StdClass $object, $level = 0, $key = null) {
 		#echo "level: ".$level." / key: ".$key." \n";
-		$keytmp = substr($key, 0, -1);
+		$keytmp = "";
+		if (!empty($key)) {
+			$keytmp = substr($key, 0, -1);
+		}
 		if (is_numeric($keytmp)) {
 			$key = "";
 		}
@@ -191,7 +239,7 @@ class JsonToTemplateConverter
         }
         return $lines;
     }
-
+	
     private function getLinesForArray(array $array, $level = 0, $key = null, $itemKey = null) {
         $lines = [];
 		$isalreadyarr = FALSE;

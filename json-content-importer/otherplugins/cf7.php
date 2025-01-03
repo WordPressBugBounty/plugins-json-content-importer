@@ -28,27 +28,27 @@
 			if ( $form ) {	$form_id = $form->id();	}	
 			if (function_exists('wpcf7_contact_form')) {
 				$form_cf = wpcf7_contact_form($form_id);
-				if (WP_DEBUG) {    error_log('CF7 FormId: '.$form_id);   }
+				#if (WP_DEBUG) {    error_log('CF7 FormId: '.$form_id);   }
 				if (empty($form_cf)) {
-					if (WP_DEBUG) {    error_log('CF7: empty Form'.$form_id);   }
+					#if (WP_DEBUG) {    error_log('CF7: empty Form'.$form_id);   }
 				} else {
 					$submitted_data = $submission->get_posted_data();
 
 					$additional_settings_url = wpcf7_get_additional_setting($form_cf, 'jci_url');
 					if (empty($additional_settings_url)) {
 						# no url set, no action
-						if (WP_DEBUG) {    error_log('CF7 jci_url set: no URL set, no action');   }
+						#if (WP_DEBUG) {    error_log('CF7 jci_url set: no URL set, no action');   }
 						return TRUE;
 					}
-					if (WP_DEBUG) {    error_log('CF7 jci_url set: '.$additional_settings_url);   }
+					#if (WP_DEBUG) {    error_log('CF7 jci_url set: '.$additional_settings_url);   }
 					$additional_settings_url = wpcf7_replace_placeholder($submitted_data, $additional_settings_url, TRUE);
-					if (WP_DEBUG) {    error_log('CF7 jci_url used: '.$additional_settings_url);   }
+					#if (WP_DEBUG) {    error_log('CF7 jci_url used: '.$additional_settings_url);   }
 					
 					$additional_settings_timeout = wpcf7_get_additional_setting($form_cf, 'jci_timeout');
 					if (empty($additional_settings_timeout)) {
 						$additional_settings_timeout = 5;
 					}
-					if (WP_DEBUG) {    error_log('CF7 jci_timeout: '.$additional_settings_timeout);   }
+					#if (WP_DEBUG) {    error_log('CF7 jci_timeout: '.$additional_settings_timeout);   }
 					
 					$additional_settings_header = wpcf7_get_additional_setting($form_cf, 'jci_header');
 					$additional_settings_header = wpcf7_replace_placeholder($submitted_data, $additional_settings_header, FALSE);
@@ -60,16 +60,16 @@
 							$header_arr[$header_tmp_arr[0]] = $header_tmp_arr[1];
 						}
 					}
-					if (WP_DEBUG) {    error_log('CF7 jci_header: '.$additional_settings_header);   }
-					if (WP_DEBUG) {    error_log('CF7 jci_header JSON: '.wp_json_encode($header_arr));   }
+					#if (WP_DEBUG) {    error_log('CF7 jci_header: '.$additional_settings_header);   }
+					#if (WP_DEBUG) {    error_log('CF7 jci_header JSON: '.wp_json_encode($header_arr));   }
 					
 					$additional_settings_method = wpcf7_get_additional_setting($form_cf, 'jci_method');
 					if ("post"!=$additional_settings_method) { $additional_settings_method = "get"; }
-					if (WP_DEBUG) {    error_log('CF7 jci_method: '.$additional_settings_method);   }
+					#if (WP_DEBUG) {    error_log('CF7 jci_method: '.$additional_settings_method);   }
 					
 					$additional_settings_payload = wpcf7_get_additional_setting($form_cf, 'jci_payload');
 					$additional_settings_payload = wpcf7_replace_placeholder($submitted_data, $additional_settings_payload, FALSE);
-					if (WP_DEBUG) {    error_log('CF7 jci_payload: '.$additional_settings_payload);   }
+					#if (WP_DEBUG) {    error_log('CF7 jci_payload: '.$additional_settings_payload);   }
 					
 					if (!empty($additional_settings_url)) {
 						######################
@@ -93,10 +93,10 @@
 						}
 						if ( is_wp_error( $response ) ) {
 							$error_message = $response->get_error_message();
-							if (WP_DEBUG) {    error_log('CF7 response error: '.$error_message );   }
+							#if (WP_DEBUG) {    error_log('CF7 response error: '.$error_message );   }
 						} else {
 							$body = wp_remote_retrieve_body( $response );
-							if (WP_DEBUG) {    error_log('CF7 response ok: '.$body );   }
+							#if (WP_DEBUG) {    error_log('CF7 response ok: '.$body );   }
 						}
 					}
 				}
