@@ -4,11 +4,11 @@ Tags: api, json, xml, csv, data
 Requires at least: 5.3
 Requires PHP: 7.0
 Tested up to: 6.7
-Stable tag: 2.0.0 
+Stable tag: 2.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-WordPress meets APIs: Get API-data (JSON, XML, CSV, TXT) and show it with a Shortcode or a JCI Block. Generate a template with the JCI Block or use PHP. Also: ContactForm7 Integration
+Connects an API to WordPress: Get API-data (JSON, XML, CSV...), show it with a Shortcode, a JCI Block or PHP.  Generate a template with the JCI Block
 
 == Description ==
 
@@ -139,6 +139,9 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 9. JCI Block: Generate a template from JSON.
 	
 == Changelog ==
+= 2.0.1 =
+* BUGFIX: CSS in the WP-Backend 
+
 = 2.0.0 =
 * NEW: Create an API-Access-Set - fill form with the API-URL. select data-tye (JSON, XML, CSV) etc. Test API response and you're ready to use the data
 * NEW: Use the API-Access-Set in Step 2: Generate a Shortcode for the data. The generatated Shortcode has all API-data, reduce it to your needs.
@@ -216,9 +219,5 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 
 
 == Upgrade Notice ==
-= 2.0.0 =
-* NEW: Create an API-Access-Set - fill form with the API-URL. select data-tye (JSON, XML, CSV) etc. Test API response and you're ready to use the data
-* NEW: Use the API-Access-Set in Step 2: Generate a Shortcode for the data. The generatated Shortcode has all API-data, reduce it to your needs.
-* NEW: Use the API-Access-Set with the PHP function jcifree_getjson("NAME_OF_API_ACCESS_SET");
-* Plugin OK with WordPress 6.7.1
-* Plugin ok with "Plugin Check (PCP) 1.3.1"
+= 2.0.1 =
+* BUGFIX: CSS in the WP-Backend 

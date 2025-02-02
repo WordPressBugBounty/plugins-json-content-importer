@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Get Use APIs - JSON Content Importer 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/json-content-"
 "importer\n"
-"POT-Creation-Date: 2024-12-15 21:57+0100\n"
-"PO-Revision-Date: 2024-12-15 21:59+0100\n"
+"POT-Creation-Date: 2025-01-16 22:42+0100\n"
+"PO-Revision-Date: 2025-01-16 22:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -231,7 +231,7 @@ msgstr ""
 msgid "API answer"
 msgstr "API-Antwort"
 
-#: block/index.php:293 class-json-content-importer.php:390
+#: block/index.php:293 class-json-content-importer.php:394
 msgid ""
 "Inspect JSON: Copypaste (click in box, Strg-A marks all, then insert into "
 "clipboard) the JSON from the following box to"
@@ -408,8 +408,8 @@ msgstr "KEINES dieser Wörter darf angezeigt werden:"
 msgid "JSON-depth of the above NOT displayed Words:"
 msgstr "JSON-Tiefe der oben NICHT angezeigten Wörter:"
 
-#: class-fileload-cache-v2.php:66 class-fileload-cache-v2.php:393
-#: class-fileload-cache-v2.php:535 class-fileload-cache.php:26
+#: class-fileload-cache-v2.php:66 class-fileload-cache-v2.php:396
+#: class-fileload-cache-v2.php:538 class-fileload-cache.php:26
 msgid "Initialize of WP_Filesystem failed"
 msgstr "Initialisierung von WP_Filesystem fehlgeschlagen"
 
@@ -474,23 +474,23 @@ msgstr "fallback2cache ok: zwischengespeicherte JSON gefunden"
 msgid "fallback2cache failed: no cached JSON found"
 msgstr "fallback2cache fehlgeschlagen: kein JSON im Cache gefunden"
 
-#: class-json-content-importer.php:119
+#: class-json-content-importer.php:120
 msgid "API-Access-Set"
 msgstr "API-Access-Set"
 
-#: class-json-content-importer.php:121
+#: class-json-content-importer.php:122
 msgid "defined in Shortcode not found"
 msgstr "definiert in Shortcode nicht gefunden"
 
-#: class-json-content-importer.php:278
+#: class-json-content-importer.php:281
 msgid "Cache is active"
 msgstr "Cache ist aktiv"
 
-#: class-json-content-importer.php:280
+#: class-json-content-importer.php:283
 msgid "Cache is NOT active"
 msgstr "Cache ist NICHT aktiv"
 
-#: class-json-content-importer.php:299
+#: class-json-content-importer.php:303
 msgid ""
 "No URL defined: Check the shortcode - one typical error: is there a blank "
 "after url= ?"
@@ -498,7 +498,7 @@ msgstr ""
 "Keine URL definiert: Überprüfen Sie den Shortcode - ein typischer Fehler: "
 "Steht ein Leerzeichen nach url= ?"
 
-#: class-json-content-importer.php:385
+#: class-json-content-importer.php:389
 msgid ""
 "EMPTY api-answer: No JSON received - is the API down? Check the URL you use "
 "in the shortcode!"
@@ -506,11 +506,11 @@ msgstr ""
 "LEERE API-Antwort: Kein JSON empfangen - ist die API ausgefallen? Überprüfen "
 "Sie die URL, die Sie im Shortcode verwenden!"
 
-#: class-json-content-importer.php:390
+#: class-json-content-importer.php:394
 msgid "api-answer"
 msgstr "API Antwort"
 
-#: class-json-content-importer.php:438
+#: class-json-content-importer.php:465
 msgid "result:"
 msgstr "ergebnis:"
 
@@ -635,20 +635,20 @@ msgstr "Ändern Sie das API-Access-Set"
 msgid "API-answer"
 msgstr "API Antwort"
 
-#: getlib.php:431
+#: getlib.php:431 options.php:543
 msgid "Valid JSON received?"
 msgstr "Gültiges JSON erhalten?"
 
-#: getlib.php:435
+#: getlib.php:435 options.php:548
 msgid "decoding ok, we got JSON-data!"
 msgstr "dekodierung ok, wir haben JSON-Daten!"
 
-#: getlib.php:439
+#: getlib.php:439 options.php:551
 msgid "decoding failed, API-answer was packed into nojsonvalue-JSON"
 msgstr ""
 "dekodierung fehlgeschlagen, API-Antwort wurde in nojsonvalue-JSON gepackt"
 
-#: getlib.php:442
+#: getlib.php:442 options.php:554
 msgid ""
 "decoding due to invalid JSON failed. Check structure and encoding of JSON-"
 "data"
@@ -1125,27 +1125,27 @@ msgstr "dieses API-Access-Set löschen"
 msgid "Hello, this is a plugin: You must not call me directly."
 msgstr "Hallo, dies ist ein Plugin: Sie dürfen mich nicht direkt anrufen."
 
-#: json-content-importer.php:249
+#: json-content-importer.php:261
 msgid "Gutenberg-Mode of Plugin switched off in Options"
 msgstr "Gutenberg-Modus des Plugins in den Optionen ausgeschaltet"
 
-#: json-content-importer.php:251
+#: json-content-importer.php:263
 msgid "Gutenberg-Plugin-Mode"
 msgstr "Gutenberg-Plugin-Mode"
 
-#: json-content-importer.php:253
+#: json-content-importer.php:265
 msgid "No Gutenberg: Classic Editor Plugin active"
 msgstr "Kein Gutenberg: Classic Editor-Plugin aktiv"
 
-#: json-content-importer.php:255
+#: json-content-importer.php:267
 msgid "JCI Block is available"
 msgstr "JCI Block ist verfügbar"
 
-#: json-content-importer.php:257
+#: json-content-importer.php:269
 msgid "Gutenberg not available"
 msgstr "Gutenberg nicht verfügbar"
 
-#: json-content-importer.php:262
+#: json-content-importer.php:274
 msgid "Upgrade to PRO-Version"
 msgstr "Upgrade auf die PRO-Version"
 
@@ -1177,7 +1177,7 @@ msgstr "Schritt 2: Daten verwenden"
 msgid "Support"
 msgstr "Unterstützung"
 
-#: options.php:32 options.php:715
+#: options.php:32 options.php:761
 msgid "JCI BugBounty Program"
 msgstr "JCI-BugBounty-Programm"
 
@@ -1486,11 +1486,12 @@ msgstr "API-Access-Set und PHP"
 #: options.php:371
 msgid ""
 "If you are familiar with PHP, you can use the PHP function provided by the "
-"plugin: jcifree_getjson($api_set, $cacheinsec=0, $debugmode=FALSE)"
+"plugin: jcifree_getjson($api_set, $convert_xmlcsv_to_json=FALSE, "
+"$cacheinsec=0, $debugmode=FALSE)"
 msgstr ""
 "Wenn Sie mit PHP vertraut sind, können Sie die vom Plugin bereitgestellte "
-"PHP-Funktion verwenden: jcifree_getjson($api_set, $cacheinsec=0, "
-"$debugmode=FALSE)"
+"PHP-Funktion verwenden: jcifree_getjson($api_set, "
+"$convert_xmlcsv_to_json=FALSE, $cacheinsec=0, $debugmode=FALSE)"
 
 #: options.php:373
 msgid "Create a API-Access-Set, name and store it:"
@@ -1594,7 +1595,7 @@ msgstr "Reiner Shortcode-Weg"
 msgid "Local test API-URL"
 msgstr "Lokale Test-API-URL"
 
-#: options.php:428 options.php:564
+#: options.php:428 options.php:610
 msgid "Test Shortcode"
 msgstr "Test Shortcode"
 
@@ -1757,52 +1758,56 @@ msgstr ""
 msgid "No API Access Set defined: Create one in Step 1 please!"
 msgstr "Kein API Access Set definiert: Bitte erstellen Sie eines in Schritt 1!"
 
-#: options.php:528
+#: options.php:566
 msgid "Use data: Generate Shortcode"
 msgstr "Daten verwenden: Shortcode generieren"
 
-#: options.php:561
+#: options.php:578
+msgid "PHP function"
+msgstr "PHP Funktion"
+
+#: options.php:607
 msgid "Shortcode-Way: Simple Example"
 msgstr "Shortcode-Weg: Einfaches Beispiel"
 
-#: options.php:563
+#: options.php:609
 msgid "API-URL"
 msgstr "API-URL"
 
-#: options.php:573
+#: options.php:619
 msgid "Insert this Shortcode on a page: It displays debug info"
 msgstr ""
 "Fügen Sie diesen Shortcode in eine Seite ein: Er zeigt Debug-Informationen an"
 
-#: options.php:574
+#: options.php:620
 msgid "and JSON data starting with the node"
 msgstr "und JSON-Daten, beginnend mit dem Knoten"
 
-#: options.php:577
+#: options.php:623
 msgid "Videos showing examples"
 msgstr "Videos mit Beispielen"
 
-#: options.php:579
+#: options.php:625
 msgid "Video How to: First Shortcode with JSON Content Importer"
 msgstr "Video-Anleitung: Erster Shortcode mit JSON-Inhaltsimporter"
 
-#: options.php:580
+#: options.php:626
 msgid "Video How to: Wikipedia API, JSON Content Importer and WordPress"
 msgstr "Video-Anleitung: Wikipedia API, JSON-Inhaltsimporter und WordPress"
 
-#: options.php:581
+#: options.php:627
 msgid "see doc.json-content-importer.com for more syntax details"
 msgstr "siehe doc.json-content-importer.com für weitere Details zur Syntax"
 
-#: options.php:582
+#: options.php:628
 msgid "see api.json-content-importer.com for examples"
 msgstr "siehe api.json-content-importer.com für Beispiele"
 
-#: options.php:586
+#: options.php:632
 msgid "JCI-Shortcode: Parameter and Template"
 msgstr "JCI-Kurzcode: Parameter und Template"
 
-#: options.php:587
+#: options.php:633
 msgid ""
 "This is the basic setup of the JCI-Shortcode (remove the linefeeds when "
 "using it on a page, please)"
@@ -1810,17 +1815,17 @@ msgstr ""
 "Dies ist der grundlegende Aufbau des JCI-Shortcodes (bitte entfernen Sie die "
 "Zeilenumbrüche, wenn Sie ihn auf einer Seite verwenden)"
 
-#: options.php:591
+#: options.php:637
 msgid "number: if 10 show backstage- and debug-info"
 msgstr "nummer: wenn 10 Backstage- und Debug-Informationen anzeigen"
 
-#: options.php:592
+#: options.php:638
 msgid "number: who many seconds for loading url till timeout?"
 msgstr ""
 "anzahl: Wie viele Sekunden warten auf das Laden der URL bis zur "
 "Zeitüberschreitung?"
 
-#: options.php:593
+#: options.php:639
 msgid ""
 "number: how many items of level 1 should be displayed? display all: leave "
 "empty"
@@ -1828,11 +1833,11 @@ msgstr ""
 "number: wie viele Artikel der Ebene 1 sollen angezeigt werden? display all: "
 "leer lassen"
 
-#: options.php:594
+#: options.php:640
 msgid "JSON-node where the plugins starts using the JSON"
 msgstr "JSON-Knoten, an dem die Plugins beginnen, das JSON zu verwenden"
 
-#: options.php:595
+#: options.php:641
 msgid ""
 "default empty, if not empty keywords spearated by','. At least one of these "
 "keywords must be in the created text (here: text=code without html-tags)"
@@ -1841,12 +1846,12 @@ msgstr ""
 "getrennt. Mindestens eines dieser Schlüsselwörter muss in dem erstellten "
 "Text enthalten sein (hier: text=code ohne html-Tags)"
 
-#: options.php:596
+#: options.php:642
 msgid ""
 "default: 1, number:where in the JSON-tree oneofthesewordsmustbein must be?"
 msgstr "default: 1, number:wo im JSON-Baum eines dieser Wörter stehen muss?"
 
-#: options.php:597
+#: options.php:643
 msgid ""
 "default empty, if not empty keywords spearated by ','. If one of these "
 "keywords is in the created text, this textblock is igonred (here: text=code "
@@ -1856,30 +1861,30 @@ msgstr ""
 "getrennt. Wenn eines dieser Schlüsselwörter im erstellten Text vorkommt, "
 "wird dieser Textblock igonred (hier: text=code ohne html-Tags)"
 
-#: options.php:598
+#: options.php:644
 msgid ""
 "default: 1, number:where in the JSON-tree oneofthesewordsmustnotbein must be?"
 msgstr ""
 "default: 1, number: wo im JSON-Baum eines dieser Wörter nicht sein darf?"
 
-#: options.php:600
+#: options.php:646
 msgid "Any HTML-Code plus \"basenode\"-datafields wrapped in \"{}\""
 msgstr "Beliebiger HTML-Code plus \"basenode\"-Datenfelder umhüllt von \"{}\""
 
-#: options.php:602
+#: options.php:648
 msgid ""
 "{subloop:\"basenode_subloop\":\"number of subloop-datasets to be displayed\"}"
 msgstr ""
 "{subloop: \"basenode_subloop\": \"Anzahl der anzuzeigenden Subloop-"
 "Datensätze\"}"
 
-#: options.php:603
+#: options.php:649
 msgid "  Any HTML-Code plus \"basenode_subloop\"-datafields wrapped in \"{}\""
 msgstr ""
 "  Beliebiger HTML-Code plus \"basenode_subloop\"-Datenfelder eingeschlossen "
 "in \"{}\""
 
-#: options.php:604
+#: options.php:650
 msgid ""
 "  {subloop-array:\"basenode_subloop_array\":\"number of subloop-array-"
 "datasets to be displayed\"}"
@@ -1887,7 +1892,7 @@ msgstr ""
 "  {subloop-array: \"basenode_subloop_array\": \"Anzahl der anzuzeigenden "
 "subloop-array-Datensätze\"}"
 
-#: options.php:605
+#: options.php:651
 msgid ""
 "    Any HTML-Code plus \"basenode_subloop_array\"-datafields wrapped in "
 "\"{}\""
@@ -1895,19 +1900,19 @@ msgstr ""
 "    Beliebiger HTML-Code plus \"basenode_subloop_array\"-Datenfelder umhüllt "
 "von \"{}\""
 
-#: options.php:606
+#: options.php:652
 msgid "  {/subloop-array:\"basenode_subloop_array\"}"
 msgstr "  {/subloop-array:\"basenode_subloop_array\"}"
 
-#: options.php:607
+#: options.php:653
 msgid "{/subloop:\"basenode_subloop\"}"
 msgstr "{/subloop:\"basenode_subloop\"}"
 
-#: options.php:615
+#: options.php:661
 msgid "JSON: List of items"
 msgstr "JSON: Liste der Elemente"
 
-#: options.php:616
+#: options.php:662
 msgid ""
 "The example JSON has a list of items names \"listofitems\". To display that "
 "see this syntax"
@@ -1915,7 +1920,7 @@ msgstr ""
 "Das JSON-Beispiel hat eine Liste von Elementen mit dem Namen "
 "\"listofitems\". Zur Anzeige dieser Liste siehe diese Syntax"
 
-#: options.php:625
+#: options.php:671
 msgid ""
 "This syntax gives you the items two, three and four (the internal "
 "enumeration is starting from 0) added with some extra chars."
@@ -1923,7 +1928,7 @@ msgstr ""
 "Mit dieser Syntax erhalten Sie die Einträge zwei, drei und vier (die interne "
 "Aufzählung beginnt bei 0), ergänzt um einige zusätzliche Zeichen."
 
-#: options.php:627
+#: options.php:673
 msgid ""
 "The free JCI Plugin does not have a loop-feature, you only can pick a "
 "defined item. The JCI PRO Plugin is doing this much easier by twig."
@@ -1932,11 +1937,11 @@ msgstr ""
 "können nur ein bestimmtes Element auswählen. Das JCI PRO Plugin macht dies "
 "viel einfacher mit Twig."
 
-#: options.php:630
+#: options.php:676
 msgid "Syntax for the datafields"
 msgstr "Syntax für die Datenfelder"
 
-#: options.php:632
+#: options.php:678
 msgid ""
 "Default-display of a datafield is NOT HTML: \"<\" etc. are converted to "
 "\"&amp;lt;\". Add \"html\" to display the HTML-Code as Code."
@@ -1945,7 +1950,7 @@ msgstr ""
 "\"&amp;lt;\" umgewandelt. Fügen Sie \"html\" hinzu, um den HTML-Code als "
 "Code anzuzeigen."
 
-#: options.php:633
+#: options.php:679
 msgid ""
 " Same as \"{street:html}\" plus Text-Linefeeds are converted to &lt;br&gt; "
 "HTML-Linebreaks"
@@ -1953,7 +1958,7 @@ msgstr ""
 " Gleich wie \"{street:html}\" plus Text-Zeilenumbrüche werden in &lt;br&gt; "
 "HTML-Zeilenumbrüche umgewandelt"
 
-#: options.php:634
+#: options.php:680
 msgid ""
 "If datafield \"street\" is not empty, add \",\" right of datafield-value. "
 "allowed chars are"
@@ -1961,15 +1966,15 @@ msgstr ""
 "Wenn das Datenfeld \"Straße\" nicht leer ist, fügen Sie \",\" rechts vom "
 "Datenfeldwert hinzu. zulässige Zeichen sind"
 
-#: options.php:635
+#: options.php:681
 msgid "you can combine \"html\" and \"ifNotEmptyAdd...\" like this"
 msgstr "sie können \"html\" und \"ifNotEmptyAdd...\" wie folgt kombinieren"
 
-#: options.php:636
+#: options.php:682
 msgid "some as"
 msgstr "einige als"
 
-#: options.php:637
+#: options.php:683
 msgid ""
 "If datafield \"street\" is not empty, add \",\" left of datafield-value. "
 "allowed chars are"
@@ -1977,7 +1982,7 @@ msgstr ""
 "Wenn das Datenfeld \"Straße\" nicht leer ist, fügen Sie links vom "
 "Datenfeldwert \",\" hinzu. zulässige Zeichen sind"
 
-#: options.php:638
+#: options.php:684
 msgid ""
 "Insert the php-urlencoded value of the datafield \"locationname\". Needed "
 "when building URLs. \"html\" does not work here."
@@ -1985,27 +1990,27 @@ msgstr ""
 "Fügen Sie den php-urlencodierten Wert des Datenfeldes \"locationname\" ein. "
 "Wird bei der Erstellung von URLs benötigt. \"html\" funktioniert hier nicht."
 
-#: options.php:646
+#: options.php:692
 msgid "Get Help - Get Support"
 msgstr "Hilfe  und Unterstützung erhalten"
 
-#: options.php:647
+#: options.php:693
 msgid "Help Resources"
 msgstr "Hilfe-Ressourcen"
 
-#: options.php:649
+#: options.php:695
 msgid "Visit doc.json-content-importer.com for the JCI manual."
 msgstr "Besuchen Sie doc.json-content-importer.com für das JCI-Handbuch."
 
-#: options.php:650
+#: options.php:696
 msgid "Visit api.json-content-importer.com for many live examples."
 msgstr "Unter api.json-content-importer.com finden Sie viele Live-Beispiele."
 
-#: options.php:653
+#: options.php:699
 msgid "Individual Support"
 msgstr "Individuelle Unterstützung"
 
-#: options.php:655
+#: options.php:701
 msgid ""
 "Visit doc.json-content-importer.com for information on obtaining help and "
 "support, either either through public channels at wordpress.org or via "
@@ -2015,7 +2020,7 @@ msgstr ""
 "Support zu erhalten, entweder über die öffentlichen Kanäle auf wordpress.org "
 "oder über private Wege."
 
-#: options.php:656
+#: options.php:702
 msgid ""
 "Private support is sometimes preferable as posting API keys or tokens "
 "publicly is not a good idea."
@@ -2023,15 +2028,15 @@ msgstr ""
 "Individuelle Unterstützung ist manchmal vorzuziehen, da es keine gute Idee "
 "ist, API-Schlüssel oder Token öffentlich zu veröffentlichen."
 
-#: options.php:665
+#: options.php:711
 msgid "Welcome to the JSON Content Importer Plugin!"
 msgstr "Willkommen bei dem JSON Content Importer Plugin!"
 
-#: options.php:666
+#: options.php:712
 msgid "Thank you!"
 msgstr "Vielen Dank!"
 
-#: options.php:674
+#: options.php:720
 msgid ""
 "We're thrilled to have you using this Plugin. With the JSON Content Importer "
 "Plugin, you'll have the power to retrieve, transform, and publish data "
@@ -2041,7 +2046,7 @@ msgstr ""
 "Importer Plugin haben Sie die Möglichkeit, Daten nahtlos in Ihrer WordPress-"
 "Umgebung abzurufen, zu transformieren und zu veröffentlichen."
 
-#: options.php:675
+#: options.php:721
 msgid ""
 "Whether you're looking to incorporate dynamic content, integrate APIs, or "
 "enhance your website's functionality, our plugin is here to make the process "
@@ -2051,7 +2056,7 @@ msgstr ""
 "Funktionalität Ihrer Website verbessern möchten, unser Plugin macht den "
 "Prozess mühelos und effizient. "
 
-#: options.php:676
+#: options.php:722
 msgid ""
 "With its user-friendly interface and powerful features, you'll be able to "
 "import and display data from JSON feeds with ease."
@@ -2060,7 +2065,7 @@ msgstr ""
 "Funktionen können Sie Daten aus JSON-Feeds problemlos importieren und "
 "anzeigen."
 
-#: options.php:677
+#: options.php:723
 msgid ""
 "Along the way, we're happy to assist you. If you have any questions, "
 "encounter challenges, or need guidance, feel free to reach out."
@@ -2069,7 +2074,7 @@ msgstr ""
 "auf Herausforderungen stoßen oder Beratung benötigen, können Sie sich "
 "jederzeit an uns wenden."
 
-#: options.php:678
+#: options.php:724
 msgid ""
 "We believe in the power of data and its ability to transform websites into "
 "dynamic, engaging platforms. With the JSON Content Importer Plugin, you're "
@@ -2082,7 +2087,7 @@ msgstr ""
 "unendlich viele Möglichkeiten zur Datenintegration und Inhaltsverbesserung "
 "eröffnet."
 
-#: options.php:679
+#: options.php:725
 msgid ""
 "Once again, welcome to the JSON Content Importer Plugin! We can't wait to "
 "see how you leverage its potential and create extraordinary experiences on "
@@ -2094,26 +2099,26 @@ msgstr ""
 "außergewöhnliche Erlebnisse auf Ihrer WordPress-Website schaffen. Legen Sie "
 "noch heute los und erschließen Sie die wahre Macht datengesteuerter Inhalte."
 
-#: options.php:681
+#: options.php:727
 msgid "Start your JCI: Step by Step"
 msgstr "Starte deine JCI: Schritt für Schritt"
 
-#: options.php:685
+#: options.php:731
 msgid "Check Installation: Is your WordPress ready for JCI? Most probably!"
 msgstr ""
 "Installation prüfen: Ist Ihr WordPress bereit für JCI? Höchstwahrscheinlich!"
 
-#: options.php:689
+#: options.php:735
 msgid "Basic Settings: Check SSL, Cacher, Gutenberg and Authentication"
 msgstr ""
 "Grundeinstellungen: SSL, Cacher, Gutenberg und Authentifizierung prüfen"
 
-#: options.php:693
+#: options.php:739
 msgid "Step 1: Get data! Ask the API and check the answer"
 msgstr ""
 "Schritt 1: Daten abrufen! Fragen Sie die API und prüfen Sie die Antwort"
 
-#: options.php:697
+#: options.php:743
 msgid ""
 "Step 2: Use data! See how you can display the data with a Shortcode or a "
 "Gutenberg Block"
@@ -2121,7 +2126,7 @@ msgstr ""
 "Schritt 2: Verwenden Sie Daten! Sehen Sie, wie Sie die Daten mit einem "
 "Shortcode oder einem Gutenberg-Block anzeigen können"
 
-#: options.php:701
+#: options.php:747
 msgid ""
 "Need Support? Help needed? Using an API might be tricky, and we're here to "
 "help!"
@@ -2129,7 +2134,7 @@ msgstr ""
 "Brauchen Sie Unterstützung? Sie brauchen Hilfe? Die Verwendung einer API "
 "kann kompliziert sein, und wir sind hier, um zu helfen!"
 
-#: options.php:705
+#: options.php:751
 msgid ""
 "Check the JCI PRO Plugin: Unlock the full power of JCI! Use the discount "
 "code!"
@@ -2137,7 +2142,7 @@ msgstr ""
 "Prüfen Sie das JCI PRO Plugin: Schalten Sie die volle Leistung von JCI frei! "
 "Verwenden Sie den Rabatt-Code!"
 
-#: options.php:716
+#: options.php:762
 msgid ""
 "Participate in the bug bounty program and receive a reward for discovered "
 "vulnerabilities."
@@ -2145,7 +2150,7 @@ msgstr ""
 "Nehmen Sie am Bug Bounty Programm teil und erhalten Sie eine Belohnung für "
 "entdeckte Schwachstellen."
 
-#: options.php:718
+#: options.php:764
 msgid ""
 "We offer several Wordpress Plugins and Websites. The security of data and "
 "processes is of the highest priority. However, despite our best efforts, "
@@ -2157,7 +2162,7 @@ msgstr ""
 "these digital services may still contain vulnerabilities that are not yet "
 "known to us."
 
-#: options.php:722
+#: options.php:768
 msgid ""
 "Therefore, we are very grateful for any indications of Vulnerabilities!"
 "Please note: Searching for vulnerabilities may possibly constitute a "
@@ -2169,24 +2174,24 @@ msgstr ""
 "rechtliche Schwierigkeiten zu vermeiden, bitten wir Sie, sich an die "
 "folgenden Regeln zu halten!"
 
-#: options.php:724
+#: options.php:770
 msgid "How exactly does that work?"
 msgstr "Wie genau soll das funktionieren?"
 
-#: options.php:727
+#: options.php:773
 msgid ""
 "On json-content-importer.com/bugbounty you will find all the information"
 msgstr "Auf json-content-importer.com/bugbounty findest du alle Informationen"
 
-#: options.php:736
+#: options.php:782
 msgid "General Data Protection Regulation (GDPR)"
 msgstr "General Data Protection Regulation (GDPR)"
 
-#: options.php:737
+#: options.php:783
 msgid "The General Data Protection Regulation"
 msgstr "Die Datenschutzgrundverordnung"
 
-#: options.php:738
+#: options.php:784
 msgid ""
 "(\"GDPR\") is a regulation in EU law on data protection and privacy for all "
 "individuals within the European Union (EU) and the European Economic Area "
@@ -2196,16 +2201,16 @@ msgstr ""
 "Schutz der Privatsphäre für alle Personen in der Europäischen Union (EU) und "
 "dem Europäischen Wirtschaftsraum (EWR)"
 
-#: options.php:739
+#: options.php:785
 msgid "see more on that at Wikipedia"
 msgstr "mehr dazu bei Wikipedia"
 
-#: options.php:740
+#: options.php:786
 msgid "In the context of this plugin, GDPR is relevant in the following way:"
 msgstr ""
 "Im Zusammenhang mit diesem Plugin ist die DSGVO auf folgende Weise relevant:"
 
-#: options.php:742
+#: options.php:788
 msgid ""
 "If you use the plugin to retrieve data from APIs, transform it, and display "
 "it on a website, it is important to consider GDPR compliance. In this case, "
@@ -2216,27 +2221,27 @@ msgstr ""
 "zu berücksichtigen. In diesem Fall fungiert das Plugin als ein Stück "
 "Software, das mit den Daten interagiert. "
 
-#: options.php:744
+#: options.php:790
 msgid "Therefore, you should include the plugin in your "
 msgstr "Daher sollten Sie das Plugin in Ihr "
 
-#: options.php:746
+#: options.php:792
 msgid "GDPR-\"Records of processing activities\""
 msgstr "GDPR - \"Aufzeichnungen über Verarbeitungstätigkeiten\""
 
-#: options.php:748
+#: options.php:794
 msgid "if the data involved contains personal information."
 msgstr "wenn die betreffenden Daten personenbezogene Informationen enthalten."
 
-#: options.php:752
+#: options.php:798
 msgid "Cyber Resilience Act (CRA)"
 msgstr "Cyber Resilience Act (CRA)"
 
-#: options.php:753
+#: options.php:799
 msgid "What is the CRA?"
 msgstr "Was ist die CRA?"
 
-#: options.php:754
+#: options.php:800
 msgid ""
 "The EU Cyber Resilience Act establishes cybersecurity requirements for "
 "digital products and services throughout their lifecycle to enhance "
@@ -2247,51 +2252,51 @@ msgstr ""
 "die Widerstandsfähigkeit gegen Cyberbedrohungen zu erhöhen und einen "
 "sicheren digitalen Binnenmarkt zu gewährleisten."
 
-#: options.php:755
+#: options.php:801
 msgid "more"
 msgstr "mehr"
 
-#: options.php:755
+#: options.php:801
 msgid "EU Cyber Resilience Act"
 msgstr "EU Cyber Resilience Act"
 
-#: options.php:757
+#: options.php:803
 msgid "Software Bill of Material (SBOM)"
 msgstr "Software Bill of Material (SBOM)"
 
-#: options.php:759
+#: options.php:805
 msgid "Component Name"
 msgstr "Komponentenname"
 
-#: options.php:760
+#: options.php:806
 msgid "Version"
 msgstr "Version"
 
-#: options.php:761
+#: options.php:807
 msgid "Licensee"
 msgstr "Lizenznehmer"
 
-#: options.php:762
+#: options.php:808
 msgid "Suppliere"
 msgstr "Unterstützung"
 
-#: options.php:763
+#: options.php:809
 msgid "Type"
 msgstr "Typ"
 
-#: options.php:764
+#: options.php:810
 msgid "Library"
 msgstr "Bibliothek"
 
-#: options.php:768
+#: options.php:814
 msgid "jsTree: MIT Licence"
 msgstr "jsTree: MIT-Lizenz"
 
-#: options.php:792
+#: options.php:838
 msgid "JCI PRO is much simpler and more powerful than JCI Free!"
 msgstr "JCI PRO ist viel einfacher und leistungsfähiger als JCI Free!"
 
-#: options.php:794
+#: options.php:840
 msgid ""
 "Both the free and PRO JCI Plugins serve the same purpose: retrieving data, "
 "transforming it, and publishing the results."
@@ -2299,7 +2304,7 @@ msgstr ""
 "Sowohl das kostenlose als auch das PRO JCI Plugin dienen demselben Zweck: "
 "Daten abrufen, umwandeln und die Ergebnisse veröffentlichen."
 
-#: options.php:796
+#: options.php:842
 msgid ""
 "However, while the free Plugin can only handle basic challenges, the PRO JCI "
 "Plugin offers nearly full control over WordPress, the database, and "
@@ -2309,7 +2314,7 @@ msgstr ""
 "bewältigen kann, bietet das PRO JCI Plugin eine nahezu vollständige "
 "Kontrolle über WordPress, die Datenbank und die Anwendungen."
 
-#: options.php:798
+#: options.php:844
 msgid ""
 "Get JSON: Unlike the limited methods of the free JCI, the JCI PRO can access "
 "almost any data: locally from files, remotely via any known authentication."
@@ -2318,7 +2323,7 @@ msgstr ""
 "JCI kann die JCI PRO auf fast alle Daten zugreifen: lokal aus Dateien, "
 "remote über jede bekannte Authentifizierung."
 
-#: options.php:799
+#: options.php:845
 msgid ""
 "Use JSON: While the free JCI can handle JSON, the JCI PRO can work with any "
 "data source and is able to build applications."
@@ -2327,7 +2332,7 @@ msgstr ""
 "JCI PRO mit jeder Datenquelle arbeiten und ist in der Lage, Anwendungen zu "
 "erstellen."
 
-#: options.php:800
+#: options.php:846
 msgid ""
 "To achieve this, the JCI PRO offers the twig parser and many extensions. "
 "Various WordPress and Database functions are available to give you full "
@@ -2337,7 +2342,7 @@ msgstr ""
 "Erweiterungen. Verschiedene WordPress- und Datenbankfunktionen sind "
 "verfügbar, um Ihnen die volle Kontrolle zu geben."
 
-#: options.php:803
+#: options.php:849
 msgid ""
 "Try it without risk: We offer a full refund if the PRO plugin cannot solve "
 "your challenge"
@@ -2345,26 +2350,26 @@ msgstr ""
 "Testen Sie es ohne Risiko: Wir bieten eine volle Rückerstattung, wenn das "
 "PRO-Plugin Ihre Herausforderung nicht lösen kann"
 
-#: options.php:813
+#: options.php:859
 msgid ""
 "Click here to upgrade to the JCI PRO Plugin and unlock the full power of JCI!"
 msgstr ""
 "Klicken Sie hier, um auf das JCI PRO Plugin upzugraden und die volle "
 "Leistung von JCI freizuschalten!"
 
-#: options.php:816
+#: options.php:862
 msgid "PRO-Plugin: All free features plus..."
 msgstr "PRO-Plugin: Alle kostenlosen Funktionen plus..."
 
-#: options.php:818
+#: options.php:864
 msgid "Support and ongoing development"
 msgstr "Unterstützung und laufende Entwicklung"
 
-#: options.php:819
+#: options.php:865
 msgid "handling of a wider range of JSON-feeds / APIs"
 msgstr "umgang mit einer größeren Anzahl von JSON-Feeds / APIs"
 
-#: options.php:820
+#: options.php:866
 msgid ""
 "enhanced template engine: the plugin-own engine is better, the famous twig-"
 "engine is the PRO-alternative"
@@ -2372,49 +2377,49 @@ msgstr ""
 "verbesserte Template-Engine: die Plugin-eigene Engine ist besser, die "
 "bekannte Twig-Engine ist die PRO-Alternative"
 
-#: options.php:821
+#: options.php:867
 msgid "template-manager: store templates independent of pages"
 msgstr "template-Manager: Speichern von Templates unabhängig von Seiten"
 
-#: options.php:822
+#: options.php:868
 msgid "display as widget at the sidebar or footer"
 msgstr "anzeige als Widget in der Seitenleiste oder Fußzeile"
 
-#: options.php:823
+#: options.php:869
 msgid "build applications: select JSON-feed on the fly"
 msgstr "anwendungen erstellen: JSON-Feed on the fly auswählen"
 
-#: options.php:824
+#: options.php:870
 msgid "create WordPress-Pages and CPT, fill CPF"
 msgstr "wordPress-Seiten und CPT erstellen, CPF ausfüllen"
 
-#: options.php:825
+#: options.php:871
 msgid "use Toolset and Elementor with JCI PRO"
 msgstr "toolset und Elementor mit JCI PRO verwenden"
 
-#: options.php:826
+#: options.php:872
 msgid "third-party shortcodes work inside the jsoncontentimporter-shortcode"
 msgstr ""
 "shortcodes von Drittanbietern funktionieren innerhalb des "
 "jsoncontentimporter-Shortcodes"
 
-#: options.php:827
+#: options.php:873
 msgid "and a lot more..."
 msgstr "und vieles mehr..."
 
-#: options.php:830
+#: options.php:876
 msgid "Compare free and PRO JSON Content Importer Plugin"
 msgstr "Vergleich von kostenlosem und PRO JSON Content Importer Plugin"
 
-#: options.php:830
+#: options.php:876
 msgid "Compare free and PRO JSON Content Importer"
 msgstr "Vergleich zwischen kostenlosem und PRO JSON Content Importer"
 
-#: options.php:833
+#: options.php:879
 msgid "Some JCI PRO highlights"
 msgstr "Einige Highlights von JCI PRO"
 
-#: options.php:835
+#: options.php:881
 msgid ""
 "Twig template engine: Much simpler Syntax and logic (if statements, etc.) in "
 "your templates"
@@ -2422,19 +2427,19 @@ msgstr ""
 "Twig-Vorlagen-Engine: Viel einfachere Syntax und Logik (if-Anweisungen usw.) "
 "in Ihren Vorlagen"
 
-#: options.php:837
+#: options.php:883
 msgid "E. g. instead of "
 msgstr "Z. B. statt "
 
-#: options.php:839
+#: options.php:885
 msgid "use the twig Syntax"
 msgstr "die twig-Syntax verwenden"
 
-#: options.php:840
+#: options.php:886
 msgid "Example with a real API"
 msgstr "Beispiel mit einer echten API"
 
-#: options.php:843
+#: options.php:889
 msgid ""
 "Template-Manager: No more hassle with line breaks, and a single place to "
 "store templates for use on multiple pages."
@@ -2442,11 +2447,11 @@ msgstr ""
 "Vorlagen-Manager: Kein Ärger mehr mit Zeilenumbrüchen und ein einziger Ort "
 "zum Speichern von Vorlagen für die Verwendung auf mehreren Seiten."
 
-#: options.php:844
+#: options.php:890
 msgid "Format date and time"
 msgstr "Datum und Uhrzeit formatieren"
 
-#: options.php:845
+#: options.php:891
 msgid ""
 "Application building: E. g. pass GET/POST-parameter from Wordpress to JSON-"
 "feed"
@@ -2454,55 +2459,55 @@ msgstr ""
 "Erstellen von Anwendungen: Z. B. GET/POST-Parameter von Wordpress an JSON-"
 "Feed übergeben"
 
-#: options.php:846
+#: options.php:892
 msgid "Openstreetmaps"
 msgstr "Openstreetmaps"
 
-#: options.php:847
+#: options.php:893
 msgid "Search: Faceted / Multisite"
 msgstr "Suche: Facettiert / Multisite"
 
-#: options.php:849
+#: options.php:895
 msgid "Shortcode inside template"
 msgstr "Shortcode innerhalb der Vorlage"
 
-#: options.php:850
+#: options.php:896
 msgid "Create custom post types out of JSON"
 msgstr "Erstellen Sie benutzerdefinierte Beitragstypen aus JSON"
 
-#: options.php:851
+#: options.php:897
 msgid "And much more..."
 msgstr "Und vieles mehr…"
 
-#: options.php:860
+#: options.php:906
 msgid "Check on requirements"
 msgstr "Überprüfung der Anforderungen"
 
-#: options.php:862
+#: options.php:908
 msgid "PHP-Version"
 msgstr "PHP-Version"
 
-#: options.php:866
+#: options.php:912
 msgid "Installed PHP version"
 msgstr "Installierte PHP-Version"
 
-#: options.php:867
+#: options.php:913
 msgid "Minimal required PHP version"
 msgstr "Minimal erforderliche PHP-Version"
 
-#: options.php:870
+#: options.php:916
 msgid "NOT"
 msgstr "NEIN"
 
-#: options.php:874 options.php:885
+#: options.php:920 options.php:931
 msgid "OK"
 msgstr "OK"
 
-#: options.php:880
+#: options.php:926
 msgid "allow_url_fopen"
 msgstr "allow_url_fopen"
 
-#: options.php:881
+#: options.php:927
 msgid ""
 "Is Worpdress allowed to do remote http-requests (some hoster switch that off "
 "for security reasons)"
@@ -2510,11 +2515,11 @@ msgstr ""
 "Darf Worpdress http-Fernabfragen durchführen (einige Hoster schalten dies "
 "aus Sicherheitsgründen ab)?"
 
-#: options.php:889
+#: options.php:935
 msgid "PHP allow_url_fopen check"
 msgstr "PHP allow_url_fopen Prüfung"
 
-#: options.php:892
+#: options.php:938
 msgid ""
 "NOT ok, allow_url_fopen NOT active: The security settings of your PHP / "
 "Webserver maybe prevent getting remote data via http-requests of URLs. You "
@@ -2525,16 +2530,16 @@ msgstr ""
 "über http-Requests von URLs. Es kann zu Timeout-Fehlern kommen, wenn Sie "
 "dieses Plugin verwenden.</b>"
 
-#: options.php:894
+#: options.php:940
 msgid "Ask your Serverhoster for setting \"allow_url_fopen\" TRUE"
 msgstr ""
 "Fragen Sie Ihren Serverhoster nach der Einstellung \"allow_url_fopen\" TRUE"
 
-#: options.php:900
+#: options.php:946
 msgid "JCI-Cacher: Present and writeable?"
 msgstr "JCI-Cacher: Präsent und beschreibbar?"
 
-#: options.php:902
+#: options.php:948
 msgid ""
 "Check JCI-cacher and cachefolder (directory where JSON-feeds are stored to "
 "reduce API-requests)"
@@ -2542,27 +2547,27 @@ msgstr ""
 "Überprüfen Sie JCI-Cacher und Cachefolder (Verzeichnis, in dem JSON-Feeds "
 "gespeichert werden, um API-Anfragen zu reduzieren)"
 
-#: options.php:905
+#: options.php:951
 msgid "Cache is active (see Tab 'Basic Settings')"
 msgstr "Cache ist aktiv (siehe Registerkarte 'Grundeinstellungen')"
 
-#: options.php:907
+#: options.php:953
 msgid "Cache is NOT active (see Tab 'Basic Settings')"
 msgstr "Der Cache ist NICHT aktiv (siehe Registerkarte 'Grundeinstellungen')"
 
-#: options.php:928
+#: options.php:974
 msgid "CacheFolder is present and writeable"
 msgstr "CacheFolder ist vorhanden und beschreibbar"
 
-#: options.php:934
+#: options.php:980
 msgid "CacheFolder is present but NOT writeable"
 msgstr "CacheFolder ist vorhanden, aber NICHT beschreibbar"
 
-#: options.php:942
+#: options.php:988
 msgid "CacheFolder is NOT present"
 msgstr "CacheFolder ist NICHT vorhanden"
 
-#: options.php:946
+#: options.php:992
 msgid ""
 "Don't panic: this is ok if JCI-cache was never active on this wordpress "
 "installation."
@@ -2570,40 +2575,40 @@ msgstr ""
 "Keine Panik: Das ist in Ordnung, wenn JCI-Cache auf dieser WordPress-"
 "Installation nie aktiv war."
 
-#: options.php:948
+#: options.php:994
 msgid ""
 "The directory is created the first time the cache is switched on and used!"
 msgstr ""
 "Das Verzeichnis wird erstellt, wenn der Cache zum ersten Mal eingeschaltet "
 "und benutzt wird!"
 
-#: options.php:962
+#: options.php:1008
 msgid "Deleting of cache failed because security check failed"
 msgstr ""
 "Das Löschen des Cache ist fehlgeschlagen, weil die Sicherheitsüberprüfung "
 "fehlgeschlagen ist"
 
-#: options.php:984
+#: options.php:1030
 msgid "JCI-Cacher: What is stored in the JCI-Cache?"
 msgstr "JCI-Cacher: Was wird im JCI-Cache gespeichert?"
 
-#: options.php:986
+#: options.php:1032
 msgid "Number of JSON-Cachefiles in"
 msgstr "Anzahl der JSON-Cachedateien in"
 
-#: options.php:993
+#: options.php:1039
 msgid "Size of JCI Cache"
 msgstr "Größe des JCI-Cache"
 
-#: options.php:997
+#: options.php:1043
 msgid "in"
 msgstr "in"
 
-#: options.php:1001
+#: options.php:1047
 msgid "Files"
 msgstr "Dateien"
 
-#: options.php:1006
+#: options.php:1052
 msgid ""
 "Calc of Cachefolder-Size failed due to missing PHP-Class (PHP7 or higher "
 "required)"
@@ -2611,11 +2616,11 @@ msgstr ""
 "Die Berechnung von Cachefolder-Size ist aufgrund einer fehlenden PHP-Klasse "
 "fehlgeschlagen (PHP7 oder höher erforderlich)"
 
-#: options.php:1013
+#: options.php:1059
 msgid "Click here to CLEAR JCI-CACHE"
 msgstr "Klicke hier, um JCI-CACHE zu CLEAREN"
 
-#: options.php:1075
+#: options.php:1121
 msgid "JSON-files from JCI-Cacher deleted"
 msgstr "JSON-Dateien von JCI-Cacher gelöscht"
 
@@ -2639,6 +2644,14 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "Bernhard Kux"
 msgstr "Bernhard Kux"
+
+#~ msgid ""
+#~ "If you are familiar with PHP, you can use the PHP function provided by "
+#~ "the plugin: jcifree_getjson($api_set, $cacheinsec=0, $debugmode=FALSE)"
+#~ msgstr ""
+#~ "Wenn Sie mit PHP vertraut sind, können Sie die vom Plugin bereitgestellte "
+#~ "PHP-Funktion verwenden: jcifree_getjson($api_set, $cacheinsec=0, "
+#~ "$debugmode=FALSE)"
 
 #~ msgid ""
 #~ "Once the data is successfully retrieved, you can use \"Step 2\" to "

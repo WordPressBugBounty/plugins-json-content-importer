@@ -9,15 +9,19 @@ function jci_create_menu() {
 
 function register_jcisettings() {
 	//register our settings
-	register_setting( 'jci-options', 'jci_json_url' );
-	register_setting( 'jci-options', 'jci_enable_cache' );
-	register_setting( 'jci-options', 'jci_cache_time' );
-	register_setting( 'jci-options', 'jci_cache_time_format' );
-	register_setting( 'jci-options', 'jci_oauth_bearer_access_key' );
-	register_setting( 'jci-options', 'jci_http_header_default_useragent' );
-	register_setting( 'jci-options', 'jci_gutenberg_off' );
-	register_setting( 'jci-options', 'jci_sslverify_off' );
-	register_setting( 'jci-options', 'jci_api_errorhandling' );
+	register_setting( 'jci-options', 'jci_json_url', 'jci_sanitize_callback_register_jcisettings' );
+	register_setting( 'jci-options', 'jci_enable_cache','jci_sanitize_callback_register_jcisettings' );
+	register_setting( 'jci-options', 'jci_cache_time','jci_sanitize_callback_register_jcisettings' );
+	register_setting( 'jci-options', 'jci_cache_time_format','jci_sanitize_callback_register_jcisettings' );
+	register_setting( 'jci-options', 'jci_oauth_bearer_access_key','jci_sanitize_callback_register_jcisettings' );
+	register_setting( 'jci-options', 'jci_http_header_default_useragent','jci_sanitize_callback_register_jcisettings' );
+	register_setting( 'jci-options', 'jci_gutenberg_off','jci_sanitize_callback_register_jcisettings' );
+	register_setting( 'jci-options', 'jci_sslverify_off','jci_sanitize_callback_register_jcisettings' );
+	register_setting( 'jci-options', 'jci_api_errorhandling','jci_sanitize_callback_register_jcisettings' );
+}
+
+function jci_sanitize_callback_register_jcisettings($input) {
+	return sanitize_text_field($input);
 }
 
 /* define tabs for plugin-admin-menu BEGIN*/
@@ -36,6 +40,8 @@ function jci_admin_tabs( $current = 'step1' ) {
           );
 
     echo '<h2 class="nav-tab-wrapper">';
+	wp_enqueue_style('jci-style-admin-tabs', plugin_dir_url(__FILE__) . 'css/jci.css', null, 1);
+	
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
 		if ('jcipro'==$tab) {
@@ -157,7 +163,7 @@ function jci_handle_input() {
 
 function jci_settings_page() {
 	$errorLevelSaveOptionsArr = jci_handle_input(); # save new settings if needed
-	wp_enqueue_style('jci-style', plugin_dir_url(__FILE__) . 'css/jci.css', null, 1);
+	wp_enqueue_style('jci-style-settings-page', plugin_dir_url(__FILE__) . 'css/jci_settings_page.css', null, 1);
 ?>
 <div class="wrap">
 
@@ -829,10 +835,10 @@ add_action('wp_footer', 'json_for_footer');
 	<?php
 	break;
 	case 'jcipro' :
+		wp_enqueue_style('jci-style-jcipro', plugin_dir_url(__FILE__) . 'css/jcipro.css', null, 1);
 	?>
 	<tr>
 		<td>
-		
 		<div class="wrap about-wrap">
 			<h1><?PHP 
 			esc_html_e('JCI PRO is much simpler and more powerful than JCI Free!', 'json-content-importer');?></h1
@@ -872,7 +878,6 @@ add_action('wp_footer', 'json_for_footer');
 			<li>&bull; <?PHP esc_html_e('third-party shortcodes work inside the jsoncontentimporter-shortcode', 'json-content-importer');?>
 			<li>&bull; <?PHP esc_html_e('and a lot more...', 'json-content-importer');?></li>
 		</ul>
-
 		<strong><a href="https://json-content-importer.com/compare/?sc=wp" target="_blank" title="<?php esc_html_e('Compare free and PRO JSON Content Importer Plugin', 'json-content-importer') ?>"><?php esc_html_e('Compare free and PRO JSON Content Importer', 'json-content-importer') ?></a></strong>
 		<hr>
 		<p>
