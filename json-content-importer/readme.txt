@@ -3,8 +3,8 @@ Contributors: berkux
 Tags: api, json, xml, csv, data
 Requires at least: 5.3
 Requires PHP: 7.0
-Tested up to: 6.7
-Stable tag: 2.0.1
+Tested up to: 6.7.2
+Stable tag: 2.0.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,11 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 9. JCI Block: Generate a template from JSON.
 	
 == Changelog ==
+= 2.0.2 =
+* BUGFIX: SSL-Verification 
+* Plugin OK with WordPress 6.7.2
+* Plugin ok with "Plugin Check (PCP) 1.4.0"
+
 = 2.0.1 =
 * BUGFIX: CSS in the WP-Backend 
 
@@ -187,37 +192,8 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 = 1.5.0 =
 * Versionproblems: Wordpress.org does not update from 1.4 to 1.4.1
 
-= 1.4.1 =
-* Bugfix: The default settings of the shortcode parameter basenode were incorrect. This has now been corrected.
-
-= 1.4 =
-* Recommendation: Please check your JCI cache! The plugin displays the number of files in the JCI cache and its size. You can delete the cached files by using the 'Clear Cache' function.
-* Significantly improved admin interface: Tabs, Tests, Settings, Step 1, Step 2...
-* Greatly enhanced JCI block. Better error handling, and as a highlight, the creation of templates.
-* New: Improved uninstall process.
-* Minor PHP 8 fixes
-* New Screenshots and improved Plugin-Description
-
-= 1.3.17 =
-* Wordpress 6.2 changed the way Blocks are rendered. This Update fixes the crash of the JCI-Block with wordpress 6.2
-
-= 1.3.16 =
-* Fixed security issue: Rio D. discovered and reported a Cross Site Scripting (XSS) vulnerability to Patchstack. Thank you Rio! For utilize you need Wordpress-Backend-Access and the affected Page is in the Wordpress-Adminarea only. Nevertheless: Update your JCI-Plugin, please!
-* PHP 8.1 fixes
-
-= 1.3.15 =
-* New! Use JCILISTITEM to show a JSON-List: {subloop-array:mylist:no_first_item,no_last_item}AA{JCILISTITEM}BB<<br>{/subloop-array:mylist}, see https://doc.json-content-importer.com/json-content-importer/free-show-the-data/ for more
-* Enhanced! "purejsondata,ifNotEmptyAdd", "purejsondata,ifNotEmptyAddRight", "purejsondata,ifNotEmptyAddLeftRight" and "purejsondata,ifNotEmptyAddLeft", e. g. {jsondata:purejsondata,ifNotEmptyAddLeft:TEXT}, see https://doc.json-content-importer.com/json-content-importer/free-show-the-data/ for more
-* Plugin Ok with WP 6.1.1
-* PHP 8.1 fixes
-
-= 1.3.14 =
-* New Shortcode-Parameter: "trytorepairjson=16" in the Shortcode removes non ASCII characters from the JSON data
-* Bugfix after Wordpress 6.0 changes: Load JSONcontentimporter-Quicktag in a slightly different way
-* Bugfix: Handling of JSON-Nodes containing ( or ) 
-* Plugin Ok with WP 6.0.2
-
-
 == Upgrade Notice ==
-= 2.0.1 =
-* BUGFIX: CSS in the WP-Backend 
+= 2.0.2 =
+* BUGFIX: SSL-Verification 
+* Plugin OK with WordPress 6.7.2
+* Plugin ok with "Plugin Check (PCP) 1.4.0"

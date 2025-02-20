@@ -1181,6 +1181,15 @@ private function replace_BRO_BRC($intxt) {
 		}
 	 
 		# echo "<hr>args: ".json_encode($args)."<hr>";
+		
+		$val_jci_sslverify_off = get_option('jci_sslverify_off') ?? 3;
+		if (1==$val_jci_sslverify_off ) {
+			$args['sslverify'] = false;
+		}
+		if (2==$val_jci_sslverify_off ) {
+			$args['sslverify'] = true;
+		}
+		
 	 
 		$response = wp_remote_get($url4curl, $args);
 		
@@ -1191,6 +1200,11 @@ private function replace_BRO_BRC($intxt) {
 		}
 		
 		$this->contenttype = wp_remote_retrieve_header($response, 'content-type');
+		if (is_object($response)) {
+			#var_Dump($response);
+			return json_encode($response);
+		}
+		#echo json_encode($response["body"]);
 		return $response["body"];
     }
 }
