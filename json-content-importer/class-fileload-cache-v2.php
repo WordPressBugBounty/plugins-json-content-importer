@@ -96,8 +96,13 @@ class JSONdecodeFreeV2 {
 			#return FALSE;
 		}
 			if ($this->convertJsonNumbers2Strings) {    
-				$this->feedData = preg_replace('/"([ ]*):([ ]*)([0-9.,]*)([ ]*)([,}])/', '"\1:\2"\3"\4\5', $this->feedData);
 				$this->jci_load_collectDebugMessage("Convert JSON-Numbers to JSON-Strings to avoid unsatisfactory PHP-number-handling");
+				$tmpfeedData = preg_replace('/"([ ]*):([ ]*)([0-9.,]*)([ ]*)([,}])/', '"\1:\2"\3"\4\5', $this->feedData);
+				$tmpfeedDataArr = json_decode($tmpfeedData, $this->jsonDecodeCompleteToArray);
+				if (!is_null($tmpfeedDataArr)) {
+					# preg_replace might invalidate the JSON, therefore convert only if JSON still vlaid
+					$this->feedData = $tmpfeedData;
+				}			
 			}
 			$this->jsondata =  json_decode($this->feedData, $this->jsonDecodeCompleteToArray);
 			if (is_null($this->jsondata)) {

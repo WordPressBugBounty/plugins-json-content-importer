@@ -4,7 +4,7 @@ Tags: api, json, xml, csv, data
 Requires at least: 5.3
 Requires PHP: 7.0
 Tested up to: 6.7.2
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,9 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 9. JCI Block: Generate a template from JSON.
 	
 == Changelog ==
+= 2.0.3 =
+* BUGFIX: If JSON contains numbers as values, the plugin attempts to convert them to strings. This can cause issues with certain JSON structures. Now, this conversion is only performed if the result remains valid JSON.
+
 = 2.0.2 =
 * BUGFIX: SSL-Verification 
 * Plugin OK with WordPress 6.7.2
@@ -193,7 +196,5 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 * Versionproblems: Wordpress.org does not update from 1.4 to 1.4.1
 
 == Upgrade Notice ==
-= 2.0.2 =
-* BUGFIX: SSL-Verification 
-* Plugin OK with WordPress 6.7.2
-* Plugin ok with "Plugin Check (PCP) 1.4.0"
+= 2.0.3 =
+* BUGFIX: If JSON contains numbers as values, the plugin attempts to convert them to strings. This can cause issues with certain JSON structures. Now, this conversion is only performed if the result remains valid JSON.
