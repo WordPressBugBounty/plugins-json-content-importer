@@ -42,7 +42,7 @@ class jci_free_request {
 		
 	}
 	
-	private function jci_handle_postinput($fieldkey, $default="") {
+	private function jci_handle_postinput_sanitize_text_field($fieldkey, $default="") {
 		$noncein = jci_handle_requestinput('_wpnonce');
 		$chknon = wp_verify_nonce($noncein, 'jci-set-nonce' );	
 		if (!$chknon) {
@@ -51,6 +51,16 @@ class jci_free_request {
 		return sanitize_text_field(wp_unslash(($_POST[$fieldkey] ?? $default)));
 	}	
 	
+	private function jci_handle_postinput_wp_kses($fieldkey, $default="") {
+		$noncein = jci_handle_requestinput('_wpnonce');
+		$chknon = wp_verify_nonce($noncein, 'jci-set-nonce' );	
+		if (!$chknon) {
+			return "";
+		}	
+		$clean = trim(wp_kses( (isset($_POST[$fieldkey]) ? wp_unslash($_POST[$fieldkey]) : $default), 'post' )); 
+		return $clean;
+	}	
+
 	private function jci_handle_getinput($fieldkey, $default="") {
 		$noncein = jci_handle_requestinput('_wpnonce');
 		$chknon = wp_verify_nonce($noncein, 'jci-set-nonce' );	
@@ -66,7 +76,7 @@ class jci_free_request {
 
 		##########
 		# manage API-Access-Sets: show, delete, activate, inactivate
-		$post_manage = $this->jci_handle_postinput('manage');
+		$post_manage = $this->jci_handle_postinput_sanitize_text_field('manage');
 		$get_del = $this->jci_handle_getinput('del');
 		$get_act = $this->jci_handle_getinput('act');
 		$get_ina = $this->jci_handle_getinput('ina');
@@ -82,17 +92,17 @@ class jci_free_request {
 
 		##########
 		# update API-Access-Sets
-		$post_updatejas = $this->jci_handle_postinput('updatejas');
+		$post_updatejas = $this->jci_handle_postinput_sanitize_text_field('updatejas');
 		if (!empty($post_updatejas)) { 
 			#echo json_encode($_POST);
 
-			$accset = $this->jci_handle_postinput('accset');
-			$inp_nameofjas = $this->jci_handle_postinput('nameofjas'); #$_POST['nameofjas'];
+			$accset = $this->jci_handle_postinput_sanitize_text_field('accset');
+			$inp_nameofjas = $this->jci_handle_postinput_sanitize_text_field('nameofjas'); #$_POST['nameofjas'];
 			if (empty($inp_nameofjas)) {
 				$inp_nameofjas = $this->calc_unique_id(time());
 			}
 			
-			$post_storeapirequestval = $this->jci_handle_postinput('storeapirequestval');
+			$post_storeapirequestval = $this->jci_handle_postinput_sanitize_text_field('storeapirequestval');
 			$inp_storeapirequestval = json_decode($post_storeapirequestval, TRUE);
 
 			$apiitemsArrNew = Array();
@@ -126,24 +136,24 @@ class jci_free_request {
 
 		###### 
 		# store API-Access-Set
-		$post_storeapirequest = $this->jci_handle_postinput('storeapirequest');
+		$post_storeapirequest = $this->jci_handle_postinput_sanitize_text_field('storeapirequest');
 		if ("save"==$post_storeapirequest) { 
 
 			# get existing Sets
 
 			################## save new or update old
 			#echo "<h2>Save API-Access-Set</h2>";
-			$post_storeapirequestval = $this->jci_handle_postinput('storeapirequestval');
+			$post_storeapirequestval = $this->jci_handle_postinput_sanitize_text_field('storeapirequestval');
 			#$inp_set = urldecode($post_storeapirequestval);
 			$inp_storeapirequestval = json_decode($post_storeapirequestval, TRUE);
 			
 			
 #echo "<hr>inp_storeapirequestval: $inp_storeapirequestval<hr>";
 			
-			$post_storeapirequestjson = $this->jci_handle_postinput('storeapirequestjson');
+			$post_storeapirequestjson = $this->jci_handle_postinput_sanitize_text_field('storeapirequestjson');
 			$inp_storeapirequestjson = json_decode(urldecode($post_storeapirequestjson), TRUE);
 
-			$post_nameofjas = $this->jci_handle_postinput('nameofjas');
+			$post_nameofjas = $this->jci_handle_postinput_sanitize_text_field('nameofjas');
 			$inp_nameofjas = urldecode($post_nameofjas);
 			if (empty($inp_nameofjas)) {
 				#$inp_nameofjas = substr(md5(time()), 0, 15);
@@ -176,56 +186,57 @@ class jci_free_request {
 		#var_Dump($_POST);
 		$isnewjas = TRUE;
 		#if (isset($_POST['noheader'])) { 
-			$noheader = $this->jci_handle_postinput('noheader', 3);
+			$noheader = $this->jci_handle_postinput_sanitize_text_field('noheader', 3);
 			#$noheader = $_POST['noheader']; 
 		#} else {
 		#	$noheader = 3;
 		#}
 		$formdata["nameofselectedjas"] = $this->calc_unique_id(time());
-		$post_nameofselectedjas = $this->jci_handle_postinput('nameofselectedjas');
+		$post_nameofselectedjas = $this->jci_handle_postinput_sanitize_text_field('nameofselectedjas');
 		if (!empty($post_nameofselectedjas)) {  		
 			$formdata["nameofselectedjas"] = $post_nameofselectedjas; #$_POST['nameofselectedjas']; 	
 			$isnewjas = FALSE;
 		}
-		$post_accset = $this->jci_handle_postinput('accset');
+		$post_accset = $this->jci_handle_postinput_sanitize_text_field('accset');
 		if (!empty($post_accset)) {  		
 			$isnewjas = FALSE;
 		}
 		
 
 		$formdata["noheader"] = $noheader;
-		$formdata["cbheadaccess"] = $this->jci_handle_postinput('cbheadaccess');
-		$formdata["headaccesskey"] = $this->jci_handle_postinput('headaccesskey', "Access");
-		$formdata["headaccessval"] = $this->jci_handle_postinput('headaccessval', "json/application");
-		$formdata["cbheaduseragent"] = $this->jci_handle_postinput('cbheaduseragent');
-		$formdata["headuseragentkey"] = $this->jci_handle_postinput('headuseragentkey', "User-Agent");
-		$formdata["headuseragentval"] = $this->jci_handle_postinput('headuseragentval', "Mozilla");
-		$formdata["cbheadoauth2"] = $this->jci_handle_postinput('cbheadoauth2');
-		$formdata["headoauth2key"] = $this->clear_httpheaderkey($this->jci_handle_postinput('headoauth2key', "Authentication"));
-		$formdata["headoauth2val"] = $this->jci_handle_postinput('headoauth2val', "Bearer [jsoncontentimporter apiaccesset=getoauth2token]{token}[/jsoncontentimporter]");
+		$formdata["cbheadaccess"] = $this->jci_handle_postinput_wp_kses('cbheadaccess');
+		$formdata["headaccesskey"] = $this->jci_handle_postinput_wp_kses('headaccesskey', "Access");
+		$formdata["headaccessval"] = $this->jci_handle_postinput_wp_kses('headaccessval', "json/application");
+		$formdata["cbheaduseragent"] = $this->jci_handle_postinput_wp_kses('cbheaduseragent');
+		$formdata["headuseragentkey"] = $this->jci_handle_postinput_wp_kses('headuseragentkey', "User-Agent");
+		$formdata["headuseragentval"] = $this->jci_handle_postinput_wp_kses('headuseragentval', "Mozilla");
+		$formdata["cbheadoauth2"] = $this->jci_handle_postinput_wp_kses('cbheadoauth2');
+		#$formdata["headoauth2key"] = $this->clear_httpheaderkey($this->jci_handle_postinput_wp_kses('headoauth2key', "Authentication"));
+		$formdata["headoauth2key"] = $this->jci_handle_postinput_wp_kses('headoauth2key', "Authentication");
+		$formdata["headoauth2val"] = $this->jci_handle_postinput_wp_kses('headoauth2val', "Bearer [jsoncontentimporter apiaccesset=getoauth2token]{token}[/jsoncontentimporter]");
 		
 		$nooffilledheader = 0;
 		for ($i = 1; $i <= $noheader; $i++) {
-			$post_headerl = $this->jci_handle_postinput('headerl'.$i); #$_POST["headerl".$i] ?? '';
-			$post_headerr = $this->jci_handle_postinput('headerr'.$i); # $_POST["headerr".$i] ?? '';
+			$post_headerl = $this->jci_handle_postinput_sanitize_text_field('headerl'.$i); #$_POST["headerl".$i] ?? '';
+			$post_headerr = $this->jci_handle_postinput_sanitize_text_field('headerr'.$i); # $_POST["headerr".$i] ?? '';
 			if (!empty($post_headerr) || !empty($post_headerr)) {
 				$nooffilledheader++;
-				$formdata["headerl".$nooffilledheader] = $this->jci_handle_postinput('headerl'.$i);# $_POST['headerl'.$i] ?? '';
-				$formdata["headerr".$nooffilledheader] = $this->jci_handle_postinput('headerr'.$i);#$_POST['headerr'.$i] ?? '';
+				$formdata["headerl".$nooffilledheader] = $this->jci_handle_postinput_sanitize_text_field('headerl'.$i);# $_POST['headerl'.$i] ?? '';
+				$formdata["headerr".$nooffilledheader] = $this->jci_handle_postinput_sanitize_text_field('headerr'.$i);#$_POST['headerr'.$i] ?? '';
 			}
 		}
 		if ($nooffilledheader==0) { 
 			$nooffilledheader = 4; 
 		}		
 		@$formdata["headernooffilledheader"] = $nooffilledheader;
-		$methodTmp = $this->jci_handle_postinput('method', "get");
-		$methodtechTmp = $this->jci_handle_postinput('methodtech', "curl");
-		$indataformat = $this->jci_handle_postinput('indataformat', "json");
-		$csvdelimiter = $this->jci_handle_postinput('csvdelimiter', ",");
-		$csvline = $this->jci_handle_postinput('csvline', "#LF#");
-		$csvenclosure = $this->jci_handle_postinput('csvenclosure', "#QM#");
-		$csvskipempty = $this->jci_handle_postinput('csvskipempty', "");
-		$csvescape = $this->jci_handle_postinput('csvescape', "#BS#");
+		$methodTmp = $this->jci_handle_postinput_sanitize_text_field('method', "get");
+		$methodtechTmp = $this->jci_handle_postinput_sanitize_text_field('methodtech', "curl");
+		$indataformat = $this->jci_handle_postinput_sanitize_text_field('indataformat', "json");
+		$csvdelimiter = $this->jci_handle_postinput_sanitize_text_field('csvdelimiter', ",");
+		$csvline = $this->jci_handle_postinput_sanitize_text_field('csvline', "#LF#");
+		$csvenclosure = $this->jci_handle_postinput_sanitize_text_field('csvenclosure', "#QM#");
+		$csvskipempty = $this->jci_handle_postinput_sanitize_text_field('csvskipempty', "");
+		$csvescape = $this->jci_handle_postinput_sanitize_text_field('csvescape', "#BS#");
 
 		# put only with curl, not with wp and php
 		$errormsg = "";
@@ -247,7 +258,7 @@ class jci_free_request {
 		$formdata["csvescape"] = stripslashes($csvescape);
 
 		$postPayload = ""; 
-		$post_payload = $this->jci_handle_postinput('payload');
+		$post_payload = $this->jci_handle_postinput_sanitize_text_field('payload');
 		if (!empty($post_payload)) { 
 			#$postPayload = stripslashes(htmlentities($_POST['payload'])); 
 			$postPayload = stripslashes($post_payload); 
@@ -260,16 +271,18 @@ class jci_free_request {
 		$formdata["selectedmethod"] = $selectedmethod;
 
 		$httpsverify = 1;  # check!
-		$post_httpsverify = $this->jci_handle_postinput('httpsverify');
+		$post_httpsverify = $this->jci_handle_postinput_sanitize_text_field('httpsverify');
 		if (!empty($post_httpsverify) && 2 == $post_httpsverify) { 
 			#checkbox NOT active, no check
 			$httpsverify = 2;
 		}
 		$formdata["httpsverify"] = $httpsverify;
 
-		$ignorehttpcode = $this->jci_handle_postinput('ignorehttpcode');
-		$post_jciurl = $this->jci_handle_postinput('jciurl');
-		#echo "post_jciurl: ".$post_jciurl."<hr>";
+		$ignorehttpcode = $this->jci_handle_postinput_sanitize_text_field('ignorehttpcode');
+		#$post_jciurl = $this->jci_handle_postinput_sanitize_text_field('jciurl');
+		$post_jciurl = $this->jci_handle_postinput_wp_kses('jciurl');
+		#esc_url($formdata['jciurl']); 
+		
 		if (empty($post_jciurl)) { 
 			$jciurl = plugin_dir_url(__FILE__).'json/gutenbergblockexample1.json';
 		} else {
@@ -277,9 +290,8 @@ class jci_free_request {
 		}
 		$formdata["jciurl"] = $jciurl ?? '';
 		
-		#echo "URL: ".$formdata["jciurl"]."<hr>";
 
-		$urlgettimeout = $this->jci_handle_postinput('timeout', 5);
+		$urlgettimeout = $this->jci_handle_postinput_sanitize_text_field('timeout', 5);
 		#if (isset($_POST['timeout'])) { 
 		#	$urlgettimeout = $_POST['timeout']; 
 		#} else {
@@ -290,7 +302,7 @@ class jci_free_request {
 		#var_Dump( $formdata);
 		#echo "P: ".$_POST['accset']."<hr>";
 		#echo "<hr>POST: ".wp_json_encode($_POST)."<hr>";
-		$post_accset = $this->jci_handle_postinput('accset');
+		$post_accset = $this->jci_handle_postinput_sanitize_text_field('accset');
 		
 		
 		if (!empty($post_accset)) { 
@@ -299,7 +311,7 @@ class jci_free_request {
 			
 			$t = $this->apiitemsArr[$formdata["accset"]] ?? NULL;
 			$loadaccset = TRUE;
-			$post_testrequest = $this->jci_handle_postinput('testrequest');
+			$post_testrequest = $this->jci_handle_postinput_sanitize_text_field('testrequest');
 			if (!empty($post_testrequest)) {
 				$loadaccset = FALSE; # do not load the set from the stored data
 			}
@@ -350,9 +362,9 @@ class jci_free_request {
 		$resu = "";
 
 		######## REQUEST
-		$post_testrequest = $this->jci_handle_postinput('testrequest');
+		$post_testrequest = $this->jci_handle_postinput_sanitize_text_field('testrequest');
 		if (!empty($post_testrequest)) {
-			$nameofselectedjas = $this->jci_handle_postinput('nameofselectedjas');
+			$nameofselectedjas = $this->jci_handle_postinput_sanitize_text_field('nameofselectedjas');
 			#$nameofselectedjas = $_POST["nameofselectedjas"];
 			$nameofjas =  $nameofselectedjas;
 			if (empty($nameofjas)) {
@@ -394,10 +406,11 @@ class jci_free_request {
 		
 		$errorcol = "black";
 		$okcol = "#afa";
+		$shortcodeparam = "";
 		if (200!=$httpcode && "cache"!=$httpcode) {
 			$formdata["httpcode"] = 1;
 			$formdata["ignorehttpcode"] = $ignorehttpcode;
-			$shortcodeparam .= " httpstatuscodemustbe200=\"no\"";
+			$shortcodeparam = " httpstatuscodemustbe200=\"no\"";
 			$errorcol = "red";
 			$okcol = "#DDD";
 		}
@@ -663,7 +676,7 @@ class jci_free_request {
 				$i = 1;
 				$loadaccset = TRUE;
 				
-				$post_testrequest = $this->jci_handle_postinput('testrequest');
+				$post_testrequest = $this->jci_handle_postinput_sanitize_text_field('testrequest');
 				if (!empty($post_testreques)) {
 					#echo "acc: $accset";
 					$loadaccset = FALSE; # do not load the set from the stored data
@@ -704,7 +717,7 @@ class jci_free_request {
 					submit_button($submitButtonValue, 'large', 'manage', FALSE); 
 				}
 				if ($showBasenodeField) {
-					$basenodein = $this->jci_handle_postinput('basenode');
+					$basenodein = $this->jci_handle_postinput_sanitize_text_field('basenode');
 					#$basenodein =$_POST["basenode"] ?? '';
 					echo '<input type=hidden name="usebasenode" value="yes">';
 					
@@ -905,7 +918,7 @@ class jci_free_request {
 				}
 			);
 			<?PHP
-				$post_seljs = $this->jci_handle_postinput('seljs');
+				$post_seljs = $this->jci_handle_postinput_sanitize_text_field('seljs');
 				if (!empty($post_seljs)) {
 					$selnodes = $post_seljs;
 					$selnodesArr = explode(",", $selnodes);
@@ -1193,7 +1206,7 @@ class jci_free_request {
 			esc_html_e('Use it', 'json-content-importer');
 			echo ': <input type=checkbox name=cbheaduseragent value="y"'.esc_attr($cbheaduseragent_checked).'>';
 			
-		$formdata["headoauth2key"] = $this->clear_httpheaderkey($formdata["headoauth2key"]);
+		#$formdata["headoauth2key"] = $this->clear_httpheaderkey($formdata["headoauth2key"]);
 		echo '<hr><strong>OAuth2-Authentication</strong> ';
 		$this->insert_tooltip(__("OAuth2 is an authentication protocol that allows applications to access resources on behalf of a user without needing their password. Instead, it uses tokens issued by an authorization server, enabling secure, controlled access to APIs and services.", 'json-content-importer'));
 		echo '<br>';

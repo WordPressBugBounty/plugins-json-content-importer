@@ -3,11 +3,10 @@
 Plugin Name: Get Use APIs - JSON Content Importer
 Plugin URI: https://json-content-importer.com/
 Description: Plugin to import, cache and display a JSON-Feed. Display is done with wordpress-shortcode or gutenberg-block.
-Version: 2.0.3
+Version: 2.0.4
 Author: Bernhard Kux
 Author URI: https://json-content-importer.com/
 Text Domain: json-content-importer
-Domain Path: /languages
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -22,7 +21,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 defined('ABSPATH') OR exit;
-define( 'JCIFREE_VERSION', '2.0.3' );
+define( 'JCIFREE_VERSION', '2.0.4' );
 define( 'JCIFREE_UO_AUTOLOAD', FALSE); # FALSE: update_option does not load values everytime, but only if really needed
 
 function jcifree_getjson($api_set, $convert_xmlcsv_to_json=FALSE, $cacheinsec=0, $debugmode=FALSE) {
@@ -135,12 +134,12 @@ function jcifree_getjson($api_set, $convert_xmlcsv_to_json=FALSE, $cacheinsec=0,
 
 
 
-function jci_i18n_init() {
-	$pd = dirname(plugin_basename(__FILE__)	).'/languages/';
-	$lt = load_plugin_textdomain('json-content-importer', false, $pd);
-}
+#function jci_i18n_init() {
+	#$pd = dirname(plugin_basename(__FILE__)	).'/languages/';
+	#$lt = load_plugin_textdomain('json-content-importer', false, $pd);
+#}
 
-
+/*
 function jci_block_plugin_de_translation($mofile, $domain) {
 	if ('json-content-importer' === $domain && strpos($mofile, 'de_DE.mo') !== false) {
 		$custom_translation = WP_PLUGIN_DIR. "/".dirname(plugin_basename(__FILE__)	).'/languages/json-content-importer-de_DE.mo';
@@ -152,10 +151,11 @@ function jci_block_plugin_de_translation($mofile, $domain) {
     }
     return $mofile;
 }
-if (is_admin()) {
-	add_action('plugins_loaded', 'jci_i18n_init');
-	add_filter('load_textdomain_mofile', 'jci_block_plugin_de_translation', 10, 2);
-}
+*/
+#if (is_admin()) {
+	#add_action('plugins_loaded', 'jci_i18n_init');
+	#add_filter('load_textdomain_mofile', 'jci_block_plugin_de_translation', 10, 2);
+#}
 
 #function jci_load_css() {
 #	wp_enqueue_style('jci-style', plugin_dir_url(__FILE__) . 'css/jci.css',null, 1);
