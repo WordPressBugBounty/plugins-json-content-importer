@@ -4,7 +4,7 @@ Tags: api, json, xml, csv, data
 Requires at least: 5.3
 Requires PHP: 7.0
 Tested up to: 6.8
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,9 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 9. JCI Block: Generate a template from JSON.
 	
 == Changelog ==
+= 2.0.5 =
+* BUGFIX: Improved sanitizing Step 1, Part 2
+
 = 2.0.4 =
 * BUGFIX: Improved sanitizing Step1
 * REMOVED: The plugin’s bundled translations have been removed because translations are now provided via WordPress.org.
@@ -171,37 +174,6 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 * PluginCheckPlugin with no Errors 
 * Security Issue Fixed - IMPORTANT: The function "wp_safe_remote_get()" is now used instead of "wp_remote_get()" to retrieve JSON from an API URL. This change restricts communication to only ports 80, 443, and 8080. Additionally, authentication via "https://a:b@www..." and local usage via 127.0.0.1 are no longer possible with this new version.
 
-= 1.5.6=
-* Additional CSS class(es)" defined in the "Advanced" settings of the JCI free Block are now considered
-* Enhanced CF7 Integration: Submitted data is now sent successfully even without defining all CF7 Additional Settings
-
-= 1.5.5=
-* Plugin ok with WordPress 6.4.3
-* ContactForm7 Integration: Populate CF7 forms with JSON data and forward CF7-submitted data to an API.
-* Set Shortcode Parameter 'execshortcode=y' if a Shortcode in the enclosed Content of a JCI-free Shortcode should be executed. To mask [ and ] use #BRO# / #BRC# in the enclosed content
-
-= 1.5.4=
-* Plugin ok with WordPress 6.4.1
-* Improved Security in the Backend
-
-= 1.5.3=
-* Enhanced, see Tab "Basic Settings": Send Header "HEADER_KEY:HEADER_VALUE": Insert 'header HEADER_KEY1:HEADER_VALUE1#HEADER_KEY2:HEADER_VALUE2' in the following text field, and no 'Bearer' will be added. E.g.: 'header User-Agent:JCIfree'
-* Enhanced: The internal communication within a WordPress block relies on APIs, typically accessed via GET requests. For larger datasets, POST requests are more suitable. This new JCIfree version now utilizes POST instead of GET.
-* Changed: Some server have problems, using jcifree-block.php as JavaScript-Applicaton (strict mime policy). Solution: Renamed to jcifree-block.js
-* Some Backend-Bugfixes for Block-React, PHP8...
-
-= 1.5.2 =
-* Bugfix: JCI Block wasn't showing up when a browser had the "strict mime type" setting enabled. With this bugfix, the issue has been resolved.
-
-= 1.5.1 =
-* Fixed: JCI Block - In some situations, unwanted content ('Welcometext') is displayed on the published page.
-* Improved: Translation
-
-= 1.5.0 =
-* Versionproblems: Wordpress.org does not update from 1.4 to 1.4.1
-
 == Upgrade Notice ==
-= 2.0.4 =
-* BUGFIX: Improved sanitizing Step1
-* REMOVED: The plugin’s bundled translations have been removed because translations are now provided via WordPress.org.
-* OK: Plugin ok with "Plugin Check Plugin" Version 1.6.0
+= 2.0.5 =
+* BUGFIX: Improved sanitizing Step 1, Part 2

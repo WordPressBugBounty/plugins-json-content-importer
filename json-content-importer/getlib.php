@@ -102,7 +102,9 @@ class jci_free_request {
 				$inp_nameofjas = $this->calc_unique_id(time());
 			}
 			
-			$post_storeapirequestval = $this->jci_handle_postinput_sanitize_text_field('storeapirequestval');
+#			$post_storeapirequestval = $this->jci_handle_postinput_sanitize_text_field('storeapirequestval');
+			$post_storeapirequestval = $this->jci_handle_postinput_wp_kses('storeapirequestval');
+			
 			$inp_storeapirequestval = json_decode($post_storeapirequestval, TRUE);
 
 			$apiitemsArrNew = Array();
@@ -143,12 +145,10 @@ class jci_free_request {
 
 			################## save new or update old
 			#echo "<h2>Save API-Access-Set</h2>";
-			$post_storeapirequestval = $this->jci_handle_postinput_sanitize_text_field('storeapirequestval');
+			#	$post_storeapirequestval = $this->jci_handle_postinput_sanitize_text_field('storeapirequestval');
+			$post_storeapirequestval = $this->jci_handle_postinput_wp_kses('storeapirequestval');
 			#$inp_set = urldecode($post_storeapirequestval);
 			$inp_storeapirequestval = json_decode($post_storeapirequestval, TRUE);
-			
-			
-#echo "<hr>inp_storeapirequestval: $inp_storeapirequestval<hr>";
 			
 			$post_storeapirequestjson = $this->jci_handle_postinput_sanitize_text_field('storeapirequestjson');
 			$inp_storeapirequestjson = json_decode(urldecode($post_storeapirequestjson), TRUE);
