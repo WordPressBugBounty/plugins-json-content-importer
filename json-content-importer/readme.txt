@@ -4,7 +4,7 @@ Tags: api, json, xml, csv, data
 Requires at least: 5.3
 Requires PHP: 7.0
 Tested up to: 6.8
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,11 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 9. JCI Block: Generate a template from JSON.
 	
 == Changelog ==
+= 2.0.6 =
+* BUGFIX: Handling of Form-Data at Step 1 
+* REMOVED: When generating a template from the JSON data, “:datetime” was previously inserted, where applicable, to show how date and time can be formatted. Unfortunately, automatic detection of date and time values isn’t very reliable, so this feature has been removed.
+* REMOVED: In step 1, the loaded JSON is shown as a tree. An unnecessary JS library was being loaded; this has been removed.
+
 = 2.0.5 =
 * BUGFIX: Improved sanitizing Step 1, Part 2
 
@@ -175,5 +180,7 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 * Security Issue Fixed - IMPORTANT: The function "wp_safe_remote_get()" is now used instead of "wp_remote_get()" to retrieve JSON from an API URL. This change restricts communication to only ports 80, 443, and 8080. Additionally, authentication via "https://a:b@www..." and local usage via 127.0.0.1 are no longer possible with this new version.
 
 == Upgrade Notice ==
-= 2.0.5 =
-* BUGFIX: Improved sanitizing Step 1, Part 2
+= 2.0.6 =
+* BUGFIX: Handling of Form-Data at Step 1 
+* REMOVED: When generating a template from the JSON data, “:datetime” was previously inserted, where applicable, to show how date and time can be formatted. Unfortunately, automatic detection of date and time values isn’t very reliable, so this feature has been removed.
+* REMOVED: In step 1, the loaded JSON is shown as a tree. An unnecessary JS library was being loaded; this has been removed.

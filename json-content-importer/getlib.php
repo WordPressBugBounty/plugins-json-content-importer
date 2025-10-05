@@ -48,16 +48,37 @@ class jci_free_request {
 		if (!$chknon) {
 			return "";
 		}		
-		return sanitize_text_field(wp_unslash(($_POST[$fieldkey] ?? $default)));
+		$clean = trim(sanitize_textarea_field( (isset($_POST[$fieldkey]) ? wp_unslash($_POST[$fieldkey]) : $default) )); 
+		return $clean;
+		#return sanitize_textarea_field(wp_unslash(($_POST[$fieldkey] ?? $default)));
 	}	
 	
-	private function jci_handle_postinput_wp_kses($fieldkey, $default="") {
+	private function jci_handle_postinput_wp_kses_array($fieldkey, $default="") {
 		$noncein = jci_handle_requestinput('_wpnonce');
 		$chknon = wp_verify_nonce($noncein, 'jci-set-nonce' );	
 		if (!$chknon) {
 			return "";
 		}	
-		$clean = trim(wp_kses( (isset($_POST[$fieldkey]) ? wp_unslash($_POST[$fieldkey]) : $default), 'post' )); 
+		$str = $this->jci_handle_postinput_wp_kses($fieldkey, $default);
+		$arr = json_decode($str , TRUE);
+		$arr['jciurl'] = trim(esc_url_raw( (isset($_POST['storeapirequest_jciurl']) ? wp_unslash($_POST['storeapirequest_jciurl']) : $default) )); 
+		#$arr['headoauth2val'] = trim(sanitize_textarea_field( (isset($_POST['storeapirequest_headoauth2val']) ? wp_unslash($_POST['storeapirequest_headoauth2val']) : $default) )); 
+		return $arr;
+	}
+
+	private function jci_handle_postinput_wp_kses($fieldkey, $default="") {
+		#echo $fieldkey."<hr>".$_POST[$fieldkey]."<hr>";
+		$noncein = jci_handle_requestinput('_wpnonce');
+		$chknon = wp_verify_nonce($noncein, 'jci-set-nonce' );	
+		if (!$chknon) {
+			return "";
+		}	
+		$clean = "";
+		if ('jciurl'==$fieldkey) {
+			$clean = trim(esc_url_raw( (isset($_POST[$fieldkey]) ? wp_unslash($_POST[$fieldkey]) : $default) )); 
+		} else {
+			$clean = trim(wp_kses( (isset($_POST[$fieldkey]) ? wp_unslash($_POST[$fieldkey]) : $default), 'post' )); 
+		}
 		return $clean;
 	}	
 
@@ -102,10 +123,12 @@ class jci_free_request {
 				$inp_nameofjas = $this->calc_unique_id(time());
 			}
 			
-#			$post_storeapirequestval = $this->jci_handle_postinput_sanitize_text_field('storeapirequestval');
-			$post_storeapirequestval = $this->jci_handle_postinput_wp_kses('storeapirequestval');
+			#$post_storeapirequestval = $this->jci_handle_postinput_sanitize_text_field('storeapirequestval');
+			$post_storeapirequestval = $this->jci_handle_postinput_wp_kses('storeapirequestval'); ## problem, da JSON-string behandelt wird, der ggf. eine URL enthält....
 			
-			$inp_storeapirequestval = json_decode($post_storeapirequestval, TRUE);
+			
+			#$inp_storeapirequestval = json_decode($post_storeapirequestval, TRUE);
+			$inp_storeapirequestval = $this->jci_handle_postinput_wp_kses_array('storeapirequestval');
 
 			$apiitemsArrNew = Array();
 			#echo "<hr>stored: ".wp_json_encode($this->apiitemsArr)."<br>";
@@ -148,7 +171,9 @@ class jci_free_request {
 			#	$post_storeapirequestval = $this->jci_handle_postinput_sanitize_text_field('storeapirequestval');
 			$post_storeapirequestval = $this->jci_handle_postinput_wp_kses('storeapirequestval');
 			#$inp_set = urldecode($post_storeapirequestval);
-			$inp_storeapirequestval = json_decode($post_storeapirequestval, TRUE);
+			$inp_storeapirequestval = $this->jci_handle_postinput_wp_kses_array('storeapirequestval');
+			
+			#$inp_storeapirequestval['jciurl'] = trim(esc_url_raw( (isset($_POST['storeapirequest_jciurl']) ? wp_unslash($_POST['storeapirequest_jciurl']) : $default) )); 
 			
 			$post_storeapirequestjson = $this->jci_handle_postinput_sanitize_text_field('storeapirequestjson');
 			$inp_storeapirequestjson = json_decode(urldecode($post_storeapirequestjson), TRUE);
@@ -205,15 +230,15 @@ class jci_free_request {
 
 		$formdata["noheader"] = $noheader;
 		$formdata["cbheadaccess"] = $this->jci_handle_postinput_wp_kses('cbheadaccess');
-		$formdata["headaccesskey"] = $this->jci_handle_postinput_wp_kses('headaccesskey', "Access");
-		$formdata["headaccessval"] = $this->jci_handle_postinput_wp_kses('headaccessval', "json/application");
+		$formdata["headaccesskey"] = $this->jci_handle_postinput_sanitize_text_field('headaccesskey', "Access");
+		$formdata["headaccessval"] = $this->jci_handle_postinput_sanitize_text_field('headaccessval', "json/application");
 		$formdata["cbheaduseragent"] = $this->jci_handle_postinput_wp_kses('cbheaduseragent');
-		$formdata["headuseragentkey"] = $this->jci_handle_postinput_wp_kses('headuseragentkey', "User-Agent");
-		$formdata["headuseragentval"] = $this->jci_handle_postinput_wp_kses('headuseragentval', "Mozilla");
+		$formdata["headuseragentkey"] = $this->jci_handle_postinput_sanitize_text_field('headuseragentkey', "User-Agent");
+		$formdata["headuseragentval"] = $this->jci_handle_postinput_sanitize_text_field('headuseragentval', "Mozilla");
+
+		$formdata["headoauth2key"] = $this->jci_handle_postinput_sanitize_text_field('headoauth2key', "Authentication");
+		$formdata["headoauth2val"] = $this->jci_handle_postinput_sanitize_text_field('headoauth2val', "Bearer [jsoncontentimporter apiaccesset=getoauth2token]{token}[/jsoncontentimporter]");
 		$formdata["cbheadoauth2"] = $this->jci_handle_postinput_wp_kses('cbheadoauth2');
-		#$formdata["headoauth2key"] = $this->clear_httpheaderkey($this->jci_handle_postinput_wp_kses('headoauth2key', "Authentication"));
-		$formdata["headoauth2key"] = $this->jci_handle_postinput_wp_kses('headoauth2key', "Authentication");
-		$formdata["headoauth2val"] = $this->jci_handle_postinput_wp_kses('headoauth2val', "Bearer [jsoncontentimporter apiaccesset=getoauth2token]{token}[/jsoncontentimporter]");
 		
 		$nooffilledheader = 0;
 		for ($i = 1; $i <= $noheader; $i++) {
@@ -352,6 +377,7 @@ class jci_free_request {
 		$httpr[404] = "404 Not Found";
 		$httpr[405] = "405 Method Not Allowed";
 		$httpr[500] = "500 Internal Server Error";
+		$httpr[501] = "501 Not Implemented - e.g. wrong http-method";
 		$httpr["cache"] = "JSON loaded from local cache";
 
 		#if (isset($_POST['payload'])) { 
@@ -398,7 +424,7 @@ class jci_free_request {
 		
 		$httplev = "";
 		if (!empty($httpcode)) {
-			$httplev = $httpr[$httpcode];
+			$httplev = $httpr[$httpcode] ?? '';
 			if (empty($httplev)) {
 				$httplev = "Error-Code: ".$httpcode;
 			}
@@ -552,6 +578,14 @@ class jci_free_request {
 			$fdstr = wp_json_encode($formdata);
 #			echo '<input type=hidden name=storeapirequestval value="'.urlencode($fdstr).'">';
 			echo '<input type=hidden name=storeapirequestval value="'.esc_attr($fdstr).'">';
+
+			####
+			foreach($formdata as $formdatak => $formdatav) {
+				#echo $formdatak.": ".$formdatav." - ".strlen($formdatav)."<br>";
+				echo '<input type=hidden name=storeapirequest_'.esc_attr($formdatak).' value="'.esc_attr($formdatav).'">';
+			}
+
+
 			#var_Dump($fdstr);  # settings of the API-Access-Set
 #			$nameofselectedjas = $_POST["nameofselectedjas"];
 #			$nameofjas =  $nameofselectedjas;
@@ -861,11 +895,11 @@ class jci_free_request {
 	$jtz =  $wwj->showJSON($jsonArr, "", $noofshowedlistitems, 1, $openall);
 	
 	echo '<input type="text" id="plugins4_q" value="" placeholder="search JSON">';
-	wp_enqueue_style('jci-jsontree-css', plugin_dir_url(__FILE__) . '/js/jstree/dist/themes/default/style.min.css', null, 1);
+	wp_enqueue_style('jci-jsontree-css', plugin_dir_url(__FILE__) . '/js/jstree/dist/themes/default/style.min.css', NULL, 1);
 	#echo '<link rel="stylesheet" href="'.esc_attr(plugin_dir_url(dirname(__FILE__))).'/js/jstree/dist/themes/default/style.min.css" />';
 	
 	#echo '<script src="'.esc_attr(plugin_dir_url(dirname(__FILE__))).'/js/jstree/jQuery/jquery.min.js"></script>';
-	wp_enqueue_script('jci-jsontree-jquery', plugin_dir_url(__FILE__) . '/js/jstree/jQuery/jquery.min.js', NULL, '1.0.0', TRUE);
+	#wp_enqueue_script('jci-jsontree-jquery', plugin_dir_url(__FILE__) . '/js/jstree/jQuery/jquery.min.js', NULL, '1.0.0', TRUE);
 	if ($addcheckboxes) {
 		echo '&nbsp;<a href="#" id="chkSelectAll" >';
 		esc_html_e('Check All', 'json-content-importer');
@@ -1069,7 +1103,7 @@ class jci_free_request {
 
 		echo '<br>';
 		esc_html_e('CSV-Enclosure (default: #QM#)', 'json-content-importer');
-		echo ': <<input type=text name=csvenclosure  id=jas size=3 value='.esc_attr(@$formdata["csvenclosure"]).'>';
+		echo ': <input type=text name=csvenclosure  id=jas size=3 value='.esc_attr(@$formdata["csvenclosure"]).'>';
 		$this->insert_tooltip(__('A CSV enclosure is a character used to wrap data fields in a CSV file, especially when the data contains special characters like commas, line breaks, or quotes. Commonly, double quotes (`" "`) are used as enclosures, ensuring that the enclosed data is treated as a single field even if it contains delimiters. For example, `"New York, USA"` keeps "New York, USA" as one item rather than two.', 'json-content-importer'));
 		echo '<br>';
 		esc_html_e('CSV-Escape (default: #BS#)', 'json-content-importer');
@@ -1113,6 +1147,7 @@ class jci_free_request {
 				jQuery("div[id=pay]").hide();
 			}
 		}
+		/*
 		function showHideHeaderSettings() {
 			var selmethodtech = jQuery('select[name=methodtech]').val();
 			if ("curl"==selmethodtech) {
@@ -1121,6 +1156,7 @@ class jci_free_request {
 				jQuery("div[id=httpheader]").hide();
 			}
 		}
+		*/
 		function showHideCSVSettings() {
 			var selidf = jQuery('select[name=indataformat]').val();
 			if ("csv"==selidf) {
@@ -1131,13 +1167,13 @@ class jci_free_request {
 		}
 		jQuery(function() {
 			try {
-				jQuery('select[name=methodtech]').change(function() {
-					showHideHeaderSettings();
-				});
+				//jQuery('select[name=methodtech]').change(function() {
+					//showHideHeaderSettings();
+				//});
 				jQuery('select[name=method]').change(function() {
 					showHidePayloadTextarea();
 				});
-				showHideHeaderSettings();
+				//showHideHeaderSettings();
 				showHidePayloadTextarea();
 			} catch(e) {
 				alert('error: '+e);
@@ -1160,6 +1196,7 @@ class jci_free_request {
 		echo '<br><textarea name=payload rows=3 cols=80>'.esc_attr(@$formdata["payload"]).'</textarea>';
 		echo '<br></div>';
 
+		/*
 		echo '<div id=httpheader><a href="'.esc_url('https://en.wikipedia.org/wiki/List_of_HTTP_header_fields').'" target="_blank">';
 		esc_html_e('HTTP-Header', 'json-content-importer');
 		echo '</a> ';
@@ -1171,7 +1208,6 @@ class jci_free_request {
 		}
 		$formdata["headernooffilledheader"]++;
 		
-		#echo "FD: ".$formdata["headernooffilledheader"];# exit;
 		echo '<br><input type=hidden name=noheader value="'.esc_attr($formdata["headernooffilledheader"]).'">';
 		for ($i = 1; $i <= $formdata["headernooffilledheader"]; $i++) {
 			$hltmp = "";
@@ -1184,6 +1220,7 @@ class jci_free_request {
 #			echo '<input type=text id=jas name=headerr'.$i.' value="'.stripslashes(htmlspecialchars($formdata["headerr".$i])).'" size="10"><br>';
 			echo '<input type=text id=jas name=headerr'.esc_attr($i).' value="'.esc_attr($formdata["headerr".$i]).'" size="10"><br>';
 		}
+		*/
 
 		echo '</div></td><td valign=top>';
 		esc_html_e('Common HTTP header fields often expected by APIs', 'json-content-importer');
@@ -1229,7 +1266,7 @@ class jci_free_request {
 		echo '<br>';
 		esc_html_e('Value', 'json-content-importer');
 		echo ': ';
-		echo '<br><textarea name=headoauth2val rows=3 cols=80>'.esc_attr(@$formdata["headoauth2val"]).'</textarea>';
+		echo '<br><textarea name=headoauth2val rows=3 cols=80>'.esc_attr($formdata["headoauth2val"]).'</textarea>';
 			
 		$cbheadoauth2_checked = ""; if ($formdata["cbheadoauth2"]=="y") { $cbheadoauth2_checked = " checked "; 			}
 		echo '<br>';

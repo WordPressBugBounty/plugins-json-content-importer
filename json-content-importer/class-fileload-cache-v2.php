@@ -247,21 +247,28 @@ class JSONdecodeFreeV2 {
 		
 		$data = array();
 		$csvLines = explode($csvline, $this->feedData);
-		$headerline = str_getcsv($csvLines[0], $delimiter, $enclosure, $escape);
-		foreach (array_slice($csvLines, 1) as $line) {   # csv mit headerline!
-			if ($skipempty && empty(trim($line))) {
-				continue;
+		
+		$headerline = "";
+		#$headerline = str_getcsv($csvLines[0], $delimiter, $enclosure, $escape);
+		try {
+			$headerline = str_getcsv($csvLines[0], $delimiter, $enclosure, $escape);
+
+			foreach (array_slice($csvLines, 1) as $line) {   # csv mit headerline!
+				if ($skipempty && empty(trim($line))) {
+					continue;
+				}
+				$tmp = str_getcsv($line, $delimiter, $enclosure, $escape);
+				$data[] = array_combine($headerline, $tmp);
 			}
-			$tmp = str_getcsv($line, $delimiter, $enclosure, $escape);
-			$data[] = array_combine($headerline, $tmp);
-			#$data[] = $tmp;
-		}
-		$data1["lines"] = $data;
-		$json = wp_json_encode($data1);
-		if ($json) {
-			$this->feedData = $json;
-			return TRUE;
-		}
+			$data1["lines"] = $data;
+			$json = wp_json_encode($data1);
+			if ($json) {
+				$this->feedData = $json;
+				return TRUE;
+			}
+		} catch (\ValueError $e) {
+			#error_log('str_getcsv ValueError: ' . $e->getMessage());
+		}		
 	}
 
 	private	function inputtypeparamArr_replacePlaceholders($value) {

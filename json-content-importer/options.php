@@ -270,7 +270,6 @@ function jci_settings_page() {
 			<?php 
 			$pluginOption_jci_api_errorhandling = get_option('jci_api_errorhandling') ?? 0;
 			if (empty($pluginOption_jci_api_errorhandling)) {
-				#update_option('jci_api_errorhandling', 0);
 				$pluginOption_jci_api_errorhandling = 0;
 			}
 			?>
@@ -512,11 +511,15 @@ add_action('wp_footer', 'json_for_footer');
 		
 				echo "<table border=1>";
 				echo '<form method="post" action="'.esc_attr($secure_url).'">';
+
 				$t = $jci_free_api_access_items[$formdata["accset"]] ?? NULL;
 				$formdata = $jci_free_request->setDataFromAccSet($t, $formdata, TRUE);
+
+
 				
 				$basenodearr = Array();
 				$usebasenode = jci_handle_postinput("usebasenode"); # $_POST["usebasenode"] ?? '';
+
 				if ("yes"==$usebasenode) {
 					$basenode =  jci_handle_postinput("basenode", null); # isset( $_POST['basenode'] ) ? esc_attr( $_POST['basenode'] ) : null;
 					$selectedmethod = $t["set"]["selectedmethod"] ?? '';
@@ -524,27 +527,26 @@ add_action('wp_footer', 'json_for_footer');
 					
 					$receivedData = $fileLoadWithCacheObj->getHttpResponse();
 					
-				################
-				$feedData = $fileLoadWithCacheObj->getFeeddataWithoutpayloadinputstr();
+					################
+					$feedData = $fileLoadWithCacheObj->getFeeddataWithoutpayloadinputstr();
 		
-				# did we get JSON?
-				$convertJsonNumbers2Strings = TRUE; # default!
-				$debugLevel = 10;
-				$debugModeIsOn = FALSE;
+					# did we get JSON?
+					$convertJsonNumbers2Strings = TRUE; # default!
+					$debugLevel = 10;
+					$debugModeIsOn = FALSE;
 
-				# BEGIN cache: The  retrieved JSON from the API-Access-Set is NOT cached
-				$cacheEnable = FALSE;#TRUE;
-				$cacheFile = "";
-				$cacheExpireTime = 0;
+					# BEGIN cache: The  retrieved JSON from the API-Access-Set is NOT cached
+					$cacheEnable = FALSE;#TRUE;
+					$cacheFile = "";
+					$cacheExpireTime = 0;
 		
-			
-				$jsonDecodeObj = new JSONdecodeFreeV2($feedData, TRUE, $debugLevel, $debugModeIsOn, $convertJsonNumbers2Strings, $cacheFile, $fileLoadWithCacheObj->getContentType(), 
-					$formdata["indataformat"], $formdata["csvdelimiter"], $formdata["csvline"],
-					$formdata["csvenclosure"], $formdata["csvskipempty"], $formdata["csvescape"]
-				);
+					$jsonDecodeObj = new JSONdecodeFreeV2($feedData, TRUE, $debugLevel, $debugModeIsOn, $convertJsonNumbers2Strings, $cacheFile, $fileLoadWithCacheObj->getContentType(), 
+						$formdata["indataformat"], $formdata["csvdelimiter"], $formdata["csvline"],
+						$formdata["csvenclosure"], $formdata["csvskipempty"], $formdata["csvescape"]
+					);
 
-				$vals = $jsonDecodeObj->getJsondata();
-				$receivedData = wp_json_encode($vals);
+					$vals = $jsonDecodeObj->getJsondata();
+					$receivedData = wp_json_encode($vals);
 		
 				$resutitle = __("Valid JSON received?", 'json-content-importer')." ";
 				$resu = "";
@@ -560,15 +562,15 @@ add_action('wp_footer', 'json_for_footer');
 					$resu .= __("decoding due to invalid JSON failed. Check structure and encoding of JSON-data", 'json-content-importer');
 				}
 
-				###########################					
-				$httpcode = $fileLoadWithCacheObj->getErrormsgHttpCode();
+					###########################					
+					$httpcode = $fileLoadWithCacheObj->getErrormsgHttpCode();
 					
-				require_once plugin_dir_path( __FILE__ ) . '/lib/JsonToTemplateConverter.php';
-				$jsonArr = json_decode($receivedData);
-				$j2t = new JsonToTemplateConverter($jsonArr, $basenode);
-				$res = $j2t->getTemplate();
-				$basenodearr= $j2t->getNodePaths($receivedData);		
-			}
+					require_once plugin_dir_path( __FILE__ ) . '/lib/JsonToTemplateConverter.php';
+					$jsonArr = json_decode($receivedData);
+					$j2t = new JsonToTemplateConverter($jsonArr, $basenode);
+					$res = $j2t->getTemplate();
+					$basenodearr= $j2t->getNodePaths($receivedData);		
+				}
 				$formdata = $jci_free_request->showExistingAPIAccesSets($jci_free_api_access_items, $formdata, __('Use data: Generate Shortcode', 'json-content-importer'), FALSE, TRUE, $basenodearr);
 				echo "</form>";
 		
@@ -607,7 +609,6 @@ add_action('wp_footer', 'json_for_footer');
 			}
 		
 		?>
-
        </td></tr>
 		<tr><td>
 		<h2><?php esc_html_e('Shortcode-Way: Simple Example', 'json-content-importer'); ?></h2>

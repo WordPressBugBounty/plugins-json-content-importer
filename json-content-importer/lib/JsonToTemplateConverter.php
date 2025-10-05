@@ -175,7 +175,7 @@ public function getNodePaths($json)
 		if (empty($value)) {
 			return "";
 		}
-		$chk_strtotime = strtotime($value) ?? "";
+		$chk_strtotime = "";# strtotime($value) ?? ""; ## funktioniert leider nicht zuverlässig
 		if (!empty($chk_strtotime)) {
 			$ht =":datetime,d.m.Y, H:i:s,0";
 			return $ht;
