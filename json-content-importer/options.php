@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 add_action('admin_menu', 'jci_create_menu');
 
 
@@ -17,6 +19,7 @@ function register_jcisettings() {
 	register_setting( 'jci-options', 'jci_http_header_default_useragent','jci_sanitize_callback_register_jcisettings' );
 	register_setting( 'jci-options', 'jci_gutenberg_off','jci_sanitize_callback_register_jcisettings' );
 	register_setting( 'jci-options', 'jci_sslverify_off','jci_sanitize_callback_register_jcisettings' );
+	register_setting( 'jci-options', 'jci_contributor_off','jci_sanitize_callback_register_jcisettings' );
 	register_setting( 'jci-options', 'jci_api_errorhandling','jci_sanitize_callback_register_jcisettings' );
 }
 
@@ -140,6 +143,7 @@ function jci_handle_input() {
 			switch ( $currenttab ){
 			case 'settings' :
 				$areThereChanges = jci_save_check_value("jci_sslverify_off", jci_handle_postinput("jci_sslverify_off"), $areThereChanges);
+				$areThereChanges = jci_save_check_value("jci_contributor_off", jci_handle_postinput("jci_contributor_off"), $areThereChanges);
 				$areThereChanges = jci_save_check_value("jci_gutenberg_off", jci_handle_postinput("jci_gutenberg_off"), $areThereChanges);
 				$areThereChanges = jci_save_check_value("jci_cache_time", jci_handle_postinput("jci_cache_time"), $areThereChanges);
 				$areThereChanges = jci_save_check_value("jci_cache_time_format",jci_handle_postinput("jci_cache_time_format"), $areThereChanges);
@@ -246,6 +250,20 @@ function jci_settings_page() {
 			<input type="radio" name="jci_sslverify_off" value="1" <?php echo ($val_jci_sslverify_off == 1)?"checked=checked":""; ?> /> <?PHP esc_html_e('Switch OFF SSL verification (send sslverify=false)', 'json-content-importer'); ?><br>
 			<input type="radio" name="jci_sslverify_off" value="2" <?php echo ($val_jci_sslverify_off == 2)?"checked=checked":""; ?> /> <?PHP esc_html_e('Switch ON SSL verification (send sslverify=true)', 'json-content-importer'); ?><br>
 			<input type="radio" name="jci_sslverify_off" value="3" <?php echo ($val_jci_sslverify_off == 3)?"checked=checked":""; ?> /> <?PHP esc_html_e('don\'t send any additional Info about SSL verification (WP-Default)', 'json-content-importer'); ?><br>
+        </td></tr>
+
+		<tr><td>
+			<h2><?php esc_html_e('Is the WordPress role *Contributor* allowed to use this plugin?', 'json-content-importer'); ?></h2>
+			<strong><?php esc_html_e("WordPress contributors are normally only allowed to edit text, images, and similar content.", 'json-content-importer') ?>:</strong><br>
+			<?PHP
+			$val_jci_contributor_off = get_option('jci_contributor_off', 1);
+			if (1!=$val_jci_contributor_off && 2!=$val_jci_contributor_off) {
+				$val_jci_contributor_off = 1;
+			}
+			?>
+			<input type="radio" name="jci_contributor_off" value="1" <?php echo ($val_jci_contributor_off == 1)?"checked=checked":""; ?> /> <?PHP esc_html_e('No (default)', 'json-content-importer'); ?><br>
+			<input type="radio" name="jci_contributor_off" value="2" <?php echo ($val_jci_contributor_off == 2)?"checked=checked":""; ?> /> <?PHP esc_html_e('Yes', 'json-content-importer'); ?>
+
         </td></tr>
 
 		<tr><td>
@@ -927,6 +945,36 @@ add_action('wp_footer', 'json_for_footer');
 				echo '</span></b>';
 			}
 		?>
+        </td></tr>
+     <tr><td>
+		<h2><?php esc_html_e('mbstring and mb_check_encoding', 'json-content-importer'); ?></h2>
+        <?php
+			$mb_check_encoding_active = FALSE;
+			if (function_exists('mb_check_encoding')) {
+				$mb_check_encoding_active = TRUE;
+			}
+			echo esc_html_e("mbstring and mb_check_encoding active", 'json-content-importer').": ";
+			if ($mb_check_encoding_active) {
+				echo '<b><span style="color:#4CC417;">';
+				esc_html_e('YES', 'json-content-importer');
+				echo '</span></b>';
+			} else {
+				echo '<b><span style="color:#f00;">';
+				esc_html_e('NO', 'json-content-importer');
+				echo ' </span></b>';
+			}
+			echo '<p><a href="https://www.php.net/manual/de/book.mbstring.php" target="_Blank">mbstring</a> is a PHP extension for multibyte characters (e.g., UTF-8) — essential for correct text processing in multilingual apps.';
+			echo '<br><a href="https://www.php.net/manual/de/function.mb-check-encoding.php" target="_Blank">mb_check_encoding</a> checks if a string is valid for a given encoding (e.g., UTF-8) — helps prevent malformed data and security risks.';
+		?>
+			<p>
+			<strong>If mbstring and mb_check_encoding are not active, API data that is not in UTF-8 format may not be processed correctly.</strong><br>
+		<a href="https://en.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a> is the most widely used character encoding for the web. It supports all Unicode characters, including letters, symbols, and emojis from every language, ensuring consistent text display and data exchange across different systems and platforms.
+			<br>Data is not in UTF-8 when it uses older or different encoding formats. This happens with legacy systems that use encodings like ISO-8859-1 or Windows-1252. Regional encodings, such as Shift-JIS for Japanese or GB2312 for Chinese, also mean the data is not in UTF-8.
+<br>Misconfigured servers, databases, or APIs might use UTF-16, ASCII, or other formats instead. 
+<br>Sometimes, files or data transfers lack the correct encoding headers, so the system assumes the wrong format.
+As a result, special characters—like &auml; or &euro; - can appear garbled or as question marks.
+
+
         </td></tr>
 		<tr><td>
 		<h2><?php esc_html_e('allow_url_fopen', 'json-content-importer'); ?></h2>

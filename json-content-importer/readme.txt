@@ -3,8 +3,8 @@ Contributors: berkux
 Tags: api, json, xml, csv, data
 Requires at least: 5.3
 Requires PHP: 7.0
-Tested up to: 6.8
-Stable tag: 2.0.6
+Tested up to: 6.9
+Stable tag: 2.0.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -127,6 +127,21 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 * "{street:ifNotEmptyAddLeft:,}": If datafield "street" is not empty, add "," left of datafield-value. allowed chars are: "a-zA-Z0-9,;_-:&lt;&gt;/ "
 * "{locationname:urlencode}": Insert the php-urlencoded value of the datafield "locationname". Needed when building URLs
 
+= Update 2.0.8 =
+Please check the following:
+In the "Check Installation" section of this plugin’s options, it shows whether the PHP extension **mbstring** is active on your WordPress server’s PHP installation.
+* If mbstring is active, this update is not important for you.
+* If mbstring is NOT active:
+  After updating, please verify that the display of API data is still correct.
+  If you display HTML or JavaScript code from the API data **without** using `:html` or `:purejsondata`, this code should now be displayed as source code.
+  This means that HTML code will not be interpreted and JavaScript code will not be executed.
+  If this is the intended behavior, please add `:purejsondata` to your JCI template, for example: `{apinodevalue:purejsondata}`
+* Background:
+If the PHP extension **mbstring** is not active on your WordPress server (it usually is, but not on all servers), security measures that would display API data containing HTML or JavaScript code as source code were not active.
+Only by adding `:html` or `:purejsondata` could you explicitly allow the code to be executed, which should only be done with trusted APIs.
+Otherwise, malicious code could be injected via the API.
+
+
 == Screenshots ==  
 1. Welcome to JCI! Thank you!
 2. Check your JCI installation and its requirements.
@@ -139,6 +154,15 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 9. JCI Block: Generate a template from JSON.
 	
 == Changelog ==
+= 2.0.8 =
+* Security Issue Fixed, importaint when mbstring is not active or Contributors use the JCI shortcode
+* Plugin Options, Tab "Check Installation": Added check on "mbstring and mb_check_encoding"
+* OK: Plugin ok with "Plugin Check (PCP) 1.8.0"
+* OK: Plugin ok with WordPress 6.9
+
+= 2.0.7 =
+* ADDED: New settings for the WordPress “Contributor” role – starting with this version, contributors can no longer request URLs or APIs. If a WordPress contributor should still be allowed to do so, an option in the “Basic Settings” can be enabled to grant this permission.
+
 = 2.0.6 =
 * BUGFIX: Handling of Form-Data at Step 1 
 * REMOVED: When generating a template from the JSON data, “:datetime” was previously inserted, where applicable, to show how date and time can be formatted. Unfortunately, automatic detection of date and time values isn’t very reliable, so this feature has been removed.
@@ -157,7 +181,7 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 
 = 2.0.2 =
 * BUGFIX: SSL-Verification 
-* Plugin OK with WordPress 6.7.2
+* Plugin ok with WordPress 6.7.2
 * Plugin ok with "Plugin Check (PCP) 1.4.0"
 
 = 2.0.1 =
@@ -167,20 +191,13 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 * NEW: Create an API-Access-Set - fill form with the API-URL. select data-tye (JSON, XML, CSV) etc. Test API response and you're ready to use the data
 * NEW: Use the API-Access-Set in Step 2: Generate a Shortcode for the data. The generatated Shortcode has all API-data, reduce it to your needs.
 * NEW: Use the API-Access-Set with the PHP function jcifree_getjson("NAME_OF_API_ACCESS_SET");
-* Plugin OK with WordPress 6.7.1
+* Plugin ok with WordPress 6.7.1
 * Plugin ok with "Plugin Check (PCP) 1.3.1"
 
-= 1.6.1 =
-* Plugin OK with WordPress 6.6 
-* Bugfix: Relevant when using oneofthesewordsmustbein and similar
-
-= 1.6.0 =
-* Plugin OK with WordPress 6.5.5 
-* PluginCheckPlugin with no Errors 
-* Security Issue Fixed - IMPORTANT: The function "wp_safe_remote_get()" is now used instead of "wp_remote_get()" to retrieve JSON from an API URL. This change restricts communication to only ports 80, 443, and 8080. Additionally, authentication via "https://a:b@www..." and local usage via 127.0.0.1 are no longer possible with this new version.
 
 == Upgrade Notice ==
-= 2.0.6 =
-* BUGFIX: Handling of Form-Data at Step 1 
-* REMOVED: When generating a template from the JSON data, “:datetime” was previously inserted, where applicable, to show how date and time can be formatted. Unfortunately, automatic detection of date and time values isn’t very reliable, so this feature has been removed.
-* REMOVED: In step 1, the loaded JSON is shown as a tree. An unnecessary JS library was being loaded; this has been removed.
+= 2.0.8 =
+* Security Issue Fixed, importaint when mbstring is not active
+* Plugin Options, Tab "Check Installation": Added check on "mbstring and mb_check_encoding"
+* OK: Plugin ok with "Plugin Check (PCP) 1.8.0"
+* OK: Plugin ok with WordPress 6.9

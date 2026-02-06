@@ -130,7 +130,24 @@ class JsonContentImporter {
 	
     /* shortcodeExecute: read shortcode-params and check cache */
 	public function shortcodeExecute($atts , $content = ""){
-       $attsIn = shortcode_atts(array(
+       
+	   
+	$val_jci_contributor_off = get_option('jci_contributor_off', 1);
+	if (1==$val_jci_contributor_off) {
+		$user = wp_get_current_user();
+		$roles = (array) $user->roles;
+		if ( in_array( 'contributor', $roles, true ) ) {
+			$renderedContent = "Access denied: You must be an Administrator, Editor, or Author to use the JCI plugin. Your current role 'Contributor' does not have the required permissions.";
+			return $renderedContent;
+		}
+	}
+	   
+	   
+	   
+	   
+	   
+	   
+	   $attsIn = shortcode_atts(array(
         'url' => '',
         'urlgettimeout' => '',
         'numberofdisplayeditems' => '',
@@ -238,7 +255,7 @@ class JsonContentImporter {
 			$this->removewrappingsquarebrackets = TRUE;
 		}
 		#if (get_option('jci_api_errorhandling')>=0) {
-			$this->fallback2cache = get_option('jci_api_errorhandling') ?? 0;
+			$this->fallback2cache = get_option('jci_api_errorhandling', 0);
 		#}
 	  if (
 		"1"==$fallback2cache ||

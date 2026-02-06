@@ -1,5 +1,5 @@
 <?PHP
-
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  #update_option('jci_free_api_access_items', '', JCIFREE_UO_AUTOLOAD); drop all
 
 class jci_free_request {

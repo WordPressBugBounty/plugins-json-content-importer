@@ -3,7 +3,7 @@
 Plugin Name: Get Use APIs - JSON Content Importer
 Plugin URI: https://json-content-importer.com/
 Description: Plugin to import, cache and display a JSON-Feed. Display is done with wordpress-shortcode or gutenberg-block.
-Version: 2.0.6
+Version: 2.0.8
 Author: Bernhard Kux
 Author URI: https://json-content-importer.com/
 Text Domain: json-content-importer
@@ -21,7 +21,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 defined('ABSPATH') OR exit;
-define( 'JCIFREE_VERSION', '2.0.6' );
+define( 'JCIFREE_VERSION', '2.0.8' );
 define( 'JCIFREE_UO_AUTOLOAD', FALSE); # FALSE: update_option does not load values everytime, but only if really needed
 
 function jcifree_getjson($api_set, $convert_xmlcsv_to_json=FALSE, $cacheinsec=0, $debugmode=FALSE) {
@@ -376,6 +376,16 @@ function register_jcifree_block_restapi() {
 add_action('rest_api_init', 'register_jcifree_block_restapi');
 
 function jcifree_handle_block_endpoint(WP_REST_Request $request) {
+	$val_jci_contributor_off = get_option('jci_contributor_off') ?? 1;
+	if (1==$val_jci_contributor_off) {
+		$user = wp_get_current_user();
+		$roles = (array) $user->roles;
+		if ( in_array( 'contributor', $roles, true ) ) {
+			$renderedContent = "Access denied: You must be an Administrator, Editor, or Author to use the JCI plugin. Your current role 'Contributor' does not have the required permissions.";
+			return new WP_REST_Response(array('renderedContent' => $renderedContent));
+		}
+	}
+
 	$nonce = $request->get_header('X-WP-Nonce');
 	if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
 		$renderedContent = 'Permission denied for JCIfree Block REST-API';

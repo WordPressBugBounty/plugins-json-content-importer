@@ -1,5 +1,5 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 	if (defined('WPCF7_PLUGIN')) {
 	#if ( is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
 	add_action('wpcf7_before_send_mail', 'wpcf7_custom_send_to_api');

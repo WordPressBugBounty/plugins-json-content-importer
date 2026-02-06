@@ -315,13 +315,29 @@ class JsonContentParser123 {
       # JSON data like { "$a": "$content", }
       $valueConv2Html = $value;
       if (function_exists('mb_check_encoding') && mb_check_encoding($valueConv2Html, 'UTF-8')) {
-        $valueConv2Html = htmlentities($valueConv2Html, ENT_QUOTES, "UTF-8", FALSE); # convert to HTML
-      }
+		$valueConv2Html = htmlentities($valueConv2Html, ENT_QUOTES, "UTF-8", FALSE); # convert to HTML
+      } else {
+		if (function_exists('iconv')) {
+			// try convert ISO-8859-1 to UTF-8
+			$valueConv2Html = iconv('ISO-8859-1', 'UTF-8//TRANSLIT', $valueConv2Html);
+			$valueConv2Html = htmlentities($valueConv2Html, ENT_QUOTES, "UTF-8", false);
+		} else {
+			$valueConv2Html = htmlentities($valueConv2Html, ENT_QUOTES, "ISO-8859-1", false);
+		}
+	  }
       $valueConv2Html = preg_quote($valueConv2Html);  // put backslash pre of char in regex
       $value = preg_quote($value);  // put backslash pre of char in regex
 
       if (function_exists('mb_check_encoding') && mb_check_encoding($keyIn, 'UTF-8')) {
         $keyIn = htmlentities($keyIn, ENT_QUOTES, "UTF-8", FALSE); # convert to HTML
+      } else {
+		if (function_exists('iconv')) {
+			// try convert ISO-8859-1 to UTF-8
+			$keyIn = iconv('ISO-8859-1', 'UTF-8//TRANSLIT', $keyIn);
+			$keyIn = htmlentities($keyIn, ENT_QUOTES, "UTF-8", false);
+		} else {
+			$keyIn = htmlentities($keyIn, ENT_QUOTES, "ISO-8859-1", false);
+		}
       }
       $pattern = preg_quote($pattern); // put backslash pre of char in regex
 
