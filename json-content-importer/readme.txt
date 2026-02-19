@@ -4,11 +4,11 @@ Tags: api, json, xml, csv, data
 Requires at least: 5.3
 Requires PHP: 7.0
 Tested up to: 6.9
-Stable tag: 2.0.8
+Stable tag: 2.0.9
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Connects an API to WordPress: Get API-data (JSON, XML, CSV...), show it with a Shortcode, a JCI Block or PHP.  Generate a template with the JCI Block
+Connects an API to WordPress: Get API-data (JSON, XML, CSV...), show it with a Shortcode, a JCI Block or PHP. Generate a template with the JCI Block
 
 == Description ==
 
@@ -127,21 +127,6 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 * "{street:ifNotEmptyAddLeft:,}": If datafield "street" is not empty, add "," left of datafield-value. allowed chars are: "a-zA-Z0-9,;_-:&lt;&gt;/ "
 * "{locationname:urlencode}": Insert the php-urlencoded value of the datafield "locationname". Needed when building URLs
 
-= Update 2.0.8 =
-Please check the following:
-In the "Check Installation" section of this plugin’s options, it shows whether the PHP extension **mbstring** is active on your WordPress server’s PHP installation.
-* If mbstring is active, this update is not important for you.
-* If mbstring is NOT active:
-  After updating, please verify that the display of API data is still correct.
-  If you display HTML or JavaScript code from the API data **without** using `:html` or `:purejsondata`, this code should now be displayed as source code.
-  This means that HTML code will not be interpreted and JavaScript code will not be executed.
-  If this is the intended behavior, please add `:purejsondata` to your JCI template, for example: `{apinodevalue:purejsondata}`
-* Background:
-If the PHP extension **mbstring** is not active on your WordPress server (it usually is, but not on all servers), security measures that would display API data containing HTML or JavaScript code as source code were not active.
-Only by adding `:html` or `:purejsondata` could you explicitly allow the code to be executed, which should only be done with trusted APIs.
-Otherwise, malicious code could be injected via the API.
-
-
 == Screenshots ==  
 1. Welcome to JCI! Thank you!
 2. Check your JCI installation and its requirements.
@@ -154,8 +139,12 @@ Otherwise, malicious code could be injected via the API.
 9. JCI Block: Generate a template from JSON.
 	
 == Changelog ==
+= 2.0.9 =
+* FIX: Improved the JCI block for apiVersion 3 — it now also should work with the Divi Builder
+* IMPROVED: To improve security, non-admin users cannot save JCI shortcodes. From version 2.0.9 onward, the plugin applies additional output filtering, removing potentially unsafe HTML tags such as script and iframe by default. These tags may be enabled in the plugin’s basic settings if they are strictly required.
+
 = 2.0.8 =
-* Security Issue Fixed, importaint when mbstring is not active or Contributors use the JCI shortcode
+* Security Issue Fixed, importaint when mbstring is not active
 * Plugin Options, Tab "Check Installation": Added check on "mbstring and mb_check_encoding"
 * OK: Plugin ok with "Plugin Check (PCP) 1.8.0"
 * OK: Plugin ok with WordPress 6.9
@@ -196,8 +185,6 @@ Otherwise, malicious code could be injected via the API.
 
 
 == Upgrade Notice ==
-= 2.0.8 =
-* Security Issue Fixed, importaint when mbstring is not active
-* Plugin Options, Tab "Check Installation": Added check on "mbstring and mb_check_encoding"
-* OK: Plugin ok with "Plugin Check (PCP) 1.8.0"
-* OK: Plugin ok with WordPress 6.9
+= 2.0.9 =
+* FIX: Improved the JCI block for apiVersion 3 — it now also should work with the Divi Builder
+* IMPROVED: To improve security, non-admin users cannot save JCI shortcodes. From version 2.0.9 onward, the plugin applies additional output filtering, removing potentially unsafe HTML tags such as script and iframe by default. These tags may be enabled in the plugin’s basic settings if they are strictly required.

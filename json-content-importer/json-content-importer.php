@@ -3,7 +3,7 @@
 Plugin Name: Get Use APIs - JSON Content Importer
 Plugin URI: https://json-content-importer.com/
 Description: Plugin to import, cache and display a JSON-Feed. Display is done with wordpress-shortcode or gutenberg-block.
-Version: 2.0.8
+Version: 2.0.9
 Author: Bernhard Kux
 Author URI: https://json-content-importer.com/
 Text Domain: json-content-importer
@@ -21,7 +21,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 defined('ABSPATH') OR exit;
-define( 'JCIFREE_VERSION', '2.0.8' );
+define( 'JCIFREE_VERSION', '2.0.9' );
 define( 'JCIFREE_UO_AUTOLOAD', FALSE); # FALSE: update_option does not load values everytime, but only if really needed
 
 function jcifree_getjson($api_set, $convert_xmlcsv_to_json=FALSE, $cacheinsec=0, $debugmode=FALSE) {
@@ -133,34 +133,20 @@ function jcifree_getjson($api_set, $convert_xmlcsv_to_json=FALSE, $cacheinsec=0,
 }
 
 
+add_filter('content_save_pre', function ($content) {
+	if ( ! has_shortcode( $content, 'jsoncontentimporter' ) ) {
+		return $content;
+	}
+	if ( current_user_can( 'unfiltered_html' ) ) {
+		return $content;
+	}
+	$re = get_shortcode_regex( [ 'jsoncontentimporter' ] );
+	return preg_replace_callback( "/$re/s", function( $m ) {
+		if ( $m[2] !== 'jsoncontentimporter' ) return $m[0];
+		return '<!-- Blocked: You have added the jsoncontentimporter shortcode. This is not allowed with your current WordPress permissions. -->';
+		}, $content );
+}, 20);
 
-#function jci_i18n_init() {
-	#$pd = dirname(plugin_basename(__FILE__)	).'/languages/';
-	#$lt = load_plugin_textdomain('json-content-importer', false, $pd);
-#}
-
-/*
-function jci_block_plugin_de_translation($mofile, $domain) {
-	if ('json-content-importer' === $domain && strpos($mofile, 'de_DE.mo') !== false) {
-		$custom_translation = WP_PLUGIN_DIR. "/".dirname(plugin_basename(__FILE__)	).'/languages/json-content-importer-de_DE.mo';
-		if (file_exists($custom_translation)) {
-            return $custom_translation;
-        } else {
-            return $mofile;
-        }
-    }
-    return $mofile;
-}
-*/
-#if (is_admin()) {
-	#add_action('plugins_loaded', 'jci_i18n_init');
-	#add_filter('load_textdomain_mofile', 'jci_block_plugin_de_translation', 10, 2);
-#}
-
-#function jci_load_css() {
-#	wp_enqueue_style('jci-style', plugin_dir_url(__FILE__) . 'css/jci.css',null, 1);
-#}
-#add_action('admin_enqueue_scripts', 'jci_load_css', 100);
 
 class jciGutenberg {
 	private $gutenbergIsActive = FALSE;

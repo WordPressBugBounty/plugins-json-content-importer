@@ -143,7 +143,9 @@ class JsonContentImporter {
 	}
 	   
 	   
-	   
+	if ( ! current_user_can( 'unfiltered_html' ) ) {
+		return 'shortcode disabled';
+	}	   
 	   
 	   
 	   
@@ -480,10 +482,43 @@ class JsonContentImporter {
       $parseMsg = $JsonContentParser->getErrorDebugMsg();
       $this->showdebugmessage($parseMsg);
       $this->buildDebugTextarea(__('result:', 'json-content-importer'), $outdata);
-      $rdamtmp = $this->debugmessage[$this->nestedlevel].$rdam;
-			$this->nestedlevel--;
-			return apply_filters("json_content_importer_result_root", $rdamtmp);
+		$rdamtmp = $this->debugmessage[$this->nestedlevel].$rdam;
+		$this->nestedlevel--;
+		$retval =  apply_filters("json_content_importer_result_root", $rdamtmp);
+		
+		#return $retval;
+		
+		global $allowedposttags;
+		$jciallowedtags = $allowedposttags;
+		$valTags = (string) get_option('jci_allow_dangerous_tags', ''); // e.g. "iframe, script"
+		if ( trim($valTags) !== '' ) {
+			$arrTags = array_filter(array_map('trim', explode(',', strtolower($valTags))));
+			foreach ($arrTags as $tag) {
+				$tag = strtolower($tag);
+				if ( ! preg_match('/^[a-z][a-z0-9:-]*$/', $tag) ) {
+					continue;
+				}
+				if ( $tag === 'iframe' ) {
+					$jciallowedtags['iframe'] = array_merge(
+						$jciallowedtags['iframe'] ?? [],
+						[
+							'src' => true,
+							'width' => true,
+							'height' => true,
+							'allowfullscreen' => true,
+							'loading' => true,
+							'title' => true,
+							'allow'  => true,
+							'referrerpolicy' => true,							
+						]
+					);
+				} else {
+					$jciallowedtags[$tag] = $jciallowedtags[$tag] ?? [];
+				}			
+			}
 		}
+		return wp_kses($retval,$jciallowedtags);		
+	}
 
     private function buildDebugTextarea($message, $txt, $addline=FALSE) {
         $norowsmax = 20;

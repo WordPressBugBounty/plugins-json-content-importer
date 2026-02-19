@@ -21,6 +21,7 @@ function register_jcisettings() {
 	register_setting( 'jci-options', 'jci_sslverify_off','jci_sanitize_callback_register_jcisettings' );
 	register_setting( 'jci-options', 'jci_contributor_off','jci_sanitize_callback_register_jcisettings' );
 	register_setting( 'jci-options', 'jci_api_errorhandling','jci_sanitize_callback_register_jcisettings' );
+	register_setting( 'jci-options', 'jci_allow_dangerous_tags','jci_sanitize_callback_register_jcisettings' );
 }
 
 function jci_sanitize_callback_register_jcisettings($input) {
@@ -144,6 +145,7 @@ function jci_handle_input() {
 			case 'settings' :
 				$areThereChanges = jci_save_check_value("jci_sslverify_off", jci_handle_postinput("jci_sslverify_off"), $areThereChanges);
 				$areThereChanges = jci_save_check_value("jci_contributor_off", jci_handle_postinput("jci_contributor_off"), $areThereChanges);
+				$areThereChanges = jci_save_check_value("jci_allow_dangerous_tags", jci_handle_postinput("jci_allow_dangerous_tags"), $areThereChanges);
 				$areThereChanges = jci_save_check_value("jci_gutenberg_off", jci_handle_postinput("jci_gutenberg_off"), $areThereChanges);
 				$areThereChanges = jci_save_check_value("jci_cache_time", jci_handle_postinput("jci_cache_time"), $areThereChanges);
 				$areThereChanges = jci_save_check_value("jci_cache_time_format",jci_handle_postinput("jci_cache_time_format"), $areThereChanges);
@@ -254,7 +256,7 @@ function jci_settings_page() {
 
 		<tr><td>
 			<h2><?php esc_html_e('Is the WordPress role *Contributor* allowed to use this plugin?', 'json-content-importer'); ?></h2>
-			<strong><?php esc_html_e("WordPress contributors are normally only allowed to edit text, images, and similar content.", 'json-content-importer') ?>:</strong><br>
+			<strong><?php esc_html_e("WordPress contributors are normally only allowed to edit text, images, and similar content", 'json-content-importer') ?>:</strong><br>
 			<?PHP
 			$val_jci_contributor_off = get_option('jci_contributor_off', 1);
 			if (1!=$val_jci_contributor_off && 2!=$val_jci_contributor_off) {
@@ -265,6 +267,20 @@ function jci_settings_page() {
 			<input type="radio" name="jci_contributor_off" value="2" <?php echo ($val_jci_contributor_off == 2)?"checked=checked":""; ?> /> <?PHP esc_html_e('Yes', 'json-content-importer'); ?>
 
         </td></tr>
+
+		<tr><td>
+			<h2><?php esc_html_e('Allow additional HTML tags (advanced)', 'json-content-importer'); ?></h2>
+			<strong><?php esc_html_e("Starting with version 2.0.9 the plugin output is filtered for improved security. If HTML tags such as script or iframe are absolutely required, they must be explicitly allowed here. Otherwise, these tags will be stripped from the output.", 'json-content-importer') ?></strong><br>
+			<?PHP
+			$val_jci_allow_dangerous_tags = get_option('jci_allow_dangerous_tags', "");
+			esc_html_e("Only enable script if you are absolutely certain that the API provides safe and trustworthy JavaScript code.", 'json-content-importer'); 
+			echo "<br>";
+			esc_html_e("Enter tag names separated by commas (for example: iframe, script).", 'json-content-importer'); 
+			
+			?>
+			<input type="text" name="jci_allow_dangerous_tags" value="<?php echo esc_html($val_jci_allow_dangerous_tags); ?>" size="60"/>
+        </td></tr>
+
 
 		<tr><td>
 			<h2><?php esc_html_e('Cacher: Saving API JSON data locally saves time by avoiding HTTP requests.', 'json-content-importer'); ?></h2>

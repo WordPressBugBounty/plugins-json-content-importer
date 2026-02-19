@@ -6,6 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  
 add_action( 'init', 'jsoncontentimporterGutenbergBlock' );
 
+add_action( 'enqueue_block_editor_assets', function () {
+    $langpath = plugin_dir_path( __FILE__ ) . '../languages/';
+    wp_set_script_translations( 'jcifree-block-script', 'json-content-importer', $langpath );
+});
+
+
 function checkCacheFolder($cacheBaseFolder, $cacheFolder) {
 	# wp version 4.4.2 and later: "/cache" is not created at install, so the plugin has to check and create...
 		if ( ! function_exists( 'request_filesystem_credentials' ) ) {
@@ -400,18 +406,27 @@ function jsoncontentimporterGutenbergBlock() {
 	wp_register_script(
 		'jcifree-block-script', 
 		plugins_url( 'jcifree-block.js', __FILE__ ),
-		array( 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-editor', 'wp-components', 'wp-api-fetch'),
+		#array( 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-editor', 'wp-components', 'wp-api-fetch'),
+        array( 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-block-editor', 'wp-components', 'wp-api-fetch' ), // [ÄNDERN] wp-editor -> wp-block-editor
 		filemtime( plugin_dir_path(__FILE__).'jcifree-block.js'),
 		TRUE
 	);
+	
+	
+	/*	
 	if (is_admin()) {
 		wp_enqueue_script('jcifree-block-script');
 	}
-	$langpath = plugin_dir_path( __FILE__ ) . '../languages/';
-	wp_set_script_translations( 'jcifree-block-script', 'json-content-importer', $langpath );
+	*/	
 
-	register_block_type( 'jci/jcifree-block-script', 
+	$langpath = plugin_dir_path( __FILE__ ) . '../languages/';
+	#wp_set_script_translations( 'jcifree-block-script', 'json-content-importer', $langpath );
+
+	register_block_type( 
+		'jci/jcifree-block-script', 
 		array(
+			'apiVersion' => 3,
+			'editor_script'   => 'jcifree-block-script',   // [NEU]
 			'render_callback' => 'jci_free_render',
 			'attributes'	  => array(
 				'apiURL'	 => array(

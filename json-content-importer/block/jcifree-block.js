@@ -1,18 +1,32 @@
-( function( editor, components, i18n, element ) {
-	const { __ } = wp.i18n;
-	var el = wp.element.createElement;  //element.createElement;
-	var registerBlockType = wp.blocks.registerBlockType;
-	var InspectorControls = wp.blockEditor.InspectorControls;
-	var TextControl = wp.components.TextControl;
-	var TextareaControl = wp.components.TextareaControl;
-	var RangeControl = wp.components.RangeControl;
-	var ServerSideRender = wp.serverSideRender;
-	var RadioControl = wp.components.RadioControl;
-	var MenuItemsChoice  = wp.components.MenuItemsChoice;
-	var ToggleControl = wp.components.ToggleControl;
-	const { Button, Modal, Spinner } = wp.components;
-	var apiFetch = wp.apiFetch;
-	const { useState, useEffect } = wp.element;	
+(function (editor, components, i18n, element, blocks, blockEditor, apiFetch) {
+//( function( editor, components, i18n, element ) {
+	if (!i18n || !element || !blocks || !blockEditor || !components || !apiFetch) {
+		return;
+	}
+	//const { __ } = wp.i18n;
+	const { __ } = i18n;
+	//var el = wp.element.createElement;  //element.createElement;
+	const  el = element.createElement;  //element.createElement;
+	
+	//var registerBlockType = wp.blocks.registerBlockType;
+	const { registerBlockType } = blocks;
+	
+	//var InspectorControls = wp.blockEditor.InspectorControls;
+	const { InspectorControls } = blockEditor;	
+	const { useBlockProps } = blockEditor;
+	
+	const { TextControl, TextareaControl, RangeControl, RadioControl, ToggleControl, Button, Modal, Spinner } = components;
+	//var TextControl = wp.components.TextControl;
+	//var TextareaControl = wp.components.TextareaControl;
+	//var RangeControl = wp.components.RangeControl;
+	//var RadioControl = wp.components.RadioControl;
+	//var ToggleControl = wp.components.ToggleControl;
+	//var MenuItemsChoice  = wp.components.MenuItemsChoice;
+	//const { Button, Modal, Spinner } = wp.components;
+	//var ServerSideRender = wp.serverSideRender;
+	//var apiFetch = wp.apiFetch;
+	//const { useState, useEffect } = wp.element;	
+	const { useState, useEffect } = element;	
 
 	function calcv (jsonData) {
 		let jsonObj = JSON.parse(jsonData);
@@ -32,7 +46,8 @@
 		var attributes = props.attributes;
 		var [renderedContent, setRenderedContent] = useState(null);
 
-		wp.element.useEffect(function() {
+		//wp.element.useEffect(function() {
+		useEffect(function() {
 			apiFetch({
 				path: '/wp/jcifree/v1/post/block-renderer/',
 				method: 'POST',
@@ -53,6 +68,7 @@
 	}	
 
 	registerBlockType( 'jci/jcifree-block-script', { 
+		apiVersion: 3,
 		title: __( 'JSON Content Importer FREE', 'json-content-importer'),
 		description: __( 'Block with API-data', 'json-content-importer'), 
  		icon: 'welcome-add-page', 
@@ -128,6 +144,7 @@
 			var oneofthesewordsmustnotbein = props.attributes.oneofthesewordsmustnotbein;
 			var oneofthesewordsmustnotbeindepth = props.attributes.oneofthesewordsmustnotbeindepth;
 			var setAttributes = props.setAttributes;
+			var attributes = props.attributes;
 			
 			const [ isOpen, setOpen ] = useState( false );
 			const [ data, setData ] = useState( null );
@@ -144,13 +161,30 @@
 				}
 				props.setAttributes( { template: (templateNew) } );
 			};
+			
+			const blockProps = useBlockProps({
+				className: 'jci-free-block-wrapper',
+				style: { 
+					minHeight: '100px', 
+					padding: '20px',
+					border: '1px solid #ddd',
+					backgroundColor: '#f9f9f9'
+				}
+			});			
 
 			const openModal = () => {
 				setOpen( true );
 				setLoading( true );
 				//	setButtonText("You clicked me");
 
-			const userToken = wpApiSettings.nonce;
+			//const userToken = wpApiSettings.nonce;
+			const userToken = window.wpApiSettings?.nonce;
+			if (!userToken) {
+				setLoading(false);
+				setData(JSON.stringify({ template: '', url: apiURL, basenode }));
+				return;
+			}
+
 			fetch('/wp-json/wp/jcifree/v1/get/crte/?url=' + encodeURIComponent(apiURL) + '&basenode='+ encodeURIComponent(basenode),
 					{
 						method: 'GET',
@@ -369,12 +403,13 @@
 					} ),
 				),
 			),
-			el(JCIFreeCustomServerSideRender, {
-				//blockName: 'jcifreeblock',
-				attributes: attributes,
-				key: 'jciFreecustomServerSideRender'
-			})
-			];
+			el('div', blockProps,  // Hier blockProps verwenden statt manuellem style
+				el(JCIFreeCustomServerSideRender, {
+					attributes: attributes,
+					key: 'jciFreecustomServerSideRender'
+				})
+			)
+		];
 		},
 		
 		save: function() {
@@ -382,9 +417,10 @@
 		},
 	} );
 
-} )(
-	window.wp.editor,
-	window.wp.components,
-	window.wp.i18n,
-	window.wp.element,
-);
+//} )(
+//	window.wp.editor,
+//	window.wp.components,
+//	window.wp.i18n,
+//	window.wp.element,
+//);
+})(window.wp?.editor, window.wp?.components, window.wp?.i18n, window.wp?.element, window.wp?.blocks, window.wp?.blockEditor, window.wp?.apiFetch);
