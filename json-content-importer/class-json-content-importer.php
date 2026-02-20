@@ -143,9 +143,9 @@ class JsonContentImporter {
 	}
 	   
 	   
-	if ( ! current_user_can( 'unfiltered_html' ) ) {
-		return 'shortcode disabled';
-	}	   
+	#if ( ! current_user_can( 'unfiltered_html' ) ) {
+	#	return 'shortcode disabled';
+	#}	   
 	   
 	   
 	   
