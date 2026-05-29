@@ -1,31 +1,13 @@
 (function (editor, components, i18n, element, blocks, blockEditor, apiFetch) {
-//( function( editor, components, i18n, element ) {
 	if (!i18n || !element || !blocks || !blockEditor || !components || !apiFetch) {
 		return;
 	}
-	//const { __ } = wp.i18n;
 	const { __ } = i18n;
-	//var el = wp.element.createElement;  //element.createElement;
-	const  el = element.createElement;  //element.createElement;
-	
-	//var registerBlockType = wp.blocks.registerBlockType;
+	const el = element.createElement; 
 	const { registerBlockType } = blocks;
-	
-	//var InspectorControls = wp.blockEditor.InspectorControls;
 	const { InspectorControls } = blockEditor;	
 	const { useBlockProps } = blockEditor;
-	
 	const { TextControl, TextareaControl, RangeControl, RadioControl, ToggleControl, Button, Modal, Spinner } = components;
-	//var TextControl = wp.components.TextControl;
-	//var TextareaControl = wp.components.TextareaControl;
-	//var RangeControl = wp.components.RangeControl;
-	//var RadioControl = wp.components.RadioControl;
-	//var ToggleControl = wp.components.ToggleControl;
-	//var MenuItemsChoice  = wp.components.MenuItemsChoice;
-	//const { Button, Modal, Spinner } = wp.components;
-	//var ServerSideRender = wp.serverSideRender;
-	//var apiFetch = wp.apiFetch;
-	//const { useState, useEffect } = wp.element;	
 	const { useState, useEffect } = element;	
 
 	function calcv (jsonData) {
@@ -34,10 +16,10 @@
 		if (jsonObj==null) {
 			ret = __( 'Sorry, this JSON can\'t be handled by the free JCI-Plugin. You might try the PRO-JCI.', 'json-content-importer');
 		} else {
-		let apiURL = jsonObj.url;
-		let basenode = jsonObj.basenode;
-		let template = jsonObj.template;
-		 ret = __('Template is inserted in the Block-Settings. Try it  by clicking "Try Template" there, please', 'json-content-importer') + '\n\n' + __('Template', 'json-content-importer') + ':\n' + template + '\n\n' + __('URL', 'json-content-importer') + ': ' + apiURL + '\n' + __('Basenode', 'json-content-importer') + ': ' + basenode + '\n';
+			let apiURL = jsonObj.url;
+			let basenode = jsonObj.basenode;
+			let template = jsonObj.template;
+			ret = __('Template is inserted in the Block-Settings. Try it  by clicking "Try Template" there, please', 'json-content-importer') + '\n\n' + __('Template', 'json-content-importer') + ':\n' + template + '\n\n' + __('URL', 'json-content-importer') + ': ' + apiURL + '\n' + __('Basenode', 'json-content-importer') + ': ' + basenode + '\n';
 		}
 		return ret;
 	}
@@ -45,17 +27,13 @@
 	function JCIFreeCustomServerSideRender(props) {
 		var attributes = props.attributes;
 		var [renderedContent, setRenderedContent] = useState(null);
-
-		//wp.element.useEffect(function() {
 		useEffect(function() {
 			apiFetch({
 				path: '/wp/jcifree/v1/post/block-renderer/',
 				method: 'POST',
 				data: { attributes: attributes }
 			}).then(function(response) {
-				//console.log(JSON.stringify(response, null, 4));
 				if (response.renderedContent) {
-					//console.log('response: '+ response.renderedContent);
 					setRenderedContent(response.renderedContent);
 				}
 			})
@@ -63,7 +41,6 @@
 				console.error('Error fetching data:', error.message);
 			});
 		}, [attributes]);
-		//}, [blockName, attributes]);
 		return el('div', { dangerouslySetInnerHTML: { __html: (renderedContent) } });
 	}	
 
@@ -127,7 +104,6 @@
 				default: false,
 			},
 		},
-
 		edit: function( props ) {
 			var attributes = props.attributes;
 			var apiURL = props.attributes.apiURL;
@@ -144,7 +120,6 @@
 			var oneofthesewordsmustnotbein = props.attributes.oneofthesewordsmustnotbein;
 			var oneofthesewordsmustnotbeindepth = props.attributes.oneofthesewordsmustnotbeindepth;
 			var setAttributes = props.setAttributes;
-			var attributes = props.attributes;
 			
 			const [ isOpen, setOpen ] = useState( false );
 			const [ data, setData ] = useState( null );
@@ -175,17 +150,13 @@
 			const openModal = () => {
 				setOpen( true );
 				setLoading( true );
-				//	setButtonText("You clicked me");
-
-			//const userToken = wpApiSettings.nonce;
-			const userToken = window.wpApiSettings?.nonce;
-			if (!userToken) {
-				setLoading(false);
-				setData(JSON.stringify({ template: '', url: apiURL, basenode }));
-				return;
-			}
-
-			fetch('/wp-json/wp/jcifree/v1/get/crte/?url=' + encodeURIComponent(apiURL) + '&basenode='+ encodeURIComponent(basenode),
+				const userToken = window.wpApiSettings?.nonce;
+				if (!userToken) {
+					setLoading(false);
+					setData(JSON.stringify({ template: '', url: apiURL, basenode }));
+					return;
+				}
+				fetch('/wp-json/wp/jcifree/v1/get/crte/?url=' + encodeURIComponent(apiURL) + '&basenode='+ encodeURIComponent(basenode),
 					{
 						method: 'GET',
 						headers: {
@@ -200,7 +171,7 @@
                     setData(jsonData);
                     setLoading(false);
 					let jsonObj = JSON.parse(jsonData);
-                    props.attributes.template = jsonObj.template;
+					props.setAttributes({ template: jsonObj.template });
                 })
                 .catch(error => {
                     console.error('Error requesting data:', error);
@@ -229,7 +200,7 @@
 							key: 'apiURL'
 						} ),
 						el( ToggleControl, { 
-							type: 'string',
+							//type: 'string',
 							label: __( 'Show API answer', 'json-content-importer' ),
 							//help : i18n.__( 'help' ),
 							checked : !!toggleswitchjson,
@@ -263,7 +234,7 @@
 					),
 					el('div', { style: { height: '25px' }, key: 'divSpace1' }  ),
 					el( ToggleControl, { // https://wordpress.org/gutenberg/handbook/components/toggle-control/
-						type: 'string',
+						//type: 'string',
 						label: __( 'Debugmode on / off', 'json-content-importer' ),
 						checked : !!toggleswitch,
 						onChange: function( newtoggleswitch ) {
@@ -272,7 +243,7 @@
 						key: 'toggleswitch'
 					}  ), 
 					el( ToggleControl, { // https://wordpress.org/gutenberg/handbook/components/toggle-control/
-						type: 'string',
+						//type: 'string',
 						label: __( 'Welcome on / off', 'json-content-importer' ),
 						//help : i18n.__( 'help' ),
 						checked : !!toggleswitchexample,
@@ -282,7 +253,7 @@
 						key: 'toggleswitchexample'
 					}  ), 
 					el( ToggleControl, { 
-						type: 'string',
+						//type: 'string',
 						label: __( 'Execute Shortcodes in Template' ),
 						checked : !!toggleswitchshortcodeexec,
 						onChange: function( newtoggleswitchshortcodeexec ) {

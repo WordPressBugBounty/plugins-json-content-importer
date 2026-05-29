@@ -73,6 +73,15 @@ function checkCacheFolder($cacheBaseFolder, $cacheFolder) {
 
 
  function jci_free_render( $attributes, $content ) {
+	$post = get_post();
+	if ($post) {    
+		$author_id = (int) $post->post_author;    
+		if (!user_can($author_id, 'unfiltered_html')) {        
+			return 'Access denied: The author of this post does not have permission to use the JCI block.';    
+		}
+	}
+
+
 	if ( ! is_array( $attributes ) ) {
         $attributes = [];
     }
@@ -357,7 +366,37 @@ function checkCacheFolder($cacheBaseFolder, $cacheFolder) {
 	 ###############################################################
 	 ###############################################################
 
-	 return $out;
+		global $allowedposttags;
+		$jciallowedtags = $allowedposttags;
+		$valTags = (string) get_option('jci_allow_dangerous_tags', ''); // e.g. "iframe, script"
+		if ( trim($valTags) !== '' ) {
+			$arrTags = array_filter(array_map('trim', explode(',', strtolower($valTags))));
+			foreach ($arrTags as $tag) {
+				$tag = strtolower($tag);
+				if ( ! preg_match('/^[a-z][a-z0-9:-]*$/', $tag) ) {
+					continue;
+				}
+				if ( $tag === 'iframe' ) {
+					$jciallowedtags['iframe'] = array_merge(
+						$jciallowedtags['iframe'] ?? [],
+						[
+							'src' => true,
+							'width' => true,
+							'height' => true,
+							'allowfullscreen' => true,
+							'loading' => true,
+							'title' => true,
+							'allow'  => true,
+							'referrerpolicy' => true,							
+						]
+					);
+				} else {
+					$jciallowedtags[$tag] = $jciallowedtags[$tag] ?? [];
+				}			
+			}
+		}
+	return wp_kses($out,$jciallowedtags);		
+	#return $out;
  }
 
 function checkIntAttrib($value, $defaultvalue) {
@@ -394,7 +433,10 @@ function checkIntAttrib($value, $defaultvalue) {
 	   $norows = $norowsmax;
 	 }
 	 $norows = $norows + 2;
-	 $out = $message."<br><textarea rows=".$norows." cols=90>".$txt."</textarea>";
+	 #$out = $message."<br><textarea rows=".$norows." cols=90>".$txt."</textarea>";
+	 $out = $message."<br><textarea rows=".$norows." cols=90>".htmlspecialchars($txt, ENT_QUOTES, 'UTF-8')."</textarea>";	 
+	 
+	 
 	 if ($addline) {
 	   $out .= "<hr>";
 	 }

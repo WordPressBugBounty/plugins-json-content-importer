@@ -3,7 +3,7 @@
 Plugin Name: Get Use APIs - JSON Content Importer
 Plugin URI: https://json-content-importer.com/
 Description: Plugin to import, cache and display a JSON-Feed. Display is done with wordpress-shortcode or gutenberg-block.
-Version: 2.0.10
+Version: 2.0.11
 Author: Bernhard Kux
 Author URI: https://json-content-importer.com/
 Text Domain: json-content-importer
@@ -21,7 +21,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 defined('ABSPATH') OR exit;
-define( 'JCIFREE_VERSION', '2.0.10' );
+define( 'JCIFREE_VERSION', '2.0.11' );
 define( 'JCIFREE_UO_AUTOLOAD', FALSE); # FALSE: update_option does not load values everytime, but only if really needed
 
 function jcifree_getjson($api_set, $convert_xmlcsv_to_json=FALSE, $cacheinsec=0, $debugmode=FALSE) {

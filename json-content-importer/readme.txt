@@ -3,8 +3,8 @@ Contributors: berkux
 Tags: api, json, xml, csv, data
 Requires at least: 5.3
 Requires PHP: 7.0
-Tested up to: 6.9
-Stable tag: 2.0.10
+Tested up to: 7.0
+Stable tag: 2.0.11
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,10 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 9. JCI Block: Generate a template from JSON.
 	
 == Changelog ==
+= 2.0.11 =
+* FIX Block: ToggleControl now working again
+* FIX:  To improve security, from version 2.0.11 onward, the plugin applies additional output filtering for the Gutenberg Block, removing potentially unsafe HTML tags such as script and iframe by default. These tags may be enabled in the plugin’s basic settings if they are strictly required.
+
 = 2.0.10 =
 * FIX: removed bug causing "shortcode disabled" 
 
@@ -188,5 +192,7 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 
 
 == Upgrade Notice ==
-= 2.0.10 =
-* FIX: removed bug causing "shortcode disabled" 
+= 2.0.11 =
+* FIX Block: ToggleControl now working again
+* FIX:  To improve security, from version 2.0.11 onward, the plugin applies additional output filtering for the Gutenberg Block, removing potentially unsafe HTML tags such as script and iframe by default. These tags may be enabled in the plugin’s basic settings if they are strictly required.
+
