@@ -491,13 +491,20 @@ class JsonContentImporter {
 		global $allowedposttags;
 		$jciallowedtags = $allowedposttags;
 		$valTags = (string) get_option('jci_allow_dangerous_tags', ''); // e.g. "iframe, script"
-		if ( trim($valTags) !== '' ) {
+	if ( trim($valTags) !== '' ) {
 			$arrTags = array_filter(array_map('trim', explode(',', strtolower($valTags))));
 			foreach ($arrTags as $tag) {
 				$tag = strtolower($tag);
-				if ( ! preg_match('/^[a-z][a-z0-9:-]*$/', $tag) ) {
+				if ( ! preg_match('/^[a-z][a-z0-9:-]*(?:#[a-z0-9:-]*)?$/', $tag) ) {
 					continue;
+				}					
+				if ( preg_match('/#/', $tag) ) {
+					$arrTagsSub = explode('#', strtolower($tag));
+					$jciallowedtags[$arrTagsSub[0]] = ($jciallowedtags[$arrTagsSub[0]] ?? []) + [
+						$arrTagsSub[1] => true,
+					];
 				}
+				
 				if ( $tag === 'iframe' ) {
 					$jciallowedtags['iframe'] = array_merge(
 						$jciallowedtags['iframe'] ?? [],
