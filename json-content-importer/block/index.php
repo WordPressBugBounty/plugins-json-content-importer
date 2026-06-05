@@ -373,9 +373,16 @@ function checkCacheFolder($cacheBaseFolder, $cacheFolder) {
 			$arrTags = array_filter(array_map('trim', explode(',', strtolower($valTags))));
 			foreach ($arrTags as $tag) {
 				$tag = strtolower($tag);
-				if ( ! preg_match('/^[a-z][a-z0-9:-]*$/', $tag) ) {
+				if ( ! preg_match('/^[a-z][a-z0-9:-]*(?:#[a-z0-9:-]*)?$/', $tag) ) {
 					continue;
+				}					
+				if ( preg_match('/#/', $tag) ) {
+					$arrTagsSub = explode('#', strtolower($tag));
+					$jciallowedtags[$arrTagsSub[0]] = ($jciallowedtags[$arrTagsSub[0]] ?? []) + [
+						$arrTagsSub[1] => true,
+					];
 				}
+				
 				if ( $tag === 'iframe' ) {
 					$jciallowedtags['iframe'] = array_merge(
 						$jciallowedtags['iframe'] ?? [],
@@ -396,7 +403,6 @@ function checkCacheFolder($cacheBaseFolder, $cacheFolder) {
 			}
 		}
 	return wp_kses($out,$jciallowedtags);		
-	#return $out;
  }
 
 function checkIntAttrib($value, $defaultvalue) {

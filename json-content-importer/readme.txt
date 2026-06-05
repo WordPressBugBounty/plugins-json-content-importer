@@ -4,7 +4,7 @@ Tags: api, json, xml, csv, data
 Requires at least: 5.3
 Requires PHP: 7.0
 Tested up to: 7.0
-Stable tag: 2.0.12
+Stable tag: 2.0.13
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -146,6 +146,9 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 9. JCI Block: Generate a template from JSON.
 	
 == Changelog ==
+= 2.0.13 =
+* IMPROVED: Now the "Allow additional HTML tags" also works for the JCI Block
+
 = 2.0.12 =
 * IMPROVED: Starting with version 2.0.11, any HTML code present in the shortcode or block is filtered to prevent dangerous code (e.g. JavaScript) from being output. However, if you want to allow certain tags or attributes as a deliberate choice: In the plugin's "Basic Settings" there is a field called "Allow additional HTML tags (advanced)". There you can enter comma-separated tags that should not be filtered out. For example, "iframe,script" would preserve these two tags in the HTML output. "tr#onclick" would preserve the "onclick" attribute in '<tr onclick="somecode">', which would otherwise be removed.
 
@@ -202,5 +205,5 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 
 
 == Upgrade Notice ==
-= 2.0.12 =
-* IMPROVED: Starting with version 2.0.11, any HTML code present in the shortcode or block is filtered to prevent dangerous code (e.g. JavaScript) from being output. However, if you want to allow certain tags or attributes as a deliberate choice: In the plugin's "Basic Settings" there is a field called "Allow additional HTML tags (advanced)". There you can enter comma-separated tags that should not be filtered out. For example, "iframe,script" would preserve these two tags in the HTML output. "tr#onclick" would preserve the "onclick" attribute in '<tr onclick="somecode">', which would otherwise be removed.
+= 2.0.13 =
+* IMPROVED: Now the "Allow additional HTML tags" also works for the JCI Block
