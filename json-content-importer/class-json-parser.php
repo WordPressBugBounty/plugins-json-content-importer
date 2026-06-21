@@ -29,7 +29,9 @@ class JsonContentParser123 {
     private $triggerUnique = NULL;
     private $subLoopParamArr = NULL;
     #private $regExpPatternDetect = "([a-zA-Z0-9,;\_\-\:\,\<\>\/ ]*)"; prior to vers 1.2.7
-    private $regExpPatternDetect = "([a-zA-Z0-9\=\",;\_\-:!\*\,\<\>\/ ]+)";
+    #private $regExpPatternDetect = "([a-zA-Z0-9\=\",;\_\-:!\*\,\<\>\/ ]+)";
+    private $regExpPatternDetect =  "([a-zA-Z0-9\%\=\",;\_\-:!\*\,\<\>\/\+\.\#\@\?\&\(\)\[\]\{\}\|\~\$ ]+)";
+	
     private $addToResult = TRUE;
 
 		public function __construct($jsonData, $datastructure, $basenode, $numberofdisplayeditems,

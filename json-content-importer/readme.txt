@@ -4,7 +4,7 @@ Tags: api, json, xml, csv, data
 Requires at least: 5.3
 Requires PHP: 7.0
 Tested up to: 7.0
-Stable tag: 2.0.13
+Stable tag: 2.0.14
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -146,6 +146,11 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 9. JCI Block: Generate a template from JSON.
 	
 == Changelog ==
+= 2.0.14 =
+* IMPROVED: Characters like "%+.#@?&()[]{}|~$" are now supported in {start:ifNotEmptyAddRight:extratext}, {start:ifNotEmptyAddLeft:extratext}, {start:ifNotEmptyAdd:extratext} and {start:ifNotEmptyAddLeftRight:extratext_left##extratext_right##}. See https://doc.json-content-importer.com/json-content-importer/free-show-the-data/ for details.
+* FIX: Replaced deprecated utf8_encode() with mb_convert_encoding().
+* CHECK: Plugin compatible with WordPress "Plugin Check (PCP)" version 2.0.0.
+
 = 2.0.13 =
 * IMPROVED: Now the "Allow additional HTML tags" also works for the JCI Block
 
@@ -205,5 +210,7 @@ the other is "{subloop:AAAA.image:10}" where "AAAA.image" is the path to an obje
 
 
 == Upgrade Notice ==
-= 2.0.13 =
-* IMPROVED: Now the "Allow additional HTML tags" also works for the JCI Block
+= 2.0.14 =
+* IMPROVED: Characters like "%+.#@?&()[]{}|~$" are now supported in {start:ifNotEmptyAddRight:extratext}, {start:ifNotEmptyAddLeft:extratext}, {start:ifNotEmptyAdd:extratext} and {start:ifNotEmptyAddLeftRight:extratext_left##extratext_right##}. See https://doc.json-content-importer.com/json-content-importer/free-show-the-data/ for details.
+* FIX: Replaced deprecated utf8_encode() with mb_convert_encoding().
+* CHECK: Plugin compatible with WordPress "Plugin Check (PCP)" version 2.0.0.
