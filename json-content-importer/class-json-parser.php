@@ -302,7 +302,8 @@ class JsonContentParser123 {
       $ret = $valueIn;
       $nbspReplacer = "ANDnbspSEMICOL";
       $ret = str_replace("&nbsp;", $nbspReplacer, $ret);
-      $ret = html_entity_decode($ret, ENT_NOQUOTES, "UTF-8");
+      #$ret = html_entity_decode($ret, ENT_NOQUOTES, "UTF-8");
+      $ret = html_entity_decode($ret, ENT_QUOTES, "UTF-8");
       $ret = str_replace($nbspReplacer, "&nbsp;", $ret);
       return $ret;
     }
