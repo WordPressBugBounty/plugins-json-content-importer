@@ -552,9 +552,9 @@ private function replace_BRO_BRC($intxt) {
 			}
 			global $wp_filesystem;	
 		
-			if ( ! $wp_filesystem->exists( $this->cacheFile ) ) {
+			#if ( ! $wp_filesystem->exists( $this->cacheFile ) ) {   # previous VERSION 2.0.16: expired cachefile were never oerwritten / renewed
 				$this->cacheWritesuccess = $wp_filesystem->put_contents( $this->cacheFile, $this->feedData, FS_CHMOD_FILE );
-			}
+			#}
 			if ($this->cacheWritesuccess) {
 				return $this->cacheWritesuccess;
 			} else {
